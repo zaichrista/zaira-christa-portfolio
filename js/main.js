@@ -506,6 +506,8 @@ function showLoc(name){
       addDyn("cv", "pdf-ico", CV_NAME, b => { b._open = openCv; });
       deskCount++;
     }
+    addDyn("sav", "sav-ico", "ZAIRA.sav", b => { b._open = openSheet; });
+    deskCount++;
   }
   const count = name === "trash" ? trashed.length : name === "desktop" ? deskCount : ids.length;
   selectFile(null);
@@ -570,7 +572,7 @@ dicons.forEach(b => {
   b.addEventListener("dblclick", () => openIcon(b));
 });
 document.addEventListener("pointerdown", e => { if (!e.target.closest(".dicon")) selIcon(null); });
-function openIcon(b){ if (b.id === "dCv") openCv(); else restoreWin(finderEl); }
+function openIcon(b){ if (b.id === "dCv") openCv(); else if (b.id === "dSheet") openSheet(); else restoreWin(finderEl); }
 
 // ---- the CV in the bin: the visitor is thrown back to Home, and the dock's Finder stays sad until Home's reset button
 const SAD_KEY = "zc-sad";
@@ -942,7 +944,7 @@ const sheetEl = document.getElementById("sheet");
 makeWindow(sheetEl);
 sheetEl.querySelector(".wclose").addEventListener("click", () => sheetEl.classList.add("closed"));
 let sheetPlaced = false, sheetSized = false;
-document.getElementById("openSheet").addEventListener("click", () => {
+function openSheet(){
   if (!sheetPlaced){
     sheetPlaced = true;
     const w = Math.min(480, innerWidth * .92);
@@ -957,7 +959,8 @@ document.getElementById("openSheet").addEventListener("click", () => {
     const room = innerHeight - sheetEl.offsetTop - 14;
     sheetEl.style.height = Math.min(sheetEl.offsetHeight, room) + "px";
   }
-});
+}
+document.getElementById("openSheet").addEventListener("click", openSheet);
 sheetEl.querySelectorAll(".tabs button").forEach(b => b.addEventListener("click", () => {
   sheetEl.querySelectorAll(".tabs button").forEach(x => x.classList.toggle("on", x === b));
   sheetEl.querySelectorAll(".tab").forEach(t => t.classList.toggle("on", t.id === "tab-" + b.dataset.tab));

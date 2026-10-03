@@ -47,6 +47,14 @@
     justify-self:start;font-size:1.15rem;text-decoration:none;cursor:pointer;
     display:inline-block;transform:scaleY(1.4);transform-origin:left center;
   }
+  /* a little wiggle on hover; uses translate/rotate so it sits on top of the stretch */
+  header .mark:hover{animation:markshimmy .55s ease-in-out}
+  @keyframes markshimmy{
+    0%,100%{translate:0 0;rotate:0deg}
+    15%{translate:-3px 0;rotate:-2deg} 35%{translate:3px 0;rotate:1.5deg}
+    55%{translate:-2px 0;rotate:-1.5deg} 75%{translate:1px 0;rotate:1deg}
+  }
+  @media(prefers-reduced-motion:reduce){header .mark:hover{animation:none}}
   nav{justify-self:end;display:flex;gap:clamp(.9rem,2vw,1.8rem);flex-wrap:wrap;justify-content:flex-end}
   nav a{
     position:relative;font-family:var(--sans);font-size:11px;letter-spacing:.12em;text-transform:uppercase;
@@ -55,10 +63,11 @@
   nav a i{font-style:normal;font-size:8px;vertical-align:super;margin-right:3px;opacity:.55}
   nav a::after{
     content:"";position:absolute;left:-2px;right:-2px;bottom:-8px;height:6px;background:currentColor;
-    opacity:0;transform:scaleX(.6);transition:opacity .2s,transform .25s;
+    clip-path:inset(0 100% 0 0);transition:clip-path .35s ease;   /* drawn in from the left, rubbed out from the right */
     -webkit-mask:var(--wob) center/100% 100% no-repeat;mask:var(--wob) center/100% 100% no-repeat;
   }
-  nav a:hover::after,nav a.cur::after{opacity:1;transform:none}
+  nav a:hover::after,nav a.cur::after{clip-path:inset(0 0 0 0)}
+  @media(prefers-reduced-motion:reduce){nav a::after{transition:none}}
   @media(max-width:760px){
     header{display:flex;justify-content:flex-end}
     header .mark{display:none}
@@ -528,7 +537,7 @@
   @media(prefers-reduced-motion:reduce){.sb i{transition:none}}
 
   .sheet{width:min(30rem,92vw);height:auto;max-height:calc(100vh - 5.5rem);max-height:calc(100dvh - 5.5rem)}
-  body.about .sheet{display:flex}
+  body.about .sheet,body.work .sheet{display:flex}
   .sbody{flex:1;min-height:0;overflow:auto;padding:1.2rem 1.4rem 1.6rem;font-family:var(--sans);color:var(--black)}
   .lvl{display:flex;align-items:center;gap:.9rem;margin-bottom:1rem}
   .lvl b{
@@ -609,10 +618,7 @@
     border-bottom:1px solid rgba(36,40,41,.22);font-family:var(--sans);font-size:13px;color:var(--charcoal);
   }
   body.work .mb-z{display:flex;align-items:center;cursor:pointer;text-decoration:none;margin-right:-.15rem}
-  body.work .mb-z span{
-    display:block;font-family:"Times New Roman",Times,serif;font-weight:700;font-size:1.45rem;line-height:1;
-    transform:scale(1.15,.62);
-  }
+  body.work .mb-z svg{display:block;height:1.05rem;width:auto;fill:currentColor}
   body.work header .mark{font-size:13px;font-weight:700;transform:none;letter-spacing:0}
   body.work .mb-menus{display:flex;gap:1.1rem;margin-right:auto}
   body.work header nav{margin-left:auto;gap:.15rem;flex-wrap:nowrap}
@@ -668,6 +674,7 @@
   .dk.sad .m-happy{display:none}
   /* Finder icons for the Desktop and Trash views */
   .finder .ico.pdf-ico::before{content:"PDF"}
+  .finder .ico.sav-ico::before{content:"SAV";background:var(--deep-bondi)}
   .finder .ico.folder-ico{background:none;border:0;box-shadow:none;aspect-ratio:auto;width:4.6rem;height:4rem}
   .finder .ico.folder-ico::before,.finder .ico.folder-ico::after{display:none}
   .finder .ico.folder-ico svg{display:block;width:100%;height:100%}

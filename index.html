@@ -16,7 +16,7 @@
 <body class="home">
 
 <header>
-  <a class="mb-z" data-go="home" aria-label="Home"><span>Z</span></a>
+  <a class="mb-z" data-go="home" aria-label="Home"><svg viewBox="0 0 22 22" aria-hidden="true"><path d="M11 5.6C8.9 5.6 8.3 7.9 7.7 9.6C7 11.6 4.3 13 4.3 16.2C4.3 19.4 7 21.2 11 21.2C15 21.2 17.7 19.4 17.7 16.2C17.7 13 15 11.6 14.3 9.6C13.7 7.9 13.1 5.6 11 5.6z"/><path d="M10.4 6L10.8 2.2L12 2.2L11.6 6z"/><path d="M12 3.6C13 1.6 15.4 1.4 16.6 2.2C15.8 4.2 13.6 4.6 12 3.6z"/></svg></a>
   <a class="mark" data-go="home">Zaira Christa</a>
   <span class="mb-menus" aria-hidden="true"><span>File</span><span>Edit</span><span>View</span><span>Go</span><span>Window</span><span>Help</span></span>
   <nav>
@@ -99,6 +99,10 @@
       <svg viewBox="0 0 64 56" aria-hidden="true"><path d="M3 9a5 5 0 0 1 5-5h14l6 6h28a5 5 0 0 1 5 5v31a5 5 0 0 1-5 5H8a5 5 0 0 1-5-5z" fill="#007f9e"/><rect x="3" y="17" width="58" height="35" rx="5" fill="#1db4d4"/><rect x="3" y="17" width="58" height="9" rx="4.5" fill="#5fd0e8" opacity=".55"/></svg>
       <span class="dname">Work</span>
     </button>
+    <button class="dicon" id="dSheet" type="button" aria-label="ZAIRA.sav, character sheet. Double-click to open." style="--x:33%;--y:52%">
+      <svg viewBox="0 0 48 60" aria-hidden="true"><path d="M4 2h28l12 12v42a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2z" fill="#fff" stroke="#242829" stroke-width="1.6"/><path d="M32 2v12h12" fill="#C9D0CC" stroke="#242829" stroke-width="1.6" stroke-linejoin="round"/><rect x="2" y="30" width="34" height="14" rx="2" fill="#006C7C"/><text x="19" y="40.6" text-anchor="middle" font-family="Helvetica,Arial,sans-serif" font-size="9.5" font-weight="700" fill="#fff">SAV</text><path d="M9 20h18M9 25h12" stroke="#C9D0CC" stroke-width="2" stroke-linecap="round"/></svg>
+      <span class="dname">ZAIRA.sav</span>
+    </button>
     <button class="dicon" id="dCv" type="button" aria-label="CV_Zaira_Final_CREATIVE_v29.pdf. Double-click to open." style="--x:52%;--y:43%">
       <svg viewBox="0 0 48 60" aria-hidden="true"><path d="M4 2h28l12 12v42a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2z" fill="#fff" stroke="#242829" stroke-width="1.6"/><path d="M32 2v12h12" fill="#C9D0CC" stroke="#242829" stroke-width="1.6" stroke-linejoin="round"/><rect x="2" y="30" width="34" height="14" rx="2" fill="#c4452d"/><text x="19" y="40.6" text-anchor="middle" font-family="Helvetica,Arial,sans-serif" font-size="9.5" font-weight="700" fill="#fff">PDF</text><path d="M9 20h18M9 25h12" stroke="#C9D0CC" stroke-width="2" stroke-linecap="round"/></svg>
       <span class="dname">CV_Zaira_Final_CREATIVE_v29.pdf</span>
@@ -131,7 +135,7 @@
   <div class="contact-grid">
     <h1 class="stmt stretch" style="grid-column:1 / -1">Please address me as Your Royal Highness.</h1>
     <div class="contact-left">
-      <p class="royal">I am the queen of everything, which makes me extremely busy and, against all odds, reachable.</p>
+      <p class="royal">Her Majesty is currently taking offers (of work, not of fealty). The throne is open to commissions, collaborations and one very good full-time role. I have already drafted this conversation in my head eleven times. Say hello and make it twelve.</p>
       <p class="email-line"><a href="mailto:zcbarakat@gmail.com" id="emailLink">zcbarakat@gmail.com</a>
         <span class="label">Replies arrive within one to several business days, by royal decree.</span>
       </p>
@@ -141,16 +145,14 @@
         <div class="field"><label class="label" for="name">Your name, humble correspondent</label><input id="name" required autocomplete="name"></div>
         <div class="field"><label class="label" for="msg">Your message to Her Royal Highness</label><textarea id="msg" required></textarea></div>
         <div class="send-row">
-          <button class="send" type="submit">Send your regards</button>
-          <span class="note">(No rectangular attachments, please.)</span>
-        </div>
+          <button class="send" type="submit">Send your regards</button>        </div>
       </form>
     </div>
   </div>
   </div>
 </section>
 
-<footer class="label"><span>&copy; 2026 Zaira Christa</span><span>Nothing here is a rectangle, except where noted.</span>
+<footer class="label"><span>&copy; 2026 Zaira Christa</span><span>I do what I love and I love what I do (peace)</span>
   <nav class="legal" aria-label="Legal"><a href="privacy.html">Privacy and cookies</a><button type="button" id="cookieSettings">Cookie settings</button><a href="terms.html">Terms and copyright</a><a href="accessibility.html">Accessibility</a></nav>
 </footer>
 
@@ -217,7 +219,7 @@
         <div><dt>Secondary weapon</dt><dd>JSTOR</dd></div>
         <div><dt>Status</dt><dd>Available (allegedly busy)</dd></div>
       </dl>
-      <p class="boss"><b>Boss battle</b>Explaining how she went from a music degree at Oxford to creative strategy.</p>
+      <p class="boss"><b>Boss battle</b>Explaining how I went from a music degree at Oxford to creative strategy.</p>
     </div>
     <div class="tabs" role="tablist">
       <button type="button" role="tab" class="on" data-tab="abilities">Abilities</button>
@@ -238,6 +240,7 @@
       <li>Extremely specific references</li>
       <li>Times New Roman (stretched)</li>
       <li>Helvetica</li>
+      <li>Learning languages to a semi-conversational level</li>
     </ul>
     <ul class="tab" id="tab-weak">
       <li>Rectangles</li>
