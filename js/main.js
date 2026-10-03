@@ -299,6 +299,10 @@ let cascade = 0;
 function openDeck(id, btnEl){
   const d = DECKS[id]; if (!d) return;
   if (openDecks[id]){ restoreWin(openDecks[id].el); return; }
+  const ri = recent.indexOf(id);
+  if (ri >= 0) recent.splice(ri, 1);
+  recent.unshift(id);
+  if (loc === "recents") showLoc("recents");
 
   const slides = buildSlides(d);
   let cur = -1, tBag = [], tName = "none yet", tmr = null;
@@ -401,9 +405,80 @@ function openDeck(id, btnEl){
 }
 function closeAllDecks(){ Object.values(openDecks).forEach(o => o.close()); }
 
-document.querySelectorAll(".file").forEach(b =>
-  b.addEventListener("click", () => openDeck(b.dataset.deck, b))
-);
+// ---- the Finder behaves like Finder: click to select, double-click (or Enter) to open, arrow keys to move,
+// the sidebar switches folder, and the sidebar stays put while the files scroll.
+const fileEls = [...document.querySelectorAll(".file")];
+const filesEl = document.getElementById("files");
+const emptyEl = document.getElementById("filesEmpty");
+const fstatEl = document.getElementById("fstat");
+const finderTitle = finderEl.querySelector(".ttl");
+const touchOnly = window.matchMedia("(hover:none)");
+const recent = [];                 // deck ids, most recently opened first
+const trashed = [];                // binned sticky notes: {el, label, colour}
+let loc = "work";
+const LOCS = {
+  work:      {title:"Work",      note:"", stat:n => n + " items, all of them rectangles"},
+  recents:   {title:"Recents",   note:"Nothing opened yet. Open something, I dare you.", stat:n => n + (n === 1 ? " item" : " items")},
+  desktop:   {title:"Desktop",   note:"Nothing here. The mess is elsewhere.", stat:() => "0 items"},
+  downloads: {title:"Downloads", note:"I said do not open.", stat:() => "0 items"},
+  trash:     {title:"Trash",     note:"Empty. Attempts one to four did not make it this far.", stat:n => n + (n === 1 ? " item" : " items") + (n ? " (double-click to put back)" : "")}
+};
+const allFiles = () => [...filesEl.querySelectorAll(".file")];
+const visibleFiles = () => allFiles().filter(f => !f.hidden);
+function selectFile(f){
+  allFiles().forEach(x => x.classList.toggle("sel", x === f));
+  if (f) f.focus({preventScroll:false});
+}
+// open = a deck opens its presentation window; a trashed note goes back where it was
+function openFile(b){ if (b._note) putBack(b._note); else openDeck(b.dataset.deck, b); }
+function wireFile(b){
+  // a mouse needs a double-click to open; a touch screen has no hover or double-click, so a tap opens
+  b.addEventListener("click", e => {
+    selectFile(b);
+    if (e.detail === 0 || touchOnly.matches) openFile(b);   // detail 0 = Enter or Space
+  });
+  b.addEventListener("dblclick", () => openFile(b));
+}
+function showLoc(name){
+  loc = name;
+  filesEl.querySelectorAll(".file.note").forEach(n => n.remove());
+  const ids = name === "work" ? fileEls.map(f => f.dataset.deck) : name === "recents" ? recent : [];
+  fileEls.forEach(f => {
+    const i = ids.indexOf(f.dataset.deck);
+    f.hidden = i < 0;
+    f.style.order = i < 0 ? "" : i;
+  });
+  if (name === "trash") trashed.forEach(t => {
+    const b = document.createElement("button");
+    b.type = "button"; b.className = "file note"; b._note = t;
+    const ico = document.createElement("span"); ico.className = "ico note-ico"; ico.style.background = t.colour;
+    const nm = document.createElement("span"); nm.className = "name"; nm.textContent = t.label;
+    b.append(ico, nm);
+    wireFile(b);
+    filesEl.appendChild(b);
+  });
+  const count = name === "trash" ? trashed.length : ids.length;
+  selectFile(null);
+  emptyEl.hidden = count > 0;
+  emptyEl.textContent = LOCS[name].note;
+  finderTitle.textContent = LOCS[name].title;
+  fstatEl.textContent = LOCS[name].stat(count);
+  filesEl.scrollTop = 0;
+  finderEl.querySelectorAll(".side button").forEach(b => b.classList.toggle("on", b.dataset.loc === name));
+}
+finderEl.querySelectorAll(".side button").forEach(b => b.addEventListener("click", () => showLoc(b.dataset.loc)));
+
+fileEls.forEach(wireFile);
+filesEl.addEventListener("click", e => { if (e.target === filesEl || e.target === emptyEl) selectFile(null); });
+filesEl.addEventListener("keydown", e => {
+  const list = visibleFiles(), i = list.indexOf(document.activeElement);
+  if (!list.length || !e.key.startsWith("Arrow")) return;
+  const cols = list.filter(f => f.offsetTop === list[0].offsetTop).length || 1;
+  const step = {ArrowLeft:-1, ArrowRight:1, ArrowUp:-cols, ArrowDown:cols}[e.key];
+  e.preventDefault();
+  const next = i < 0 ? 0 : Math.min(list.length - 1, Math.max(0, i + step));
+  selectFile(list[next]);
+});
 
 // =====================================================
 //  NO SCROLLING, ANYWHERE
@@ -597,10 +672,23 @@ function overBin(x, y){
   const r = dockBin.getBoundingClientRect(), m = 14;
   return x > r.left - m && x < r.right + m && y > r.top - m && y < r.bottom + m;
 }
+// binned notes are kept (not destroyed): they turn up in the Finder's Trash, where they can be put back
 function binIt(el){
+  const text = el.querySelector(".stext").textContent.trim();
+  trashed.push({el, label: text ? (text.length > 28 ? text.slice(0, 28) + "…" : text) : "Empty note", colour: el.style.background || getComputedStyle(el).backgroundColor});
   dockBin.classList.add("full");
+  if (loc === "trash") showLoc("trash");
   const an = el.animate({opacity:[1,0]}, {duration:200});
-  an.onfinish = () => el.remove();
+  an.onfinish = () => { if (trashed.some(t => t.el === el)) el.remove(); };   // not if it was already put back
+}
+function putBack(t){
+  const i = trashed.indexOf(t);
+  if (i < 0) return;
+  trashed.splice(i, 1);
+  document.body.appendChild(t.el);
+  if (stickyZ < 480) t.el.style.zIndex = ++stickyZ;
+  dockBin.classList.toggle("full", trashed.length > 0);
+  showLoc("trash");
 }
 function wireSticky(el){
   const grip = el.querySelector(".grip");
@@ -761,3 +849,6 @@ cookieEl.querySelectorAll("[data-ck]").forEach(b => b.addEventListener("click", 
   else if (consent === "no"){ songWanted = false; closeSong(); }
 }));
 document.getElementById("cookieSettings").addEventListener("click", showCookie);
+
+// the dock's Bin opens the Finder at the Trash
+dockBin.addEventListener("click", () => { restoreWin(finderEl); showLoc("trash"); });

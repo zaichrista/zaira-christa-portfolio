@@ -44,7 +44,7 @@
 <main id="home" class="page active">
   <div class="hero" id="hero" aria-label="Zaira Christa"></div>
   <p class="tagline">High key, please give me a job.</p>
-  <p class="squish label">(squish me)</p>
+  <p class="squish label">(squish the letters)</p>
   <button class="resq label" id="resetSquish" type="button">reset</button>
 </main>
 <button class="scrollcue label" id="scrollcue" type="button">(Scroll)</button>
@@ -80,7 +80,7 @@
   <div class="about-grid">
     <h1 class="stmt stretch" style="grid-column:1 / -1">I'm Zai &lt;3</h1>
     <div class="about-left">
-      <div class="photo blob b1"><img src="assets/images/zaira.png" alt="Zaira, laughing, in a long patterned dress on a cobbled path"></div>
+      <div class="photo blob b1"><img src="assets/images/zaira.jpg" alt="Black and white photo of Zaira smiling over her shoulder, in a long patterned halter dress on a cobbled path"></div>
 
     </div>
     <div class="about-right prose">
@@ -118,9 +118,9 @@
       <svg viewBox="0 0 48 48" aria-hidden="true"><rect width="48" height="48" rx="11" fill="#d24726"/><text x="24" y="34" text-anchor="middle" font-family="Helvetica,Arial,sans-serif" font-size="28" font-weight="700" fill="#fff">P</text></svg>
     </button>
     <i class="sep"></i>
-    <div class="dk dk-bin" id="dockBin" data-tip="Bin (drop notes here)" role="img" aria-label="Bin">
+    <button class="dk dk-bin" id="dockBin" type="button" data-tip="Bin (drop notes here, click to look inside)" aria-label="Bin">
       <svg viewBox="0 0 48 48" aria-hidden="true"><rect class="paper" x="14" y="5" width="12" height="14" fill="#f2e57e" transform="rotate(-12 20 12)"/><rect class="paper" x="22" y="6" width="12" height="14" fill="#ffb3c7" transform="rotate(10 28 13)"/><path d="M11 15h26l-2.4 27a3 3 0 0 1-3 2.7H16.4a3 3 0 0 1-3-2.7z" fill="#c9ccd1" stroke="#7d8189" stroke-width="1.6"/><rect x="8" y="11" width="32" height="5" rx="2.5" fill="#a9adb4" stroke="#7d8189" stroke-width="1.6"/><path d="M19 21v17M24 21v17M29 21v17" stroke="#7d8189" stroke-width="1.8" stroke-linecap="round"/></svg>
-    </div>
+    </button>
   </nav>
 </section>
 <!-- SUBSTACK -->
@@ -165,13 +165,14 @@
 <div class="win finder" id="finder" aria-label="Work folder">
       <div class="tbar"><div class="dots"><button type="button" class="wclose" aria-label="Close window"></button><i></i><i></i></div><div class="ttl">Work</div></div>
       <div class="fbody">
-        <aside class="side" aria-hidden="true">
+        <aside class="side" aria-label="Sidebar">
           <h4>Favourites</h4>
-          <ul><li>Recents</li><li class="on">Work</li><li>Desktop</li><li>Downloads (do not open)</li></ul>
+          <ul><li><button type="button" data-loc="recents">Recents</button></li><li><button type="button" class="on" data-loc="work">Work</button></li><li><button type="button" data-loc="desktop">Desktop</button></li><li><button type="button" data-loc="downloads">Downloads (do not open)</button></li></ul>
           <h4>Locations</h4>
-          <ul><li>Trash (attempts one to four)</li></ul>
+          <ul><li><button type="button" data-loc="trash">Trash (attempts one to four)</button></li></ul>
         </aside>
-        <div class="files">
+        <div class="files" id="files">
+          <p class="empty" id="filesEmpty" hidden></p>
           <button class="file" type="button" data-deck="logos"><span class="ico"></span><span class="name">Logos_FINAL_v7_ACTUAL_FINAL.pptx</span></button>
           <button class="file" type="button" data-deck="fashion"><span class="ico"></span><span class="name">Fashion_Design_copy_copy_2.pptx</span></button>
           <button class="file" type="button" data-deck="strategy"><span class="ico"></span><span class="name">Creative_Strategy_v12_USE_THIS_ONE.pptx</span></button>
@@ -179,7 +180,7 @@
           <button class="file" type="button" data-deck="websites"><span class="ico"></span><span class="name">Websites_FINAL_I_MEAN_IT.pptx</span></button>
         </div>
       </div>
-      <div class="fstat">5 items, all of them rectangles</div>
+      <div class="fstat" id="fstat" aria-live="polite">5 items, all of them rectangles</div>
 </div>
 
 <div class="win sheet closed" id="sheet" tabindex="-1" role="dialog" aria-label="Character sheet">
