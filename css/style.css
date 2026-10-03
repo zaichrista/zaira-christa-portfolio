@@ -615,3 +615,14 @@
   .dock .sep{background:rgba(36,40,41,.3)}
   .dk::after{background:rgba(36,40,41,.92);color:var(--ice)}
   body.work header .cap{opacity:.9}
+
+  /* ---------- EXPERIMENT: a Bondi accent on About and Contact (delete this block to undo) ---------- */
+  ::selection{background:var(--bondi);color:var(--white)}
+  .stats .sb i{background:var(--bondi)}
+  .photo::after{border-color:var(--bondi);border-width:1.5px}
+  .sheetbtn:hover{background:var(--deep-bondi);border-color:var(--deep-bondi)}
+  .email-line a::after{background:var(--bondi)}
+  .field:focus-within::after{background:var(--bondi)}
+  input:focus,textarea:focus{background:rgba(0,149,182,.07)}
+  .send{background:var(--deep-bondi)}
+  .send:hover,.send:focus-visible{background:var(--bondi);color:var(--charcoal)}

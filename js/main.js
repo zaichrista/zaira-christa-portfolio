@@ -418,7 +418,7 @@ const LOCS = {
   recents:   {title:"Recents",   note:"Nothing opened yet. Open something, I dare you.", stat:n => n + (n === 1 ? " item" : " items")},
   desktop:   {title:"Desktop",   note:"Nothing here. The mess is elsewhere.", stat:() => "0 items"},
   downloads: {title:"Downloads", note:"I said do not open.", stat:() => "0 items"},
-  trash:     {title:"Trash",     note:"Empty. Attempts one to four did not make it this far.", stat:n => n + (n === 1 ? " item" : " items") + (n ? " (double-click to put back)" : "")}
+  trash:     {title:"Trash",     note:"The Trash is empty.", stat:n => n + (n === 1 ? " item" : " items") + (n ? " (double-click to put back)" : "")}
 };
 const allFiles = () => [...filesEl.querySelectorAll(".file")];
 const visibleFiles = () => allFiles().filter(f => !f.hidden);
