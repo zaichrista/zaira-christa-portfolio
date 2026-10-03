@@ -262,10 +262,7 @@ function sadStart(){   // the little guilt trip after you close something
   sadHide();
   sadEl.textContent = "you don't want to see my work?";
   sadEl.classList.add("on");
-  sadT1 = setTimeout(() => {
-    sadEl.textContent = "I just want to be loved by someone :(";
-    sadT2 = setTimeout(() => sadEl.classList.remove("on"), 5000);
-  }, 2000);
+  sadT1 = setTimeout(() => sadEl.classList.remove("on"), 4000);
 }
 function restoreWin(el){
   sadHide();

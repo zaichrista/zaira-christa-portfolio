@@ -1,5 +1,12 @@
   :root{
     --black:#121211;
+    /* Bondi iMac palette, used on the Work page */
+    --bondi:#0095B6;
+    --deep-bondi:#006C7C;
+    --ice:#E5E8E3;
+    --frost:#C9D0CC;
+    --crt:#5B6264;
+    --charcoal:#242829;
     --white:#f2efe9;
     --grey:#7d7a72;
     --serif:"Times New Roman",Times,serif;
@@ -572,3 +579,39 @@
   /* trashed sticky notes in the Finder's Trash */
   .note-ico{aspect-ratio:1;width:4rem;border:0;box-shadow:2px 3px 0 rgba(0,0,0,.2);transform:rotate(-4deg)}
   .note-ico::before,.note-ico::after{display:none}
+
+  /* ---------- WORK page palette: the original Bondi iMac ----------
+     Bondi desktop, platinum-grey windows. Scoped to the Finder, the presentation windows and the dock,
+     so the character sheet on About keeps the site's own colours. */
+  body.work{background:linear-gradient(var(--bondi),var(--deep-bondi)) fixed}
+  body.work header{color:var(--charcoal)}
+  body.work header nav a{font-weight:600}
+  .finder,.ppt{background:var(--ice);border-color:var(--charcoal);color:var(--charcoal);box-shadow:6px 6px 0 rgba(36,40,41,.28)}
+  .finder .tbar,.ppt .tbar{background:linear-gradient(var(--ice),var(--frost));border-bottom:1px solid var(--crt);color:var(--charcoal)}
+  .finder .side{background:var(--frost);border-right:1px solid rgba(91,98,100,.55);color:var(--charcoal)}
+  .finder .side h4{color:var(--charcoal);opacity:.72}
+  .finder .side li button:hover{background:rgba(229,232,227,.75)}
+  .finder .side li button.on{background:var(--deep-bondi);color:var(--ice)}
+  .finder .side li button:focus-visible{outline-color:var(--deep-bondi)}
+  .finder .files .empty{color:var(--crt)}
+  .finder .file{color:var(--charcoal)}
+  .finder .file.sel{background:rgba(0,149,182,.2)}
+  .finder .file.sel .name{background:var(--deep-bondi);color:var(--ice)}
+  .finder .ico{background:var(--ice);border-color:var(--charcoal);box-shadow:2px 2px 0 rgba(36,40,41,.2)}
+  .finder .ico::after{background:repeating-linear-gradient(var(--frost) 0 2px,transparent 2px 6px)}
+  .finder .note-ico{border:0}
+  .finder .fstat{background:var(--frost);border-top:1px solid rgba(91,98,100,.55);color:var(--charcoal)}
+  .ppt .tools{background:var(--ice);border-bottom:1px solid rgba(91,98,100,.55)}
+  .ppt .btn{background:var(--ice);color:var(--charcoal);border-color:var(--charcoal)}
+  .ppt .btn:not(:disabled):hover{background:var(--deep-bondi);border-color:var(--deep-bondi);color:var(--ice)}
+  .ppt .stat{color:var(--crt)}
+  .ppt .thumbs{background:var(--frost);border-right:1px solid rgba(91,98,100,.55)}
+  .ppt .thumb .n{color:var(--charcoal)}
+  .ppt .thumb .mini{border-color:var(--charcoal)}
+  .ppt .thumb.cur .mini{outline-color:var(--deep-bondi)}
+  .ppt .pasteboard{background:var(--crt)}
+  .ppt .slidebox{box-shadow:0 6px 0 rgba(36,40,41,.45)}
+  .dock{background:rgba(229,232,227,.55);border-color:rgba(229,232,227,.9);box-shadow:0 6px 22px rgba(36,40,41,.28)}
+  .dock .sep{background:rgba(36,40,41,.3)}
+  .dk::after{background:rgba(36,40,41,.92);color:var(--ice)}
+  body.work header .cap{opacity:.9}
