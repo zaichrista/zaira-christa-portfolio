@@ -382,7 +382,7 @@ const recent = [];                 // deck ids, most recently opened first
 const trashed = [];                // binned sticky notes: {el, label, colour}
 let loc = "work";
 const LOCS = {
-  work:      {title:"Work",      note:"", stat:n => n + " items, all of them rectangles"},
+  work:      {title:"Work",      note:"", stat:n => n + " items"},
   recents:   {title:"Recents",   note:"Nothing opened yet. Open something, I dare you.", stat:n => n + (n === 1 ? " item" : " items")},
   desktop:   {title:"Desktop",   note:"Nothing here. The mess is elsewhere.", stat:() => "0 items"},
   downloads: {title:"Downloads", note:"I said do not open.", stat:() => "0 items"},
