@@ -537,8 +537,8 @@ document.getElementById("scrollcue").addEventListener("click", nope);
 const sunEl = document.getElementById("sun");
 const songEl = document.getElementById("song");
 const ytEl = document.getElementById("yt");
-// Spotify's iFrame API lets us press play for the visitor. It is only loaded once the sun is
-// clicked, so Spotify never hears from a visitor who doesn't ask for the song (see privacy.html).
+// Spotify's iFrame API lets us press play for the visitor. It is only loaded once cookies are
+// accepted (see privacy.html), so Spotify never hears from a visitor who rejects cookies.
 let spApi = null, spCtrl = null, spLoading = false;
 window.onSpotifyIframeApiReady = api => {
   spApi = api;
@@ -549,7 +549,18 @@ function loadSpotifyApi(){
   spLoading = true;
   const sc = document.createElement("script");
   sc.src = "https://open.spotify.com/embed/iframe-api/v1"; sc.async = true;
+  sc.onerror = () => { if (!songEl.hidden && !spCtrl) plainSpotify(); };
   document.head.appendChild(sc);
+}
+function plainSpotify(){
+  const f = document.createElement("iframe");
+  f.src = "https://open.spotify.com/embed/track/" + spotifyId(SONG_URL);
+  f.className = "spotify";
+  f.allow = "autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture";
+  f.referrerPolicy = "strict-origin-when-cross-origin";
+  f.title = "Not that kind of sun";
+  ytEl.innerHTML = "";
+  ytEl.appendChild(f);
 }
 function mountSpotify(){
   const slot = document.createElement("div");
@@ -574,7 +585,12 @@ function openSong(){
   const sp = spotifyId(SONG_URL), id = ytId(SONG_URL);
   if (sp){
     songEl.hidden = false;   // shown first, so the click that opened it still counts when the player mounts
-    if (spApi) mountSpotify(); else loadSpotifyApi();
+    if (spApi) mountSpotify();
+    else {
+      loadSpotifyApi();
+      // if Spotify's script is blocked or slow, still show a plain player so the sun always leads somewhere
+      setTimeout(() => { if (!songEl.hidden && !spCtrl && !ytEl.firstChild) plainSpotify(); }, 3000);
+    }
   } else if (id){
     const f = document.createElement("iframe");
     f.src = "https://www.youtube-nocookie.com/embed/" + id + "?autoplay=1&rel=0&playsinline=1";
