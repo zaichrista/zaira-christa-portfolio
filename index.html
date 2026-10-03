@@ -4,19 +4,26 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Zaira Christa</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<!-- the calligraphic fonts are used ONLY for the flashing letters in the hero. Everything else is Times New Roman and Helvetica. -->
-<link href="https://fonts.googleapis.com/css2?family=Italianno&family=Pinyon+Script&family=Mrs+Saint+Delafield&family=Monsieur+La+Doulaise&family=Herr+Von+Muellerhoff&family=Allura&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="css/style.css">
 </head>
 <body class="home">
 
-<div id="loader"><p>none of that deep shit</p></div>
+<div id="loader"><p>none of that deep shit</p><div class="bar"><i></i></div><span class="pct label">0</span></div>
 
 <header>
   <a class="mark" data-go="home">Zaira Christa</a>
-  <span class="clock label" id="clock" aria-hidden="true"></span>
+  <div class="clocks" aria-hidden="true">
+    <div class="cap label">time in my head right now</div>
+    <div class="times">
+      <svg class="aclock" viewBox="0 0 20 20" width="16" height="16" fill="none" stroke="currentColor" stroke-linecap="round">
+        <circle cx="10" cy="10" r="9" stroke-width="1.2"/>
+        <line id="hHand" x1="10" y1="10" x2="10" y2="5.6" stroke-width="1.5"/>
+        <line id="mHand" x1="10" y1="10" x2="10" y2="3.2" stroke-width="1.1"/>
+        <line id="sHand" x1="10" y1="11.5" x2="10" y2="2.6" stroke-width=".6" opacity=".7"/>
+      </svg>
+      <span id="clock"></span>
+    </div>
+  </div>
   <nav>
     <a data-go="home" class="cur">Home</a>
     <a data-go="about"><i>01</i>About</a>
@@ -30,7 +37,8 @@
 <main id="home" class="page active">
   <div class="hero" id="hero" aria-label="Zaira Christa"></div>
   <p class="tagline">High key, please give me a job.</p>
-  <button id="toggle" type="button">don't press me</button>
+  <p class="squish label">(squish me)</p>
+  <button class="resq label" id="resetSquish" type="button">reset</button>
 </main>
 <button class="scrollcue label" id="scrollcue" type="button">(Scroll)</button>
 <button class="sun" id="sun" type="button" aria-label="Sun" title="Light mode">
@@ -44,60 +52,70 @@
   <div class="yt" id="yt"></div>
 </div>
 <div class="nope" id="nope" role="status" aria-live="polite"></div>
+<div class="nope sad" id="sad" role="status" aria-live="polite"></div>
+
+<div class="cookie" id="cookie" role="dialog" aria-label="Cookies" hidden>
+  <svg class="ckbg" viewBox="0 0 200 200" aria-hidden="true">
+    <path d="M146 20 A22 22 0 0 0 181 57 A93 91 0 1 1 146 20 Z"/>
+    <circle cx="40" cy="70" r="5" class="f"/><circle cx="64" cy="36" r="6"/><circle cx="102" cy="22" r="4" class="f"/>
+    <circle cx="26" cy="112" r="6"/><circle cx="50" cy="152" r="4" class="f"/><circle cx="98" cy="176" r="6"/>
+    <circle cx="146" cy="152" r="5" class="f"/><circle cx="172" cy="108" r="6"/><circle cx="130" cy="176" r="3.5"/>
+    <circle cx="124" cy="25" r="3.5"/><circle cx="24" cy="86" r="3" />
+  </svg>
+  <h2>cookies?</h2>
+  <p>This site uses cookies. (It doesn't. I just wanted a cookie.)</p>
+  <div class="row"><button type="button" data-ck>Accept</button><button type="button" data-ck>Also accept</button></div>
+</div>
 
 <!-- ABOUT -->
 <section id="about" class="page">
-  <div class="meta label"><span>(01)</span><span>About</span><span>Zaira Christa</span></div>
+  <div class="fit">
   <div class="about-grid">
-    <h1 class="stmt stretch" style="grid-column:1 / -1">I'm <span class="circled">the best</span>. I love what I do, and I do what I love.</h1>
+    <h1 class="stmt stretch" style="grid-column:1 / -1">I'm Zai &lt;3</h1>
     <div class="about-left">
-      <div class="photo blob b1">photo of me, soon. I look fine. Better than fine.</div>
-      <dl class="fine">
-        <div><dt class="label">Currently</dt><dd>Available. Allegedly busy.</dd></div>
-        <div><dt class="label">Fluent in</dt><dd>Times New Roman (stretched), Helvetica, good lighting, and the word "actually."</dd></div>
-        <div><dt class="label">Weakness</dt><dd>Rectangles.</dd></div>
-      </dl>
+      <div class="photo blob b1"><img src="assets/images/zaira.png" alt="Zaira, laughing, in a long patterned dress on a cobbled path"></div>
+
     </div>
     <div class="about-right prose">
-      <p>Hi, I'm Zaira. I say all of this with love, and with the full support of my own research.</p>
-      <p>I live, I laugh, I love. Yes, it's a sign in a kitchen. No, I won't be taking questions.</p>
-      <p>I design logos, posters, websites and clothes, and something I'm generously calling Instagram. I do brand strategy, which is taste with footnotes. I write on a Substack, for the thoughts that won't fit inside a logo.</p>
-      <p>I'm also building a hospitality brand from nothing, financial plan included, to prove that a restaurant can feel like a feeling. (It can.)</p>
-      <p>Nothing in nature is a rectangle, so nothing in this portfolio is one, apart from a single floor you'll find under Work. That floor is a cry for help, and I stand by it.</p>
-      <p>Yes, this page is cringe. I read it back. I kept it. That's called confidence, and it's the one thing a template can't give you.</p>
-      <p class="aside">It looks effortless. It was not. If you know, you know. If you don't, hire me and find out.</p>
+      <p>I am a human who loves thinking. As a certified overthinker, and as curious as the cat who should have died by now, I have built things, tried others and experimented with forms of art I love.</p>
+      <p>My work is deeply embodied, often answering questions that are a little too complicated even for me. I like getting stuck into them anyway. What is a passion if not an extremely liberating hard task?</p>
+      <p>I work with precision, depth and (as all my cookbooks tell me) love. Maybe that is why you should care.</p>
+      <div class="stats" id="stats">
+        <div class="srow"><span class="sl">Strategy</span><span class="sb"><i style="--v:89"></i></span><span class="sn">89</span></div>
+        <div class="srow"><span class="sl">Visual Taste</span><span class="sb"><i style="--v:96"></i></span><span class="sn">96</span></div>
+        <div class="srow"><span class="sl">Research Rabbit Holes</span><span class="sb"><i style="--v:99"></i></span><span class="sn">99</span></div>
+        <div class="srow"><span class="sl">Overthinking</span><span class="sb"><i style="--v:100"></i></span><span class="sn">100</span></div>
+        <div class="srow"><span class="sl">PowerPoint Tolerance</span><span class="sb"><i style="--v:61"></i></span><span class="sn">61</span></div>
+        <div class="srow"><span class="sl">“What if we completely changed it?”</span><span class="sb"><i style="--v:97"></i></span><span class="sn">97</span></div>
+      </div>
+      <div class="sheetrow">
+        <span class="label">Status: Available (allegedly busy)</span>
+        <button class="sheetbtn label" id="openSheet" type="button">Character sheet &rarr;</button>
+      </div>
     </div>
+
+  </div>
   </div>
 </section>
 
 <!-- WORK -->
 <section id="work" class="page">
-  <div class="meta clean label"><span>(02)</span><span>Work</span><span>Five files</span></div>
-  <div class="desk">
-    <div class="sticky">Rectangles are permitted on this floor.</div>
-    <div class="finder">
-      <div class="tbar"><div class="dots"><i></i><i></i><i></i></div><div class="ttl">Work</div></div>
-      <div class="fbody">
-        <aside class="side" aria-hidden="true">
-          <h4>Favourites</h4>
-          <ul><li>Recents</li><li class="on">Work</li><li>Desktop</li><li>Downloads (do not open)</li></ul>
-          <h4>Locations</h4>
-          <ul><li>Trash (attempts one to four)</li></ul>
-        </aside>
-        <div class="files">
-          <button class="file" type="button" data-deck="logos"><span class="ico"></span><span class="name">Logos_FINAL_v7_ACTUAL_FINAL.pptx</span></button>
-          <button class="file" type="button" data-deck="fashion"><span class="ico"></span><span class="name">Fashion_Design_copy_copy_2.pptx</span></button>
-          <button class="file" type="button" data-deck="strategy"><span class="ico"></span><span class="name">Creative_Strategy_v12_USE_THIS_ONE.pptx</span></button>
-          <button class="file" type="button" data-deck="research"><span class="ico"></span><span class="name">Research_(please_read).pptx</span></button>
-          <button class="file" type="button" data-deck="websites"><span class="ico"></span><span class="name">Websites_FINAL_I_MEAN_IT.pptx</span></button>
-        </div>
-      </div>
-      <div class="fstat">5 items, all of them rectangles</div>
+  <nav class="dock" aria-label="Dock">
+    <button class="dk" id="dkFinder" type="button" data-tip="Finder" aria-label="Finder">
+      <svg viewBox="0 0 48 48" aria-hidden="true"><rect width="48" height="48" rx="11" fill="#4a9bff"/><path d="M24 0h13a11 11 0 0 1 11 11v26a11 11 0 0 1-11 11H24z" fill="#d6e9ff"/><rect x="14" y="14" width="3" height="9" rx="1.5" fill="#12306b"/><rect x="31" y="14" width="3" height="9" rx="1.5" fill="#12306b"/><path d="M13 32c6 6 16 6 22 0" fill="none" stroke="#12306b" stroke-width="2.4" stroke-linecap="round"/></svg>
+    </button>
+    <button class="dk" id="addSticky" type="button" data-tip="Stickies (add a note)" aria-label="Add a sticky note">
+      <svg viewBox="0 0 48 48" aria-hidden="true"><rect width="48" height="48" rx="11" fill="#f2e57e"/><rect width="48" height="12" rx="6" fill="#e3d256"/><rect y="6" width="48" height="6" fill="#e3d256"/><path d="M10 24h28M10 32h20" stroke="#8f8433" stroke-width="2.4" stroke-linecap="round"/></svg>
+    </button>
+    <button class="dk" id="dkPpt" type="button" data-tip="PowerPoint" aria-label="Open the next presentation">
+      <svg viewBox="0 0 48 48" aria-hidden="true"><rect width="48" height="48" rx="11" fill="#d24726"/><text x="24" y="34" text-anchor="middle" font-family="Helvetica,Arial,sans-serif" font-size="28" font-weight="700" fill="#fff">P</text></svg>
+    </button>
+    <i class="sep"></i>
+    <div class="dk dk-bin" id="dockBin" data-tip="Bin (drop notes here)" role="img" aria-label="Bin">
+      <svg viewBox="0 0 48 48" aria-hidden="true"><rect class="paper" x="14" y="5" width="12" height="14" fill="#f2e57e" transform="rotate(-12 20 12)"/><rect class="paper" x="22" y="6" width="12" height="14" fill="#ffb3c7" transform="rotate(10 28 13)"/><path d="M11 15h26l-2.4 27a3 3 0 0 1-3 2.7H16.4a3 3 0 0 1-3-2.7z" fill="#c9ccd1" stroke="#7d8189" stroke-width="1.6"/><rect x="8" y="11" width="32" height="5" rx="2.5" fill="#a9adb4" stroke="#7d8189" stroke-width="1.6"/><path d="M19 21v17M24 21v17M29 21v17" stroke="#7d8189" stroke-width="1.8" stroke-linecap="round"/></svg>
     </div>
-  </div>
-  <p class="hint">Click a file to open it. Brace yourself.</p>
+  </nav>
 </section>
-
 <!-- SUBSTACK -->
 <section id="substack" class="page">
   <div class="big" id="psych">psych.</div>
@@ -105,9 +123,9 @@
 
 <!-- CONTACT -->
 <section id="contact" class="page">
-  <div class="meta label"><span>(04)</span><span>Contact</span><span>By royal appointment</span></div>
+  <div class="fit">
   <div class="contact-grid">
-    <h1 class="stmt stretch" style="grid-column:1 / -1">Please address me as <span class="circled">Your Royal Highness</span>.</h1>
+    <h1 class="stmt stretch" style="grid-column:1 / -1">Please address me as Your Royal Highness.</h1>
     <div class="contact-left">
       <p class="royal">I am the queen of everything, which makes me extremely busy and, against all odds, reachable.</p>
       <p class="email-line"><a href="mailto:zcbarakat@gmail.com" id="emailLink">zcbarakat@gmail.com</a>
@@ -125,24 +143,78 @@
       </form>
     </div>
   </div>
+  </div>
 </section>
 
 <footer class="label"><span>&copy; Zaira Christa</span><span>Nothing here is a rectangle, except where noted.</span></footer>
 
-<!-- the "presentation" -->
-<div class="ppt" id="ppt" role="dialog" aria-modal="true" aria-label="Presentation" tabindex="-1">
-  <div class="tbar">
-    <div class="dots"><button type="button" id="pClose" aria-label="Close presentation"></button><i></i><i></i></div>
-    <div class="ttl" id="pTitle"></div>
-  </div>
-  <div class="tools">
-    <button class="btn" type="button" id="pPrev">&larr; Back</button>
-    <button class="btn" type="button" id="pNext">Next &rarr;</button>
-    <span class="stat" id="pStat"></span>
-  </div>
-  <div class="pbody">
-    <div class="thumbs" id="thumbs"></div>
-    <div class="pasteboard"><div class="slidebox" id="stage"></div></div>
+<!-- windows live at body level so they can be dragged anywhere -->
+<div class="sticky" id="sticky">
+      <div class="grip" title="Drag me"><button class="bin" type="button" aria-label="Bin this note">&times;</button></div>
+      <div class="stext" contenteditable="true" spellcheck="false" aria-label="Sticky note, editable">Rectangles are permitted on this floor.</div>
+    </div>
+<div class="win finder" id="finder" aria-label="Work folder">
+      <div class="tbar"><div class="dots"><button type="button" class="wclose" aria-label="Close window"></button><i></i><i></i></div><div class="ttl">Work</div></div>
+      <div class="fbody">
+        <aside class="side" aria-hidden="true">
+          <h4>Favourites</h4>
+          <ul><li>Recents</li><li class="on">Work</li><li>Desktop</li><li>Downloads (do not open)</li></ul>
+          <h4>Locations</h4>
+          <ul><li>Trash (attempts one to four)</li></ul>
+        </aside>
+        <div class="files">
+          <button class="file" type="button" data-deck="logos"><span class="ico"></span><span class="name">Logos_FINAL_v7_ACTUAL_FINAL.pptx</span></button>
+          <button class="file" type="button" data-deck="fashion"><span class="ico"></span><span class="name">Fashion_Design_copy_copy_2.pptx</span></button>
+          <button class="file" type="button" data-deck="strategy"><span class="ico"></span><span class="name">Creative_Strategy_v12_USE_THIS_ONE.pptx</span></button>
+          <button class="file" type="button" data-deck="research"><span class="ico"></span><span class="name">Research_(please_read).pptx</span></button>
+          <button class="file" type="button" data-deck="websites"><span class="ico"></span><span class="name">Websites_FINAL_I_MEAN_IT.pptx</span></button>
+        </div>
+      </div>
+      <div class="fstat">5 items, all of them rectangles</div>
+</div>
+
+<div class="win sheet closed" id="sheet" tabindex="-1" role="dialog" aria-label="Character sheet">
+  <div class="tbar"><div class="dots"><button type="button" class="wclose" aria-label="Close character sheet"></button><i></i><i></i></div><div class="ttl">ZAIRA.sav &mdash; Character Sheet</div></div>
+  <div class="sbody">
+    <div class="build">
+      <p class="lvl"><b>Lv. 22</b><span>Creative Strategist / Designer</span></p>
+      <dl>
+        <div><dt>Location</dt><dd>London</dd></div>
+        <div><dt>Alignment</dt><dd>Chaotic Organised</dd></div>
+        <div><dt>Class</dt><dd>Multidisciplinary Creative</dd></div>
+        <div><dt>Main weapon</dt><dd>Adobe Illustrator</dd></div>
+        <div><dt>Secondary weapon</dt><dd>JSTOR</dd></div>
+        <div><dt>Status</dt><dd>Available (allegedly busy)</dd></div>
+      </dl>
+      <p class="boss"><b>Boss battle</b>Making people understand that strategy and design are the same conversation.</p>
+    </div>
+    <div class="tabs" role="tablist">
+      <button type="button" role="tab" class="on" data-tab="abilities">Abilities</button>
+      <button type="button" role="tab" data-tab="fluent">Fluent in</button>
+      <button type="button" role="tab" data-tab="weak">Weaknesses</button>
+    </div>
+    <ul class="tab on" id="tab-abilities">
+      <li>Spots inconsistencies from 20 metres away</li>
+      <li>Makes research look sexy</li>
+      <li>Finds the concept hiding underneath the concept</li>
+      <li>Somehow ends up building the website too</li>
+      <li><i>+15</i> taste when working after midnight</li>
+      <li><i>+20</i> productivity after changing the entire concept</li>
+      <li><i>+30</i> persuasion when presenting something visually</li>
+      <li>Immune to &ldquo;can we make the logo bigger?&rdquo;</li>
+    </ul>
+    <ul class="tab" id="tab-fluent">
+      <li>Extremely specific references</li>
+      <li>Times New Roman (stretched)</li>
+      <li>Helvetica</li>
+    </ul>
+    <ul class="tab" id="tab-weak">
+      <li>Rectangles</li>
+      <li>&ldquo;Final_v7_REALfinal.ai&rdquo;</li>
+      <li>Cannot leave a perfectly adequate website alone</li>
+      <li>Mild allergy to generic branding</li>
+      <li>One good idea away from starting another project</li>
+    </ul>
   </div>
 </div>
 
