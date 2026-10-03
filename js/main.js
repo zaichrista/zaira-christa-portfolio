@@ -30,17 +30,6 @@ function loadFrame(now){
 }
 requestAnimationFrame(loadFrame);
 
-// ---- the time in my head right now: starts at the real time, then runs 20x fast (3 seconds = 1 minute)
-const clockEl = document.getElementById("clock");
-const CLOCK_SPEED = 20, clockT0 = Date.now();
-function tick(){
-  const t = new Date(clockT0 + (Date.now() - clockT0) * CLOCK_SPEED);
-  clockEl.textContent = t.toLocaleTimeString("en-GB", {hour:"2-digit", minute:"2-digit"});
-  const sec = t.getSeconds() + t.getMilliseconds() / 1000, min = t.getMinutes() + sec / 60, hr = (t.getHours() % 12) + min / 60;
-  hand("hHand", hr * 30); hand("mHand", min * 6); hand("sHand", sec * 6);
-}
-function hand(id, deg){ document.getElementById(id).setAttribute("transform", "rotate(" + deg + " 10 10)"); }
-tick(); setInterval(tick, 50);
 
 // ---- stretched headings: the transform doesn't move the layout, so add the missing height back
 function fixStretch(){
@@ -556,7 +545,7 @@ window.onSpotifyIframeApiReady = api => {
   if (!songEl.hidden && !spCtrl) mountSpotify();   // the sun was clicked while the API was still loading
 };
 function loadSpotifyApi(){
-  if (spLoading) return;
+  if (spLoading || !spotifyId(SONG_URL)) return;
   spLoading = true;
   const sc = document.createElement("script");
   sc.src = "https://open.spotify.com/embed/iframe-api/v1"; sc.async = true;
@@ -837,11 +826,15 @@ try { localStorage.removeItem("zc-cookie"); } catch(e) {}   // the old pop-up's 
 try { consent = localStorage.getItem("zc-consent"); } catch(e) {}
 if (consent !== "yes" && consent !== "no") consent = null;
 if (consent === null) setTimeout(() => { if (consent === null) showCookie(); }, LOAD_MS + 1400);
+// Once cookies are accepted, Spotify's player script is loaded ahead of time. That way the click on the sun can start
+// the song straight away: browsers only allow sound to start from a click, and waiting for the script would lose it.
+if (consent === "yes") loadSpotifyApi();
 function showCookie(){ cookieEl.hidden = false; }
 cookieEl.querySelectorAll("[data-ck]").forEach(b => b.addEventListener("click", () => {
   consent = b.dataset.ck;
   cookieEl.hidden = true;
   try { localStorage.setItem("zc-consent", consent); } catch(e) {}
+  if (consent === "yes") loadSpotifyApi();
   if (consent === "yes" && songWanted){ songWanted = false; openSong(); }
   else if (consent === "no"){ songWanted = false; closeSong(); }
 }));
