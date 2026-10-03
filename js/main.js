@@ -592,7 +592,7 @@ function binCv(){
   dockBin.classList.add("full");
   setSad(true);
   if (loc === "trash" || loc === "desktop") showLoc(loc);
-  show("home");
+  show("home", "replace");   // thrown back to Home; Back does not return them to Work
 }
 // putting it back on the desktop does not cheer the Finder up
 function restoreCv(){
@@ -969,7 +969,9 @@ sheetEl.querySelectorAll(".tabs button").forEach(b => b.addEventListener("click"
 // ---- simple routing
 const pages = document.querySelectorAll(".page");
 const navLinks = document.querySelectorAll("nav a");
-function show(id){
+// how: "push" adds a history entry (so Back works), "replace" swaps the current one, "none" is for Back/Forward itself
+function show(id, how = "push"){
+  const same = document.body.className === id;
   if (id !== "work"){ closeAllDecks(); sadHide(); }
   if (id !== "home") closeSong();
   document.body.className = id;
@@ -983,7 +985,10 @@ function show(id){
   }
   pages.forEach(p => p.classList.toggle("active", p.id === id));
   window.scrollTo(0,0);
-  try { history.replaceState(null,"","#"+id); } catch(e) {}
+  try {
+    if (how === "push" && !same) history.pushState(null,"","#"+id);
+    else if (how === "replace" || (how === "push" && same)) history.replaceState(null,"","#"+id);
+  } catch(e) {}
   if (id === "work") placeFinder();
   statsEl.classList.remove("in");
   if (id === "about") setTimeout(() => { if (document.body.classList.contains("about")) statsEl.classList.add("in"); }, 120);
@@ -999,12 +1004,17 @@ document.querySelectorAll("[data-go]").forEach(el =>
   })
 );
 const start = location.hash.replace("#","");
-if (["about","work","contact"].includes(start)) show(start);
+if (["about","work","contact"].includes(start)) show(start, "replace");
+// the browser's Back and Forward arrows move between pages
+window.addEventListener("popstate", () => {
+  const id = location.hash.replace("#","");
+  show(["about","work","contact"].includes(id) ? id : "home", "none");
+});
 fixStretch();
 
 // coming back from Substack with the back button should land on Home, not on "psych."
 window.addEventListener("pageshow", e => {
-  if (e.persisted && document.getElementById("substack").classList.contains("active")) show("home");
+  if (e.persisted && document.getElementById("substack").classList.contains("active")) show("home", "replace");
 });
 
 // ---- contact
