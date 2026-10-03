@@ -16,7 +16,9 @@
 <body class="home">
 
 <header>
+  <a class="mb-z" data-go="home" aria-label="Home"><span>Z</span></a>
   <a class="mark" data-go="home">Zaira Christa</a>
+  <span class="mb-menus" aria-hidden="true"><span>File</span><span>Edit</span><span>View</span><span>Go</span><span>Window</span><span>Help</span></span>
   <nav>
     <a data-go="home" class="cur">Home</a>
     <a data-go="about"><i>01</i>About</a>
@@ -92,9 +94,19 @@
 
 <!-- WORK -->
 <section id="work" class="page">
+  <div class="desk" id="desk">
+    <button class="dicon" id="dFolder" type="button" aria-label="Work, folder. Double-click to open." style="--x:41%;--y:31%">
+      <svg viewBox="0 0 64 56" aria-hidden="true"><path d="M3 9a5 5 0 0 1 5-5h14l6 6h28a5 5 0 0 1 5 5v31a5 5 0 0 1-5 5H8a5 5 0 0 1-5-5z" fill="#007f9e"/><rect x="3" y="17" width="58" height="35" rx="5" fill="#1db4d4"/><rect x="3" y="17" width="58" height="9" rx="4.5" fill="#5fd0e8" opacity=".55"/></svg>
+      <span class="dname">Work</span>
+    </button>
+    <button class="dicon" id="dCv" type="button" aria-label="CV_Zaira_Final_CREATIVE_v29.pdf. Double-click to open." style="--x:52%;--y:43%">
+      <svg viewBox="0 0 48 60" aria-hidden="true"><path d="M4 2h28l12 12v42a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2z" fill="#fff" stroke="#242829" stroke-width="1.6"/><path d="M32 2v12h12" fill="#C9D0CC" stroke="#242829" stroke-width="1.6" stroke-linejoin="round"/><rect x="2" y="30" width="34" height="14" rx="2" fill="#c4452d"/><text x="19" y="40.6" text-anchor="middle" font-family="Helvetica,Arial,sans-serif" font-size="9.5" font-weight="700" fill="#fff">PDF</text><path d="M9 20h18M9 25h12" stroke="#C9D0CC" stroke-width="2" stroke-linecap="round"/></svg>
+      <span class="dname">CV_Zaira_Final_CREATIVE_v29.pdf</span>
+    </button>
+  </div>
   <nav class="dock" aria-label="Dock">
     <button class="dk" id="dkFinder" type="button" data-tip="Finder" aria-label="Finder">
-      <svg viewBox="0 0 48 48" aria-hidden="true"><rect width="48" height="48" rx="11" fill="#0095B6"/><path d="M24 0h13a11 11 0 0 1 11 11v26a11 11 0 0 1-11 11H24z" fill="#E5E8E3"/><rect x="14" y="14" width="3" height="9" rx="1.5" fill="#242829"/><rect x="31" y="14" width="3" height="9" rx="1.5" fill="#242829"/><path d="M13 32c6 6 16 6 22 0" fill="none" stroke="#242829" stroke-width="2.4" stroke-linecap="round"/></svg>
+      <svg viewBox="0 0 48 48" aria-hidden="true"><rect width="48" height="48" rx="11" fill="#0095B6"/><path d="M24 0h13a11 11 0 0 1 11 11v26a11 11 0 0 1-11 11H24z" fill="#E5E8E3"/><rect x="14" y="14" width="3" height="9" rx="1.5" fill="#242829"/><rect x="31" y="14" width="3" height="9" rx="1.5" fill="#242829"/><path class="m-happy" d="M13 32c6 6 16 6 22 0" fill="none" stroke="#242829" stroke-width="2.4" stroke-linecap="round"/><path class="m-sad" d="M13 37c6-6 16-6 22 0" fill="none" stroke="#242829" stroke-width="2.4" stroke-linecap="round"/><path class="m-sad" d="M15.5 25c-2 3-2 5 0 5.5c2-.5 2-2.5 0-5.5z" fill="#7fd3ea"/></svg>
     </button>
     <button class="dk" id="addSticky" type="button" data-tip="Stickies (add a note)" aria-label="Add a sticky note">
       <svg viewBox="0 0 48 48" aria-hidden="true"><rect width="48" height="48" rx="11" fill="#f2e57e"/><rect width="48" height="12" rx="6" fill="#e3d256"/><rect y="6" width="48" height="6" fill="#e3d256"/><path d="M10 24h28M10 32h20" stroke="#8f8433" stroke-width="2.4" stroke-linecap="round"/></svg>
@@ -147,7 +159,7 @@
       <div class="grip" title="Drag me"><button class="bin" type="button" aria-label="Bin this note">&times;</button></div>
       <div class="stext" contenteditable="true" spellcheck="false" aria-label="Sticky note, editable">Rectangles are permitted in this office.</div>
     </div>
-<div class="win finder" id="finder" aria-label="Work folder">
+<div class="win finder closed" id="finder" aria-label="Work folder">
       <div class="tbar"><div class="dots"><button type="button" class="wclose" aria-label="Close window"></button><i></i><i></i></div><div class="ttl">Work</div></div>
       <div class="fbody">
         <aside class="side" aria-label="Sidebar">
@@ -168,6 +180,30 @@
       <div class="fstat" id="fstat" aria-live="polite">5 items</div>
 </div>
 
+<div class="win pdfwin closed" id="pdfwin" tabindex="-1" role="dialog" aria-label="CV_Zaira_Final_CREATIVE_v29.pdf">
+  <div class="tbar"><div class="dots"><button type="button" class="wclose" id="pdfClose" aria-label="Close PDF"></button><i></i><i></i></div><div class="ttl">CV_Zaira_Final_CREATIVE_v29.pdf</div></div>
+  <div class="tools pdftools">
+    <button class="btn" id="pdfOut" type="button" aria-label="Zoom out">&minus;</button>
+    <button class="btn" id="pdfIn" type="button" aria-label="Zoom in">+</button>
+    <span class="stat" id="pdfStat">Page 1 of 1</span>
+    <a class="btn" id="pdfDl" href="assets/CV_Zaira_Final_CREATIVE_v29.pdf" download>Download</a>
+  </div>
+  <div class="pdfview" id="pdfview">
+    <div class="pdfpage" id="pdfpage">
+      <h2>ZAIRA CHRISTA</h2>
+      <p class="pl">Creative Strategist / Designer &middot; London</p>
+      <h3>Experience</h3>
+      <div class="bars"><i></i><i></i><i></i></div>
+      <div class="bars"><i></i><i></i></div>
+      <h3>Education</h3>
+      <div class="bars"><i></i><i></i></div>
+      <h3>Skills</h3>
+      <div class="bars"><i></i></div>
+      <p class="mock">[ Placeholder. The real CV lands here soon. ]</p>
+    </div>
+  </div>
+</div>
+
 <div class="win sheet closed" id="sheet" tabindex="-1" role="dialog" aria-label="Character sheet">
   <div class="tbar"><div class="dots"><button type="button" class="wclose" aria-label="Close character sheet"></button><i></i><i></i></div><div class="ttl">ZAIRA.sav &mdash; Character Sheet</div></div>
   <div class="sbody">
@@ -181,7 +217,7 @@
         <div><dt>Secondary weapon</dt><dd>JSTOR</dd></div>
         <div><dt>Status</dt><dd>Available (allegedly busy)</dd></div>
       </dl>
-      <p class="boss"><b>Boss battle</b>Making people understand that strategy and design are the same conversation.</p>
+      <p class="boss"><b>Boss battle</b>Explaining how she went from a music degree at Oxford to creative strategy.</p>
     </div>
     <div class="tabs" role="tablist">
       <button type="button" role="tab" class="on" data-tab="abilities">Abilities</button>

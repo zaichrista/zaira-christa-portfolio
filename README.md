@@ -23,6 +23,8 @@ for the sun button can refuse to load from a plain file.
 - `css/style.css`: all the styling. Colours and fonts are variables at the very top.
 - `js/main.js`: the flashing letters, scroll block, sun, Finder and slide transitions
 - `js/main.js` > `DECKS`: the text for every presentation. Edit the slides there.
+- `assets/CV_Zaira_Final_CREATIVE_v29.pdf`: drop the real CV here (exact filename) and the CV window on the
+  Work page shows it in a PDF viewer. Until it exists, the window shows a placeholder page.
 - `assets/images/`: put your images here, then reference them as `assets/images/name.jpg`
 
 ## Legal pages

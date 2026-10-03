@@ -203,7 +203,45 @@ function clampWin(el){
   const y = Math.min(Math.max(el.offsetTop, headerEl.offsetHeight), innerHeight - 44);
   el.style.left = x + "px"; el.style.top = y + "px";
 }
+// resize from any edge or corner. Dragging a top or left edge moves the window as well as sizing it.
+function addResizers(el){
+  ["n","s","e","w","ne","nw","se","sw"].forEach(d => {
+    const h = document.createElement("i");
+    h.className = "rz rz-" + d;
+    h.setAttribute("aria-hidden","true");
+    h.addEventListener("pointerdown", e => {
+      const cs = getComputedStyle(el);
+      const minW = parseFloat(cs.minWidth) || 300, minH = parseFloat(cs.minHeight) || 200;
+      const top0 = headerEl.offsetHeight;
+      const r = {x:e.clientX, y:e.clientY, l:el.offsetLeft, t:el.offsetTop, w:el.offsetWidth, h:el.offsetHeight};
+      h.setPointerCapture(e.pointerId);
+      const move = ev => {
+        const dx = ev.clientX - r.x, dy = ev.clientY - r.y;
+        let l = r.l, t = r.t, w = r.w, ht = r.h;
+        if (d.includes("e")) w = Math.max(minW, r.w + dx);
+        if (d.includes("s")) ht = Math.max(minH, r.h + dy);
+        if (d.includes("w")){ w = Math.max(minW, r.w - dx); l = r.l + r.w - w; }
+        if (d.includes("n")){ ht = Math.max(minH, r.h - dy); t = r.t + r.h - ht; }
+        if (l < 0){ w += l; l = 0; }
+        if (t < top0){ ht -= top0 - t; t = top0; }
+        el.style.left = l + "px"; el.style.top = t + "px";
+        el.style.width = w + "px"; el.style.height = ht + "px";
+      };
+      const up = () => {
+        h.removeEventListener("pointermove", move);
+        h.removeEventListener("pointerup", up);
+        h.removeEventListener("pointercancel", up);
+      };
+      h.addEventListener("pointermove", move);
+      h.addEventListener("pointerup", up);
+      h.addEventListener("pointercancel", up);
+      e.preventDefault();
+    });
+    el.appendChild(h);
+  });
+}
 function makeWindow(el){
+  addResizers(el);
   const bar = el.querySelector(".tbar");
   el.addEventListener("pointerdown", () => raise(el), true);
   bar.addEventListener("pointerdown", e => {
@@ -384,7 +422,7 @@ let loc = "work";
 const LOCS = {
   work:      {title:"Work",      note:"", stat:n => n + " items"},
   recents:   {title:"Recents",   note:"Nothing opened yet. Open something, I dare you.", stat:n => n + (n === 1 ? " item" : " items")},
-  desktop:   {title:"Desktop",   note:"Nothing here. The mess is elsewhere.", stat:() => "0 items"},
+  desktop:   {title:"Desktop",   note:"Nothing here. The mess is elsewhere.", stat:n => n + (n === 1 ? " item" : " items")},
   downloads: {title:"Downloads", note:"I said do not open.", stat:() => "0 items"},
   trash:     {title:"Trash",     note:"The Trash is empty.", stat:n => n + (n === 1 ? " item" : " items") + (n ? " (double-click to put back)" : "")}
 };
@@ -395,7 +433,7 @@ function selectFile(f){
   if (f) f.focus({preventScroll:false});
 }
 // open = a deck opens its presentation window; a trashed note goes back where it was
-function openFile(b){ if (b._note) putBack(b._note); else openDeck(b.dataset.deck, b); }
+function openFile(b){ if (b._open) b._open(); else if (b._note) putBack(b._note); else openDeck(b.dataset.deck, b); }
 function wireFile(b){
   // a mouse needs a double-click to open; a touch screen has no hover or double-click, so a tap opens
   b.addEventListener("click", e => {
@@ -406,23 +444,41 @@ function wireFile(b){
 }
 function showLoc(name){
   loc = name;
-  filesEl.querySelectorAll(".file.note").forEach(n => n.remove());
+  filesEl.querySelectorAll(".file.dyn").forEach(n => n.remove());
   const ids = name === "work" ? fileEls.map(f => f.dataset.deck) : name === "recents" ? recent : [];
   fileEls.forEach(f => {
     const i = ids.indexOf(f.dataset.deck);
     f.hidden = i < 0;
     f.style.order = i < 0 ? "" : i;
   });
-  if (name === "trash") trashed.forEach(t => {
+  const addDyn = (cls, icoCls, label, setup) => {
     const b = document.createElement("button");
-    b.type = "button"; b.className = "file note"; b._note = t;
-    const ico = document.createElement("span"); ico.className = "ico note-ico"; ico.style.background = t.colour;
-    const nm = document.createElement("span"); nm.className = "name"; nm.textContent = t.label;
+    b.type = "button"; b.className = "file dyn " + cls;
+    const ico = document.createElement("span"); ico.className = "ico " + icoCls;
+    const nm = document.createElement("span"); nm.className = "name"; nm.textContent = label;
+    setup(b, ico);
     b.append(ico, nm);
     wireFile(b);
     filesEl.appendChild(b);
+  };
+  if (name === "trash") trashed.forEach(t => {
+    if (t.cv) addDyn("cv", "pdf-ico", t.label, b => { b._note = t; });
+    else addDyn("note", "note-ico", t.label, (b, ico) => { b._note = t; ico.style.background = t.colour; });
   });
-  const count = name === "trash" ? trashed.length : ids.length;
+  // the Desktop is whatever is lying on the desktop: the Work folder, and the CV unless it is in the bin
+  let deskCount = 0;
+  if (name === "desktop"){
+    addDyn("folder", "folder-ico", "Work", (b, ico) => {
+      ico.appendChild(document.querySelector("#dFolder svg").cloneNode(true));
+      b._open = () => showLoc("work");
+    });
+    deskCount++;
+    if (!cvBinned){
+      addDyn("cv", "pdf-ico", CV_NAME, b => { b._open = openCv; });
+      deskCount++;
+    }
+  }
+  const count = name === "trash" ? trashed.length : name === "desktop" ? deskCount : ids.length;
   selectFile(null);
   emptyEl.hidden = count > 0;
   emptyEl.textContent = LOCS[name].note;
@@ -444,6 +500,122 @@ filesEl.addEventListener("keydown", e => {
   const next = i < 0 ? 0 : Math.min(list.length - 1, Math.max(0, i + step));
   selectFile(list[next]);
 });
+
+// ---- desktop icons: the Work folder and the CV. Single-click selects, double-click opens, and they can be dragged about.
+const dicons = [...document.querySelectorAll(".dicon")];
+const CV_NAME = "CV_Zaira_Final_CREATIVE_v29.pdf";
+let cvBinned = false;
+function selIcon(b){ dicons.forEach(x => x.classList.toggle("sel", x === b)); }
+dicons.forEach(b => {
+  let moved = false;
+  b.addEventListener("pointerdown", e => {
+    if (e.button) return;
+    selIcon(b); moved = false;
+    const sx = e.clientX, sy = e.clientY, ox = b.offsetLeft, oy = b.offsetTop;
+    const move = ev => {
+      const dx = ev.clientX - sx, dy = ev.clientY - sy;
+      if (!moved && Math.hypot(dx, dy) < 5) return;
+      moved = true;
+      b.classList.add("drag");   // only the icon being dragged comes to the front
+      if (b.id === "dCv") dockBin.classList.toggle("over", overBin(ev.clientX, ev.clientY));
+      b.style.left = Math.max(0, Math.min(innerWidth - b.offsetWidth, ox + dx)) + "px";
+      b.style.top = Math.max(headerEl.offsetHeight, Math.min(innerHeight - b.offsetHeight, oy + dy)) + "px";
+    };
+    const up = ev => {
+      window.removeEventListener("pointermove", move);
+      window.removeEventListener("pointerup", up);
+      window.removeEventListener("pointercancel", up);
+      b.classList.remove("drag"); dockBin.classList.remove("over");
+      if (moved && b.id === "dCv" && ev.type === "pointerup" && overBin(ev.clientX, ev.clientY)) binCv();
+    };
+    window.addEventListener("pointermove", move);
+    window.addEventListener("pointerup", up);
+    window.addEventListener("pointercancel", up);
+  });
+  b.addEventListener("keydown", e => { if (b.id === "dCv" && (e.key === "Delete" || e.key === "Backspace")){ e.preventDefault(); binCv(); } });
+  b.addEventListener("click", e => {
+    if (moved){ moved = false; return; }
+    selIcon(b);
+    if (e.detail === 0 || touchOnly.matches) openIcon(b);
+  });
+  b.addEventListener("dblclick", () => openIcon(b));
+});
+document.addEventListener("pointerdown", e => { if (!e.target.closest(".dicon")) selIcon(null); });
+function openIcon(b){ if (b.id === "dCv") openCv(); else restoreWin(finderEl); }
+
+// ---- the CV in the bin: the visitor is thrown back to Home, and the dock's Finder stays sad until Home's reset button
+const SAD_KEY = "zc-sad";
+const dkFinder = document.getElementById("dkFinder");
+function setSad(on){
+  dkFinder.classList.toggle("sad", on);
+  dkFinder.dataset.tip = on ? "Finder (you binned the CV)" : "Finder";
+  try { if (on) localStorage.setItem(SAD_KEY, "1"); else localStorage.removeItem(SAD_KEY); } catch(e) {}
+}
+try { if (localStorage.getItem(SAD_KEY) === "1") setSad(true); } catch(e) {}
+function binCv(){
+  if (cvBinned) return;
+  cvBinned = true;
+  dCv.hidden = true; selIcon(null);
+  pdfEl.classList.add("closed");
+  trashed.push({cv:true, label:CV_NAME});
+  dockBin.classList.add("full");
+  setSad(true);
+  if (loc === "trash" || loc === "desktop") showLoc(loc);
+  show("home");
+}
+// putting it back on the desktop does not cheer the Finder up
+function restoreCv(){
+  const i = trashed.findIndex(t => t.cv);
+  if (i >= 0) trashed.splice(i, 1);
+  cvBinned = false;
+  dCv.hidden = false;
+  dockBin.classList.toggle("full", trashed.length > 0);
+}
+document.getElementById("resetSquish").addEventListener("click", () => {
+  restoreCv();
+  setSad(false);
+  finderEl.classList.add("closed");
+  pdfEl.classList.add("closed");
+  showLoc("work");
+});
+
+// ---- the CV window: a little PDF viewer. If assets/CV_Zaira_Final_CREATIVE_v29.pdf exists it is shown for real
+// (the browser's own PDF viewer, inside the window); until then it shows a placeholder page.
+const CV_URL = "assets/CV_Zaira_Final_CREATIVE_v29.pdf";
+const pdfEl = document.getElementById("pdfwin");
+const dCv = document.getElementById("dCv");
+const pdfView = document.getElementById("pdfview");
+const pdfPage = document.getElementById("pdfpage");
+let pdfPlaced = false, pdfZoom = 1;
+makeWindow(pdfEl);
+pdfEl.querySelector("#pdfClose").addEventListener("click", () => pdfEl.classList.add("closed"));
+pdfEl.addEventListener("keydown", e => { if (e.key === "Escape") pdfEl.classList.add("closed"); });
+function setPdfZoom(z){
+  pdfZoom = Math.min(1.8, Math.max(.4, z));
+  pdfPage.style.setProperty("--z", pdfZoom);
+}
+document.getElementById("pdfIn").addEventListener("click", () => setPdfZoom(pdfZoom + .15));
+document.getElementById("pdfOut").addEventListener("click", () => setPdfZoom(pdfZoom - .15));
+function openCv(){
+  if (!pdfPlaced){
+    pdfPlaced = true;
+    const hh = headerEl.offsetHeight;
+    const w = Math.min(780, innerWidth - 40), h = Math.max(300, innerHeight - hh - 130);
+    pdfEl.style.width = w + "px"; pdfEl.style.height = h + "px";
+    pdfEl.style.left = Math.max(10, Math.min((innerWidth - w) / 2 + 70, innerWidth - w - 10)) + "px";
+    pdfEl.style.top = (hh + 22) + "px";
+    pdfEl.classList.remove("closed");
+    setPdfZoom((pdfView.clientWidth - 48) / (44 * 14));
+    fetch(CV_URL, {method:"HEAD"}).then(r => {
+      if (!r.ok || !/pdf/i.test(r.headers.get("content-type") || "")) return;
+      const f = document.createElement("iframe");
+      f.src = CV_URL + "#view=FitH"; f.title = "CV_Zaira_Final_CREATIVE_v29.pdf";
+      pdfView.classList.add("real"); pdfEl.classList.add("real");
+      pdfPage.remove(); pdfView.appendChild(f);
+    }).catch(() => {});
+  }
+  restoreWin(pdfEl);
+}
 
 // =====================================================
 //  NO SCROLLING, ANYWHERE
@@ -487,7 +659,7 @@ const canNope = () => !document.body.classList.contains("substack") && !pageScro
 const BIG_WHEEL = 800, BIG_TOUCH = 160;
 let wheelSum = 0, wheelDone = false, wheelIdle = null;
 window.addEventListener("wheel", e => {
-  if (!canNope() || (e.target.closest && e.target.closest(".thumbs,.fbody,.sbody,textarea"))) return;
+  if (!canNope() || (e.target.closest && e.target.closest(".thumbs,.fbody,.sbody,.pdfview,textarea"))) return;
   clearTimeout(wheelIdle);
   wheelIdle = setTimeout(() => { wheelSum = 0; wheelDone = false; }, 400);
   if (e.deltaY <= 0 || wheelDone) return;
@@ -665,6 +837,7 @@ function binIt(el){
 function putBack(t){
   const i = trashed.indexOf(t);
   if (i < 0) return;
+  if (t.cv){ restoreCv(); showLoc("trash"); return; }
   trashed.splice(i, 1);
   document.body.appendChild(t.el);
   if (stickyZ < 480) t.el.style.zIndex = ++stickyZ;
