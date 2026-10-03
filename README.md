@@ -13,13 +13,13 @@ for the sun button can refuse to load from a plain file.
 
 ## Your three settings: `js/config.js`
 
-- `SUBSTACK_URL`: your real Substack address (the "psych." page sends people here)
+- `SUBSTACK_URL`: your Substack address (not linked from the menu for now)
 - `EMAIL`: the contact address
 - `SONG_URL`: the YouTube link of the official upload the sun plays
 
 ## Where things live
 
-- `index.html`: all five pages (Home, About, Work, Substack, Contact) and the presentation window
+- `index.html`: the pages (Home, About, Work, Contact) and the presentation window
 - `css/style.css`: all the styling. Colours and fonts are variables at the very top.
 - `js/main.js`: the flashing letters, scroll block, sun, Finder and slide transitions
 - `js/main.js` > `DECKS`: the text for every presentation. Edit the slides there.

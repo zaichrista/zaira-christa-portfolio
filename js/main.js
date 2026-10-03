@@ -10,27 +10,6 @@ function shuffled(n){
   return a;
 }
 
-// ---- loader: counts from 0 to 100, then lifts
-const loaderEl = document.getElementById("loader");
-const barEl = loaderEl.querySelector(".bar i");
-const pctEl = loaderEl.querySelector(".pct");
-const LOAD_MS = 2200;
-let loadT0 = null, pageLoaded = document.readyState === "complete";
-window.addEventListener("load", () => { pageLoaded = true; });
-function finishLoad(){
-  if (!pageLoaded){ window.addEventListener("load", finishLoad, {once:true}); return; }
-  setTimeout(() => loaderEl.classList.add("gone"), 300);
-}
-function loadFrame(now){
-  if (loadT0 === null) loadT0 = now;
-  const p = Math.min(1, (now - loadT0) / LOAD_MS);
-  barEl.style.transform = "scaleX(" + p + ")";
-  pctEl.textContent = Math.round(p * 100);
-  if (p < 1) requestAnimationFrame(loadFrame); else finishLoad();
-}
-requestAnimationFrame(loadFrame);
-
-
 // ---- stretched headings: the transform doesn't move the layout, so add the missing height back
 function fixStretch(){
   document.querySelectorAll(".stretch").forEach(el => {
@@ -112,7 +91,7 @@ document.getElementById("resetSquish").addEventListener("click", () => {
   letters.forEach((l, i) => { squish[i] = {sx:1, sy:SY0}; applySquish(i); });
   saveSquish();
 });
-// if nobody has squished anything a second after the loader lifts, the note shimmies, until they do
+// if nobody has squished anything a moment after the page opens, the note shimmies, until they do
 squished = isSquished();
 function shimmy(){
   if (squished || !document.body.classList.contains("home")) return;
@@ -121,7 +100,7 @@ function shimmy(){
   squishNote.classList.add("shimmy");
 }
 if (!reduced && !squished){
-  setTimeout(() => { shimmy(); setInterval(shimmy, 4500); }, LOAD_MS + 1300);
+  setTimeout(() => { shimmy(); setInterval(shimmy, 4500); }, 1300);
 }
 
 // =====================================================
@@ -835,13 +814,13 @@ document.getElementById("form").addEventListener("submit", e => {
     "&body=" + encodeURIComponent("Your Royal Highness,\n\n" + m + "\n\nYours faithfully,\n" + n);
 });
 
-// ---- the cookie: asks the first time the site is opened, once the loader has lifted.
+// ---- the cookie: asks the first time the site is opened, a moment after the page opens.
 // The only thing that can set cookies is the Spotify player behind the sun, so that is what Accept and Reject control.
 const cookieEl = document.getElementById("cookie");
 try { localStorage.removeItem("zc-cookie"); } catch(e) {}   // the old pop-up's key; it recorded no real choice
 try { consent = localStorage.getItem("zc-consent"); } catch(e) {}
 if (consent !== "yes" && consent !== "no") consent = null;
-if (consent === null) setTimeout(() => { if (consent === null) showCookie(); }, LOAD_MS + 1400);
+if (consent === null) setTimeout(() => { if (consent === null) showCookie(); }, 1400);
 // Once cookies are accepted, Spotify's player script is loaded ahead of time. That way the click on the sun can start
 // the song straight away: browsers only allow sound to start from a click, and waiting for the script would lose it.
 if (consent === "yes") loadSpotifyApi();

@@ -36,22 +36,6 @@
   .wob{position:relative}
   .stretch{display:block;transform:scaleY(var(--k,1.4));transform-origin:0 0}
 
-  /* ---------- LOADER ---------- */
-  #loader{
-    position:fixed;inset:0;background:var(--black);color:var(--white);
-    display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2.2rem;z-index:1000;
-    transition:opacity .8s ease, visibility .8s ease;
-  }
-  #loader.gone{opacity:0;visibility:hidden}
-  #loader .bar{width:min(22rem,70vw);height:2px;background:rgba(242,239,233,.22)}
-  #loader .bar i{display:block;height:100%;background:var(--white);transform:scaleX(0);transform-origin:0 50%}
-  #loader .pct{font-variant-numeric:tabular-nums;opacity:.8}
-  #loader .pct::after{content:"%"}
-  #loader p{
-    display:inline-block;font-size:clamp(1.4rem,5vw,3rem);
-    transform:scaleY(1.6);letter-spacing:.02em;text-align:center;padding:0 1rem;
-  }
-
   /* ---------- HEADER ---------- */
   header{
     position:fixed;top:0;left:0;right:0;z-index:500;
