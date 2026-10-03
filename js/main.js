@@ -240,12 +240,38 @@ function addResizers(el){
     el.appendChild(h);
   });
 }
+// the green button (and a double-click on the title bar) fills the browser window; again to put it back
+function fitMax(el){
+  const hh = headerEl.offsetHeight;
+  el.style.left = "0px"; el.style.top = hh + "px";
+  el.style.width = innerWidth + "px"; el.style.height = (innerHeight - hh) + "px";
+}
+function toggleMax(el){
+  if (el.classList.contains("max")){
+    const p = el._prev || {};
+    el.classList.remove("max");
+    el.style.left = p.l || ""; el.style.top = p.t || ""; el.style.width = p.w || ""; el.style.height = p.h || "";
+  } else {
+    el._prev = {l:el.style.left, t:el.style.top, w:el.style.width, h:el.style.height};
+    el.classList.add("max");
+    fitMax(el);
+  }
+  raise(el);
+}
 function makeWindow(el){
   addResizers(el);
   const bar = el.querySelector(".tbar");
+  const dot = el.querySelector(".dots > :nth-child(3)");
+  if (dot){
+    const g = document.createElement("button");
+    g.type = "button"; g.className = "wmax"; g.setAttribute("aria-label", "Maximise window");
+    dot.replaceWith(g);
+    g.addEventListener("click", () => toggleMax(el));
+  }
+  bar.addEventListener("dblclick", e => { if (!e.target.closest("button")) toggleMax(el); });
   el.addEventListener("pointerdown", () => raise(el), true);
   bar.addEventListener("pointerdown", e => {
-    if (e.target.closest("button")) return;
+    if (e.target.closest("button") || el.classList.contains("max")) return;
     const ox = e.clientX - el.offsetLeft, oy = e.clientY - el.offsetTop;
     bar.setPointerCapture(e.pointerId);
     const move = ev => { el.style.left = (ev.clientX - ox) + "px"; el.style.top = (ev.clientY - oy) + "px"; clampWin(el); };
@@ -277,7 +303,10 @@ function restoreWin(el){
   el.focus();
 }
 window.addEventListener("resize", () =>
-  document.querySelectorAll(".win").forEach(w => { if (w.offsetWidth) clampWin(w); })
+  document.querySelectorAll(".win").forEach(w => {
+    if (!w.offsetWidth) return;
+    if (w.classList.contains("max")) fitMax(w); else clampWin(w);
+  })
 );
 
 // ---- the Finder window

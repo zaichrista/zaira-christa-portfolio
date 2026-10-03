@@ -655,7 +655,11 @@
   .rz-sw{bottom:-1px;left:-1px;cursor:nesw-resize}
   .rz-nw{top:-1px;left:-1px;cursor:nwse-resize}
   .rz-se{bottom:-1px;right:-1px;cursor:nwse-resize}
-  @media(max-width:700px){.rz{display:none}}
+  .win.max .rz{display:none}
+  .win.max .tbar{cursor:default}
+  .dots .wmax{cursor:pointer;position:relative}
+  .dots .wmax::after{content:"+";position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font:700 .8rem/1 var(--sans);color:rgba(5,60,15,.75);padding-bottom:.05rem}
+  @media(max-width:700px){.rz,.wmax{display:none}}
   .dicon[hidden]{display:none}
   .dicon.drag{z-index:395}
   /* the dock's Finder is happy until the CV goes in the bin */
