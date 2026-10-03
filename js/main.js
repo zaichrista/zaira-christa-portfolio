@@ -441,7 +441,7 @@ function nope(){
       .forEach(t => t && t.animate(SHAKE, {duration:450}));
   }
 }
-const canNope = () => !document.body.classList.contains("substack");
+const canNope = () => !document.body.classList.contains("substack") && !pageScrolls();
 // one shake per scroll gesture, and only once the gesture is properly big.
 // A gesture ends when the wheel has been quiet for a moment, which also swallows trackpad momentum.
 const BIG_WHEEL = 800, BIG_TOUCH = 160;
@@ -543,10 +543,19 @@ document.getElementById("songX").addEventListener("click", closeSong);
 // =====================================================
 //  ABOUT and CONTACT: always fit the window, never scroll
 // =====================================================
+// About and Contact shrink to fit, but never below MIN_TEXT_PX: past that the text is kept readable and the page scrolls.
+// On a phone-width screen they don't shrink at all.
+const MIN_TEXT_PX = 11;   // smallest body text size the fit is allowed to produce; lower it to scroll less, raise it for bigger text
+const phoneMQ = window.matchMedia("(max-width:560px)");
+const pageScrolls = () => {
+  const p = document.querySelector(".page.active");
+  return !!p && /^(about|contact)$/.test(p.id) && p.scrollHeight > p.clientHeight + 1;
+};
 function fitPage(page){
   if (!page || !page.classList.contains("active")) return;
   const fit = page.querySelector(".fit");
   if (!fit) return;
+  if (phoneMQ.matches){ fit.style.width = ""; fit.style.transform = ""; return; }
   const cs = getComputedStyle(page);
   const availW = page.clientWidth - parseFloat(cs.paddingLeft) - parseFloat(cs.paddingRight);
   const availH = page.clientHeight - parseFloat(cs.paddingTop) - parseFloat(cs.paddingBottom);
@@ -556,7 +565,9 @@ function fitPage(page){
     fixStretch();
     return fit.offsetHeight * k;
   };
-  let lo = .2, hi = 1;
+  const body = page.querySelector(".prose, .royal");
+  const fs = body ? parseFloat(getComputedStyle(body).fontSize) : 16;
+  let lo = Math.min(.9, MIN_TEXT_PX / fs), hi = 1;   // shrink until the body text would drop below MIN_TEXT_PX
   if (heightAt(1) <= availH) return;
   for (let i = 0; i < 9; i++){
     const mid = (lo + hi) / 2;

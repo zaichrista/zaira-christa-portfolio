@@ -190,22 +190,29 @@
   /* pages that must fit the window: the .fit wrapper is scaled by script until nothing needs scrolling */
   .fit{transform-origin:0 0}
   #about.active,#contact.active,#work.active{height:100vh;height:100dvh;min-height:0;overflow:hidden}
+  /* About and Contact scale down a little to fit, then scroll rather than let the text get too small */
+  #about.active,#contact.active{overflow-y:auto;overflow-x:hidden;-webkit-overflow-scrolling:touch}
   #about.active,#contact.active{padding-top:6.5rem;padding-bottom:2rem}
   #about.active{padding-top:7rem;padding-bottom:3.4rem}
   #contact.active{padding-bottom:6.8rem}
-  @media(max-width:700px){#about.active{padding-bottom:2rem}#contact.active{padding-bottom:9rem}}
+  body.contact footer{background:var(--white)}
+  @media(max-width:560px){
+    #about.active{padding-bottom:3rem}
+    #contact.active{padding-bottom:9rem}
+    body.contact footer{padding-top:1.2rem}
+  }
   body footer{position:fixed;left:0;right:0;bottom:0}
   .about-grid{display:grid;grid-template-columns:repeat(12,1fr);column-gap:calc(var(--gap) * 1.6);row-gap:3.2rem}
-  #about .about-grid{grid-template-columns:auto minmax(0,35rem);justify-content:center;column-gap:5rem}
+  #about .about-grid{grid-template-columns:auto minmax(0,35rem);justify-content:center;column-gap:clamp(1.2rem,4vw,5rem)}
   #about .stmt{max-width:none;text-align:center}
   #about .stmt + *{margin-top:0}
   #about .prose{font-size:clamp(1.05rem,1.5vw,1.3rem);line-height:1.55}
   #about .prose p{margin-bottom:1.3rem}
   .about-left{display:flex;flex-direction:column}
   .about-right{align-self:center}
-  @media(max-width:900px){.about-left,.about-right{grid-column:1 / -1}}
-  @media(max-width:900px){#about .about-grid{grid-template-columns:1fr}.photo{width:100%}}
-  .photo{position:relative;height:43rem;width:32rem}
+  /* photo and text stay side by side, the photo shrinking first; they only stack on a phone-width screen */
+  @media(max-width:560px){#about .about-grid{grid-template-columns:1fr}#about .photo{width:min(100%,20rem);margin:0 auto}}
+  .photo{position:relative;width:clamp(9rem,min(34vw,(100vh - 20rem) * .744),32rem);aspect-ratio:32/43}
   .photo.blob{padding:0;border-radius:50% 50% 46% 54% / 30% 34% 18% 22%}
   .photo img{display:block;width:100%;height:100%;object-fit:cover;object-position:50% 30%;border-radius:inherit}
   .photo::after{
@@ -472,7 +479,7 @@
     content:"";position:absolute;top:0;left:var(--g);right:var(--g);height:6px;background:currentColor;opacity:.6;
     -webkit-mask:var(--wob) center/100% 100% no-repeat;mask:var(--wob) center/100% 100% no-repeat;
   }
-  footer .legal{display:flex;gap:1.2rem;flex-wrap:wrap;flex-basis:100%}
+  footer .legal{display:flex;gap:1.2rem;flex-wrap:wrap;flex-basis:100%;justify-content:flex-start}
   footer .legal a{text-decoration:none}
   footer .legal a:hover,footer .legal a:focus-visible{text-decoration:underline;color:var(--black)}
   body footer{display:none}
