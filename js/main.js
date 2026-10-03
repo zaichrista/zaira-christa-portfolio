@@ -476,16 +476,30 @@ document.getElementById("scrollcue").addEventListener("click", nope);
 const sunEl = document.getElementById("sun");
 const songEl = document.getElementById("song");
 const ytEl = document.getElementById("yt");
-// Spotify's iFrame API lets us press play for the visitor. It is loaded up front so that
-// when the sun is clicked the player can start while the click still counts as a user gesture.
-let spApi = null, spCtrl = null;
-window.onSpotifyIframeApiReady = api => { spApi = api; };
-if (spotifyOn()){
+// Spotify's iFrame API lets us press play for the visitor. It is only loaded once the sun is
+// clicked, so Spotify never hears from a visitor who doesn't ask for the song (see privacy.html).
+let spApi = null, spCtrl = null, spLoading = false;
+window.onSpotifyIframeApiReady = api => {
+  spApi = api;
+  if (!songEl.hidden && !spCtrl) mountSpotify();   // the sun was clicked while the API was still loading
+};
+function loadSpotifyApi(){
+  if (spLoading) return;
+  spLoading = true;
   const sc = document.createElement("script");
   sc.src = "https://open.spotify.com/embed/iframe-api/v1"; sc.async = true;
   document.head.appendChild(sc);
 }
-function spotifyOn(){ return /spotify\.com\/(?:embed\/)?track\//.test(SONG_URL || ""); }
+function mountSpotify(){
+  const slot = document.createElement("div");
+  ytEl.innerHTML = "";
+  ytEl.appendChild(slot);
+  spApi.createController(slot, {uri:"spotify:track:" + spotifyId(SONG_URL), width:"100%", height:152}, ctrl => {
+    if (songEl.hidden){ try { ctrl.destroy(); } catch(e) {} return; }   // closed before it finished loading
+    spCtrl = ctrl;
+    ctrl.addListener("ready", () => ctrl.play());
+  });
+}
 function spotifyId(u){
   const m = (u || "").match(/spotify\.com\/(?:embed\/)?track\/([A-Za-z0-9]+)/);
   return m ? m[1] : null;
@@ -497,21 +511,12 @@ function ytId(u){
 function openSong(){
   ytEl.innerHTML = "";
   const sp = spotifyId(SONG_URL), id = ytId(SONG_URL);
-  if (sp && spApi){
-    const slot = document.createElement("div");
-    ytEl.appendChild(slot);
-    spApi.createController(slot, {uri:"spotify:track:" + sp, width:"100%", height:152}, ctrl => {
-      spCtrl = ctrl;
-      ctrl.addListener("ready", () => ctrl.play());
-    });
-  } else if (sp || id){
+  if (sp){
+    songEl.hidden = false;   // shown first, so the click that opened it still counts when the player mounts
+    if (spApi) mountSpotify(); else loadSpotifyApi();
+  } else if (id){
     const f = document.createElement("iframe");
-    if (sp){
-      f.src = "https://open.spotify.com/embed/track/" + sp;
-      f.className = "spotify";
-    } else {
-      f.src = "https://www.youtube-nocookie.com/embed/" + id + "?autoplay=1&rel=0&playsinline=1";
-    }
+    f.src = "https://www.youtube-nocookie.com/embed/" + id + "?autoplay=1&rel=0&playsinline=1";
     f.allow = "autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture";
     f.referrerPolicy = "strict-origin-when-cross-origin";
     f.title = "Not that kind of sun";
@@ -659,9 +664,9 @@ document.getElementById("openSheet").addEventListener("click", () => {
   if (!sheetSized){
     // tall enough to show the whole Abilities tab at first (as far as the window allows), then it is the visitor's to resize
     sheetSized = true;
-    const need = sheetEl.querySelector(".tbar").offsetHeight + sheetEl.querySelector(".sbody").scrollHeight + 2;
+    sheetEl.style.height = "auto";
     const room = innerHeight - sheetEl.offsetTop - 14;
-    sheetEl.style.height = Math.min(need, room) + "px";
+    sheetEl.style.height = Math.min(sheetEl.offsetHeight, room) + "px";
   }
 });
 sheetEl.querySelectorAll(".tabs button").forEach(b => b.addEventListener("click", () => {

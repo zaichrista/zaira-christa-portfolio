@@ -192,8 +192,8 @@
   #about.active,#contact.active,#work.active{height:100vh;height:100dvh;min-height:0;overflow:hidden}
   #about.active,#contact.active{padding-top:6.5rem;padding-bottom:2rem}
   #about.active{padding-top:7rem;padding-bottom:3.4rem}
-  #contact.active{padding-bottom:5.2rem}
-  @media(max-width:700px){#about.active{padding-bottom:2rem}#contact.active{padding-bottom:7rem}}
+  #contact.active{padding-bottom:6.8rem}
+  @media(max-width:700px){#about.active{padding-bottom:2rem}#contact.active{padding-bottom:9rem}}
   body footer{position:fixed;left:0;right:0;bottom:0}
   .about-grid{display:grid;grid-template-columns:repeat(12,1fr);column-gap:calc(var(--gap) * 1.6);row-gap:3.2rem}
   #about .about-grid{grid-template-columns:auto minmax(0,35rem);justify-content:center;column-gap:5rem}
@@ -472,6 +472,9 @@
     content:"";position:absolute;top:0;left:var(--g);right:var(--g);height:6px;background:currentColor;opacity:.6;
     -webkit-mask:var(--wob) center/100% 100% no-repeat;mask:var(--wob) center/100% 100% no-repeat;
   }
+  footer .legal{display:flex;gap:1.2rem;flex-wrap:wrap;flex-basis:100%}
+  footer .legal a{text-decoration:none}
+  footer .legal a:hover,footer .legal a:focus-visible{text-decoration:underline;color:var(--black)}
   body footer{display:none}
   body.contact footer{display:flex}
 
@@ -496,6 +499,7 @@
   @keyframes cookie-in{from{transform:translate(-50%,-50%) scale(.3) rotate(-40deg);opacity:0}to{transform:translate(-50%,-50%) rotate(-2deg);opacity:1}}
   .cookie h2{font-size:1.7rem;font-weight:400;font-style:italic;line-height:1;transform:scaleY(1.3)}
   .cookie p{font-size:.88rem;line-height:1.28}
+  .cookie p a{text-underline-offset:.15em}
   .cookie .row{display:flex;gap:.5rem;margin-top:.35rem}
   .cookie button{
     font-family:var(--sans);font-size:9.5px;letter-spacing:.1em;text-transform:uppercase;cursor:pointer;
@@ -526,25 +530,24 @@
 
   .sheet{width:min(30rem,92vw);height:auto;max-height:calc(100vh - 5.5rem);max-height:calc(100dvh - 5.5rem)}
   body.about .sheet{display:flex}
-  .sbody{flex:1 1 auto;min-height:0;overflow:auto;padding:.9rem 1.3rem 1.1rem;font-family:var(--sans);color:var(--black)}
-  .lvl{display:flex;align-items:center;gap:.8rem;margin-bottom:.7rem}
+  .sbody{flex:1;min-height:0;overflow:auto;padding:1.2rem 1.4rem 1.6rem;font-family:var(--sans);color:var(--black)}
+  .lvl{display:flex;align-items:center;gap:.9rem;margin-bottom:1rem}
   .lvl b{
-    flex:none;display:flex;align-items:center;justify-content:center;width:3rem;height:3rem;border:1.5px solid var(--black);
-    border-radius:50%;font-family:var(--serif);font-weight:400;font-size:.92rem;transform:rotate(-6deg);
+    flex:none;display:flex;align-items:center;justify-content:center;width:3.6rem;height:3.6rem;border:1.5px solid var(--black);
+    border-radius:50%;font-family:var(--serif);font-weight:400;font-size:1.05rem;transform:rotate(-6deg);
   }
   .lvl span{font-family:var(--serif);font-size:1.5rem;line-height:1.05;transform:scaleY(1.25);transform-origin:left center}
   .build dl{border-top:1px solid var(--black)}
-  .build dl{display:grid;grid-template-columns:1fr 1fr;column-gap:1.2rem}
-  .build dl div{padding:.35rem 0;border-bottom:1px dashed rgba(18,18,17,.35);font-size:.84rem}
+  .build dl div{display:flex;justify-content:space-between;gap:1rem;padding:.42rem 0;border-bottom:1px dashed rgba(18,18,17,.35);font-size:.84rem}
   .build dt{color:#6b675c;text-transform:uppercase;letter-spacing:.08em;font-size:.68rem;padding-top:.15rem}
-  .build dd{margin-top:.1rem}
-  .boss{margin-top:.8rem;padding:.6rem .8rem;border:1.5px solid var(--black);border-radius:.9rem .5rem 1rem .6rem;font-family:var(--serif);font-size:1.08rem;line-height:1.3;transform:rotate(-.6deg)}
+  .build dd{text-align:right}
+  .boss{margin-top:1rem;padding:.8rem .9rem;border:1.5px solid var(--black);border-radius:.9rem .5rem 1rem .6rem;font-family:var(--serif);font-size:1.08rem;line-height:1.3;transform:rotate(-.6deg)}
   .boss b{display:block;font-family:var(--sans);font-size:.62rem;letter-spacing:.14em;text-transform:uppercase;margin-bottom:.3rem;color:#c4452d}
-  .tabs{display:flex;gap:.4rem;margin:.9rem 0 .4rem}
+  .tabs{display:flex;gap:.4rem;margin:1.3rem 0 .7rem}
   .tabs button{font:inherit;font-size:.68rem;letter-spacing:.1em;text-transform:uppercase;cursor:pointer;background:none;border:1px solid var(--black);padding:.4rem .8rem;border-radius:50% / 60%}
   .tabs button.on,.tabs button:hover{background:var(--black);color:#f7f5f0}
   .tab{display:none;list-style:none}
   .tab.on{display:block}
-  .tab li{padding:.3rem 0 .3rem 1.2rem;position:relative;font-size:.88rem;line-height:1.3;border-bottom:1px dashed rgba(18,18,17,.25)}
+  .tab li{padding:.45rem 0 .45rem 1.2rem;position:relative;font-size:.9rem;line-height:1.3;border-bottom:1px dashed rgba(18,18,17,.25)}
   .tab li::before{content:"\25AA";position:absolute;left:0}
   .tab li i{font-style:normal;font-weight:700;color:#c4452d;margin-right:.2rem}

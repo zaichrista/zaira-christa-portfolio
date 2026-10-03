@@ -1,0 +1,30 @@
+/* Plain pages for privacy, terms and accessibility. Same palette and fonts as the main site. */
+:root{
+  --black:#121211;
+  --white:#f2efe9;
+  --grey:#6b675c;
+  --serif:"Times New Roman",Times,serif;
+  --sans:Helvetica,"Helvetica Neue",Arial,sans-serif;
+  --g:clamp(1.25rem,3vw,2.5rem);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--white);color:var(--black);font-family:var(--serif);-webkit-font-smoothing:antialiased;line-height:1.5}
+a{color:inherit}
+.label{font-family:var(--sans);font-size:11px;line-height:1.2;letter-spacing:.12em;text-transform:uppercase}
+.top{display:flex;justify-content:space-between;align-items:center;gap:1rem;flex-wrap:wrap;padding:1.3rem var(--g)}
+.top a{text-decoration:none}
+.top .mark{font-size:1.15rem}
+.doc{max-width:42rem;margin:0 auto;padding:2rem var(--g) 4rem}
+.doc h1{font-weight:400;font-size:clamp(2rem,6vw,3.2rem);line-height:1.05;margin-bottom:.6rem}
+.doc .updated{font-family:var(--sans);font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--grey);margin-bottom:2rem}
+.doc h2{font-weight:400;font-style:italic;font-size:1.5rem;line-height:1.15;margin:2.2rem 0 .6rem}
+.doc p,.doc li{font-size:1.05rem;margin-bottom:.8rem}
+.doc ul{padding-left:1.3rem;margin-bottom:.8rem}
+.doc a{text-underline-offset:.15em}
+.doc table{width:100%;border-collapse:collapse;margin:.4rem 0 1.2rem;font-family:var(--sans);font-size:.85rem}
+.doc th,.doc td{text-align:left;vertical-align:top;padding:.5rem .6rem .5rem 0;border-bottom:1px dashed rgba(18,18,17,.35)}
+.doc th{font-weight:400;font-size:.68rem;letter-spacing:.1em;text-transform:uppercase;color:var(--grey)}
+.foot{display:flex;gap:1.2rem;flex-wrap:wrap;justify-content:center;padding:1.6rem var(--g) 2.4rem;border-top:1px solid rgba(18,18,17,.3);color:var(--grey)}
+.foot a{text-decoration:none}
+.foot a:hover,.foot a[aria-current]{color:var(--black);text-decoration:underline}
+a:focus-visible{outline:2px solid var(--black);outline-offset:3px}

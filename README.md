@@ -25,7 +25,12 @@ for the sun button can refuse to load from a plain file.
 - `js/main.js` > `DECKS`: the text for every presentation. Edit the slides there.
 - `assets/images/`: put your images here, then reference them as `assets/images/name.jpg`
 
+## Legal pages
+
+`privacy.html`, `terms.html` and `accessibility.html` share `css/legal.css` and are linked from the
+Contact footer and the cookie pop-up. If you add analytics, a form service, a new embed or any other
+third-party script, update `privacy.html` (and its date) first.
+
 ## Fonts
 
-Times New Roman and Helvetica only, apart from the six calligraphic fonts on the flashing
-hero letters (loaded from Google Fonts in the `<head>`).
+Times New Roman and Helvetica only. Nothing is loaded from Google Fonts.
