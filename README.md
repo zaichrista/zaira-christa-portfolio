@@ -25,6 +25,9 @@ for the sun button can refuse to load from a plain file.
 - `js/main.js` > `DECKS`: the text for every presentation. Edit the slides there.
 - `assets/CV_Zaira_Final_CREATIVE_v29.pdf`: drop the real CV here (exact filename) and the CV window on the
   Work page shows it in a PDF viewer. Until it exists, the window shows a placeholder page.
+- Slide pictures: each presentation page in `DECKS` (js/main.js) can take `img:[{src:"assets/images/x.jpg", cap:"caption"}]`.
+  The picture on the slide scrolls to show every image in the list. Pages without `img` show placeholder tiles.
+  The Websites deck (`pan:true`) shows one tall image that scrolls by itself until the visitor takes over.
 - `assets/images/`: put your images here, then reference them as `assets/images/name.jpg`
 
 ## Legal pages

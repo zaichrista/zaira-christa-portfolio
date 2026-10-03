@@ -148,6 +148,7 @@ const DECKS = {
     take:["Culture explains the customer","Theory is a tool","Footnotes are a flex"]
   },
   websites:{
+    pan:true,
     file:"Websites_FINAL_I_MEAN_IT.pptx", title:"Websites", sub:"attempt five (this one)",
     agenda:["The ones before this one","This one","Why I stopped at five"],
     pages:[
@@ -173,14 +174,46 @@ const TRANS = [
   {c:"t-blinds",   n:"Blinds"}
 ];
 
+// The picture on each content slide is a scrolling panel: scroll inside it to reveal more of the work.
+// Give a page an "img" list ([{src:"assets/images/x.jpg", cap:"what it is"}]) to show real images;
+// until then it shows placeholder tiles. A deck with pan:true (Websites) shows one tall image that drifts down by itself.
+function galleryHTML(p, d){
+  const items = p.img && p.img.length ? p.img
+    : d.pan ? [{cap:"One very long website, scrolling itself"}]
+    : [1,2,3,4].map(i => ({cap:"A caption that explains the thing"}));
+  const figs = items.map((it, i) => `<figure><div class="gi${d.pan ? " tall" : ""}">${
+    it.src ? `<img src="${it.src}" alt="${it.cap || ""}" loading="lazy">` : `[ Image ${i + 1} ]`}</div><figcaption>${it.cap || ""}</figcaption></figure>`).join("");
+  return `<div class="galwrap"><div class="gal" tabindex="0" role="region" aria-label="Scroll to see more of this work">${figs}</div><span class="gh label">Scroll &darr;</span></div>`;
+}
+function wireGallery(sl, auto){
+  sl.querySelectorAll(".gal").forEach(g => {
+    const hint = g.parentNode.querySelector(".gh");
+    let user = false;
+    const took = () => { user = true; if (hint) hint.classList.add("off"); };
+    ["wheel","pointerdown","touchstart","keydown"].forEach(ev => g.addEventListener(ev, took, {passive:true}));
+    g.addEventListener("scroll", () => { if (g.scrollTop > 6 && hint) hint.classList.add("off"); }, {passive:true});
+    if (auto && !reduced){
+      let pos = 0, dir = 1;
+      const tick = () => {
+        if (user || !g.isConnected) return;
+        const max = g.scrollHeight - g.clientHeight;
+        pos += .45 * dir;
+        if (pos >= max){ pos = max; dir = -1; } else if (pos <= 0){ pos = 0; dir = 1; }
+        g.scrollTop = pos;
+        requestAnimationFrame(tick);
+      };
+      setTimeout(() => requestAnimationFrame(tick), 900);
+    }
+  });
+}
 function buildSlides(d){
   const out = [];
   out.push({label:d.title, dark:true, k:"title",
     html:`<h2>${d.title}</h2><p class="sub">${d.sub}</p><p class="by">A presentation by Zaira Christa</p>`});
   out.push({label:"Agenda", k:"agenda",
     html:`<h3>Agenda</h3><ul>${d.agenda.map(a => `<li>${a}</li>`).join("")}</ul>`});
-  d.pages.forEach(p => out.push({label:p.t, k:"content",
-    html:`<h3>${p.t}</h3><div class="grid"><div class="ph">[ Insert image here ]</div><ul>${p.b.map(x => `<li>${x}</li>`).join("")}</ul></div>`}));
+  d.pages.forEach(p => out.push({label:p.t, k:"content", pan:!!d.pan,
+    html:`<h3>${p.t}</h3><div class="grid">${galleryHTML(p, d)}<ul>${p.b.map(x => `<li>${x}</li>`).join("")}</ul></div>`}));
   out.push({label:"Key takeaways", k:"take",
     html:`<h3>Key takeaways</h3><ol>${d.take.map(x => `<li>${x}</li>`).join("")}</ol>`});
   out.push({label:"Thank you!", dark:true, k:"thanks",
@@ -359,6 +392,7 @@ function openDeck(id, btnEl){
     const sl = document.createElement("div");
     sl.className = "slide " + s.k + (s.dark ? " dark" : "");
     sl.innerHTML = s.html;
+    wireGallery(sl, s.pan);
     return sl;
   }
   function finish(){
@@ -411,7 +445,7 @@ function openDeck(id, btnEl){
   pNext.addEventListener("click", () => go(cur + 1));
   pPrev.addEventListener("click", () => go(cur - 1));
   $(".pclose").addEventListener("click", () => { close(); sadStart(); });
-  stage.addEventListener("click", () => go(cur + 1));
+  stage.addEventListener("click", e => { if (!e.target.closest(".galwrap")) go(cur + 1); });
   el.addEventListener("keydown", e => {
     if (e.key === "Escape"){ close(); sadStart(); }
     else if (["ArrowRight","ArrowDown","PageDown"].includes(e.key)){ e.preventDefault(); go(cur + 1); }
@@ -690,7 +724,7 @@ const canNope = () => !document.body.classList.contains("substack") && !pageScro
 const BIG_WHEEL = 800, BIG_TOUCH = 160;
 let wheelSum = 0, wheelDone = false, wheelIdle = null;
 window.addEventListener("wheel", e => {
-  if (!canNope() || (e.target.closest && e.target.closest(".thumbs,.fbody,.sbody,.pdfview,textarea"))) return;
+  if (!canNope() || (e.target.closest && e.target.closest(".thumbs,.fbody,.sbody,.pdfview,.gal,textarea"))) return;
   clearTimeout(wheelIdle);
   wheelIdle = setTimeout(() => { wheelSum = 0; wheelDone = false; }, 400);
   if (e.deltaY <= 0 || wheelDone) return;
@@ -903,6 +937,18 @@ function wireSticky(el){
   el.querySelector(".bin").addEventListener("click", () => binIt(el));
 }
 wireSticky(document.getElementById("sticky"));
+// the first note: a phone (small and touch-only) is told to try a desktop view; laptops and desktops keep the original line.
+// It follows the screen if it changes, unless the visitor has already written on the note.
+const NOTE_DESKTOP = "Rectangles are permitted in this office.", NOTE_PHONE = "maybe a desktop view?";
+const phoneNote = window.matchMedia("(max-width:700px) and (hover:none)");
+const noteText = document.querySelector("#sticky .stext");
+function setNote(){
+  const t = noteText.textContent.trim();
+  if (t !== NOTE_DESKTOP && t !== NOTE_PHONE) return;
+  noteText.textContent = phoneNote.matches ? NOTE_PHONE : NOTE_DESKTOP;
+}
+setNote();
+phoneNote.addEventListener("change", setNote);
 
 document.getElementById("dkFinder").addEventListener("click", () => restoreWin(finderEl));
 document.getElementById("dkPpt").addEventListener("click", () => {
