@@ -481,6 +481,8 @@
   }
   footer .legal{display:flex;gap:1.2rem;flex-wrap:wrap;flex-basis:100%;justify-content:flex-start}
   footer .legal a{text-decoration:none}
+  footer .legal button{background:none;border:0;padding:0;color:inherit;font:inherit;letter-spacing:inherit;text-transform:inherit;cursor:pointer}
+  footer .legal button:hover,footer .legal button:focus-visible{text-decoration:underline;color:var(--black)}
   footer .legal a:hover,footer .legal a:focus-visible{text-decoration:underline;color:var(--black)}
   body footer{display:none}
   body.contact footer{display:flex}
@@ -492,9 +494,9 @@
 
   /* ---------- the cookie: an outline, like everything else here ---------- */
   .cookie{
-    position:fixed;left:50%;top:50%;z-index:700;width:min(19rem,86vw);aspect-ratio:1;
-    display:flex;flex-direction:column;align-items:center;justify-content:center;gap:.55rem;
-    padding:3.4rem 3.6rem 3rem 3.2rem;text-align:center;color:var(--black);
+    position:fixed;left:50%;top:50%;z-index:700;width:min(25rem,92vw);aspect-ratio:1;
+    display:flex;flex-direction:column;align-items:center;justify-content:center;gap:.5rem;
+    padding:3.6rem 3.8rem 3.2rem 3.4rem;text-align:center;color:var(--black);
     transform:translate(-50%,-50%) rotate(-2deg);
     animation:cookie-in .5s cubic-bezier(.34,1.56,.64,1) both;
   }
@@ -514,7 +516,7 @@
     transition:background .2s,color .2s;
   }
   .cookie button:hover{background:var(--black);color:var(--white)}
-  @media(max-width:700px){.cookie{padding:3rem 3rem 2.6rem 2.8rem}.cookie p{font-size:.8rem}}
+  @media(max-width:700px){.cookie{padding:3.2rem 3.4rem 2.8rem 3rem}.cookie p{font-size:.8rem}}
 
   /* ---------- about: stat bars + character sheet ---------- */
   .stats{margin-top:2rem}

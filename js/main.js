@@ -537,7 +537,14 @@ function closeSong(){
   songEl.hidden = true;
   sunEl.classList.remove("playing");
 }
-sunEl.addEventListener("click", () => { songEl.hidden ? openSong() : closeSong(); });
+// The song only plays once the visitor has accepted cookies; until then the sun just asks.
+let consent = null, songWanted = false;
+sunEl.addEventListener("click", () => {
+  if (!songEl.hidden) return closeSong();
+  if (consent === "yes") return openSong();
+  songWanted = true;
+  showCookie();
+});
 document.getElementById("songX").addEventListener("click", closeSong);
 
 // =====================================================
@@ -738,14 +745,19 @@ document.getElementById("form").addEventListener("submit", e => {
     "&body=" + encodeURIComponent("Your Royal Highness,\n\n" + m + "\n\nYours faithfully,\n" + n);
 });
 
-// ---- the cookie: pops up the first time the site is opened, once the loader has lifted
+// ---- the cookie: asks the first time the site is opened, once the loader has lifted.
+// The only thing that can set cookies is the Spotify player behind the sun, so that is what Accept and Reject control.
 const cookieEl = document.getElementById("cookie");
-let cookieSeen = false;
-try { cookieSeen = localStorage.getItem("zc-cookie") === "1"; } catch(e) {}
-if (!cookieSeen){
-  setTimeout(() => { cookieEl.hidden = false; }, LOAD_MS + 1400);
-  cookieEl.querySelectorAll("[data-ck]").forEach(b => b.addEventListener("click", () => {
-    cookieEl.hidden = true;
-    try { localStorage.setItem("zc-cookie", "1"); } catch(e) {}
-  }));
-}
+try { localStorage.removeItem("zc-cookie"); } catch(e) {}   // the old pop-up's key; it recorded no real choice
+try { consent = localStorage.getItem("zc-consent"); } catch(e) {}
+if (consent !== "yes" && consent !== "no") consent = null;
+if (consent === null) setTimeout(() => { if (consent === null) showCookie(); }, LOAD_MS + 1400);
+function showCookie(){ cookieEl.hidden = false; }
+cookieEl.querySelectorAll("[data-ck]").forEach(b => b.addEventListener("click", () => {
+  consent = b.dataset.ck;
+  cookieEl.hidden = true;
+  try { localStorage.setItem("zc-consent", consent); } catch(e) {}
+  if (consent === "yes" && songWanted){ songWanted = false; openSong(); }
+  else if (consent === "no"){ songWanted = false; closeSong(); }
+}));
+document.getElementById("cookieSettings").addEventListener("click", showCookie);
