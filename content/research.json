@@ -11,7 +11,7 @@
       "name": "Sonic Anti-Intimacy",
       "disciplines": "Sound Studies, Theory-Building",
       "context": "University of Oxford, 2025",
-      "oneLineOutcome": "Applied in Bekaa: sound as a cocoon, not a cage.",
+      "oneLineOutcome": "Sound designed as a cocoon, not a cage.",
       "slides": [
         {
           "n": 0,
@@ -81,12 +81,8 @@
           "n": 5,
           "type": "outcome",
           "title": null,
-          "text": "Applied in Bekaa: sound as a cocoon, not a cage.",
+          "text": "Sound designed as a cocoon, not a cage.",
           "image": null,
-          "link": {
-            "deck": "strategy",
-            "project": "bekaa"
-          },
           "notes": "Outcome.",
           "status": "draft"
         }
@@ -193,7 +189,7 @@
       "subtitle": "Sound, Fabric and Affect in London Clubs",
       "disciplines": "Sensory Ethnography, Cultural Theory",
       "context": "MA Cultural and Creative Industries, King's College London, 2026",
-      "oneLineOutcome": "The concept now works as a tool: it shapes the strategy for Bekaa.",
+      "oneLineOutcome": "The concept now works as a tool for designing venues, brands and garments.",
       "consentNote": "Use first names or pseudonyms. Keep Kit's comments about dressing in less accepting venues out unless he agrees.",
       "slides": [
         {
@@ -256,9 +252,9 @@
           "text": "A room has to feel safe before a body will surrender to it. Venues, brands and garments can design for the conditions that let people accumulate and show what they carry.",
           "image": {
             "src": "assets/research/tagging/04-pair.jpg",
-            "alt": "Bekaa beside a garment detail",
+            "alt": "A venue beside a garment detail",
             "status": "needed",
-            "brief": "Bekaa and a garment detail side by side"
+            "brief": "A venue and a garment detail side by side"
           },
           "notes": "Implication.",
           "status": "draft"
@@ -267,12 +263,8 @@
           "n": 5,
           "type": "outcome",
           "title": null,
-          "text": "The concept now works as a tool: it shapes the strategy for Bekaa.",
+          "text": "The concept now works as a tool for designing venues, brands and garments.",
           "image": null,
-          "link": {
-            "deck": "strategy",
-            "project": "bekaa"
-          },
           "notes": "Outcome. The attached dissertation still has the template Conclusion. Update this slide from the final version.",
           "status": "draft"
         }

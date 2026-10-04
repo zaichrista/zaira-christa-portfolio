@@ -127,24 +127,6 @@ const DECKS = {
     ],
     take:["Fabric has opinions","Fit is a form of respect","Hems are forever"]
   },
-  strategy:{
-    file:"Creative_Strategy_v12_USE_THIS_ONE.pptx", title:"Creative Strategy", sub:"taste, with footnotes",
-    agenda:["Brand strategy","A hospitality concept","The financial plan (yes, really)"],
-    pages:[
-      {t:"Brand strategy", b:["Who it is, and who it is for","Why anyone should care","Taste, with footnotes"]},
-      {t:"A hospitality concept", b:["A restaurant, as a feeling","Concept, room, menu, mood","Invented from nothing"]},
-      {t:"The financial plan", b:["Yes, really","Spreadsheets, but romantic","Confidential until someone hires me"]}
-    ],
-    take:["Strategy is taste with evidence","A brand is a promise with a typeface","The spreadsheet is also a love letter"],
-    // the real Creative Strategy deck: one image per page of the PDF, shown in the same window with the same thumbnails and transitions
-    shots:[
-      ["Creative Strategy","Cover"],["Selected work","Two projects"],["Bekaa","A bar built to be remembered"],
-      ["The problem","South Kensington"],["The idea","Archival capital"],["How it works","Accumulate. Express. Be legible."],
-      ["Proof","What it kept"],["VOID","Fragrance, felt first"],["Origin","The smell of him"],
-      ["The gap","Feelings first. Scent second."],["The question","Favourite memory"],["The method","Distil a moment"],
-      ["The first customer","The woman who yearns"],["Zaira Christa","More on request"]
-    ].map((t, i) => ({src:"assets/strategy/slide-" + String(i + 1).padStart(2, "0") + ".jpg", label:t[0], alt:t[0] + ". " + t[1] + "."}))
-  },
   research:{
     file:"Research_(please_read).pptx", title:"Research", sub:"theory, but make it useful",
     agenda:["Fashion, nightlife and the body","Theory you can actually use","Why this is also a business skill"],
@@ -370,12 +352,12 @@ function placeFinder(){
   finderEl.style.top = (hh + 12) + "px";
 }
 
-// ---- the "presentations": each file opens its own window, and all five can be open at once
+// ---- the "presentations": each file opens its own window, and all four can be open at once
 const openDecks = {};
 let cascade = 0;
 // decks that have been rebuilt as real pages (work/<name>/) open inside the same kind of window
 const REAL_DECKS = {};
-// cascade the windows so five of them don't land exactly on top of each other
+// cascade the windows so four of them don't land exactly on top of each other
 function placeDeckWindow(el){
   const hh = headerEl.offsetHeight, n = cascade++ % 6;
   const w = Math.min(960, innerWidth - 60), h = Math.max(260, Math.min(600, innerHeight - hh - 180));
@@ -1140,8 +1122,9 @@ function show(id, how = "push"){
   pages.forEach(p => p.classList.toggle("active", p.id === id));
   window.scrollTo(0,0);
   try {
-    if (how === "push" && !same) history.pushState(null,"","#"+id);
-    else if (how === "replace" || (how === "push" && same)) history.replaceState(null,"","#"+id);
+    const hash = "#" + (id === "work2" ? "work" : id);   // the new Work page is called #work in the address bar
+    if (how === "push" && !same) history.pushState(null,"",hash);
+    else if (how === "replace" || (how === "push" && same)) history.replaceState(null,"",hash);
   } catch(e) {}
   if (id === "work") placeFinder();
   statsEl.classList.remove("in");
@@ -1157,7 +1140,8 @@ document.querySelectorAll("[data-go]").forEach(el =>
     show(el.dataset.go);
   })
 );
-// the old Work page (#work) is hidden: old links and bookmarks land on the new Work page. Remove this alias to bring the old one back.
+// the old Work page is hidden: #work opens the new Work page (the "work2" section). Its address was #work2 before, so that still works too.
+// To bring the old page back, uncomment its link in index.html, remove the work alias here, and change the hash line in show().
 const ALIAS = {work:"work2"};
 const hashPage = () => { const h = location.hash.replace("#",""); return ALIAS[h] || h; };
 const start = hashPage();

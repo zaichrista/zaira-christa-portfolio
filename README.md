@@ -42,13 +42,13 @@ Times New Roman and Helvetica only. Nothing is loaded from Google Fonts.
 
 ## Decks (work/)
 
-Four slide decks live as pages: `work/strategy/`, `work/research/`, `work/web/`, `work/fashion/`.
+Three slide decks live as pages: `work/research/`, `work/web/`, `work/fashion/`.
 They read the copy from `content/*.json`; edit the words there, not in the code.
 
 - `css/deck-theme.css`: colour, type, sizes, spacing and motion, all as variables. Change the look here.
 - `css/deck.css`: the layout for each slide type, the phone layout and the print rules.
 - `js/deck/`: the engine (`model.js` running order, `render.js` one layout per slide type, `stage.js` keys, swipe, progress, links).
-- Deep links: `/work/strategy/#bekaa-3` is slide `n: 3` of the project `bekaa`. `#cover`, `#work`, `#bekaa` (title card), `#closing`.
+- Deep links: `/work/research/#<project>-<n>` is slide `n` of that project. `#cover`, `#work`, `#<project>` (title card), `#closing`.
 - Keys: arrows, space, Home and End to move; `N` speaker notes; `F` full screen.
 - Pictures: set `image.status` to `have` and put the file at `image.src` (from the site root). Until then a marked placeholder shows the brief.
 - On your machine (Live Server) slides marked `needs-input` show a yellow "To be supplied" tag and speaker notes work.

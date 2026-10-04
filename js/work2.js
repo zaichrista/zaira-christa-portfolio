@@ -18,28 +18,30 @@
   const PROJECTS = [
     {id:"reach", kind:"site", at:[.04,.05], title:"Reach_Riverside.html", stat:"zaichrista.github.io/Reach-Riverside-site",
      url:"https://zaichrista.github.io/Reach-Riverside-site/",
-     role:"Web design and brand translation.",
-     problem:"How do you make a riverside restaurant feel as distinctive online as it does in person?",
-     approach:"Dark navy and cream with gold, day and night imagery split, booking one tap away."},
+     role:"UX/UI Design · Web Development · Art Direction · Brand Design",
+     problem:"The Reach needed a digital presence that communicated its identity as a contemporary riverside restaurant, bar and lounge while making essential information easy to discover.",
+     approach:"Designed and developed the restaurant's website from concept to launch. I created the site architecture, visual direction and responsive interface, translating the wider brand identity into an editorial digital experience across desktop and mobile."},
     {id:"mandaloun", kind:"site", at:[.96,.95], title:"Mandaloun_Westfield.html", stat:"zaichrista.github.io/Mandaloun-Westfield",
      url:"https://zaichrista.github.io/Mandaloun-Westfield/", deskW:1850,
-     role:"Web design and brand translation.",
-     problem:"How do you make cooking made to be shared feel shared before anyone arrives?",
-     approach:"Deep teal on light grounds, generous whitespace, booking and phone always visible."},
-    {id:"gala", kind:"scroll", at:[.55,.1], title:"Oxford_Fashion_Gala",
-     role:"[Role to come.]", problem:"[Problem to come.]", approach:"[What I did about it.]"},
-    {id:"ff22", kind:"scroll", at:[.95,.05], portrait:true, title:"Zaira_Christa_FF22",
-     role:"[Role to come.]", problem:"[Problem to come.]", approach:"[What I did about it.]"},
+     role:"UX/UI Design · Web Development · Art Direction · Graphic Design",
+     problem:"Mandaloun needed a website that could communicate the character of the restaurant visually while remaining intuitive, functional and easy for customers to navigate.",
+     approach:"Designed and built the website from the ground up, developing the visual language, page structure and responsive interface. I used typography, imagery and layout to create a digital experience that reflected the atmosphere of the restaurant rather than functioning as a purely informational site."},
+    {id:"gala", kind:"scroll", at:[.55,.1], ratio:1.5, paged:true, images:7, title:"Oxford_Fashion_Gala",
+     role:"Creative Direction · Fashion Production · Event Design · Branding",
+     problem:"The project needed to bring multiple designers and creative disciplines together under one coherent identity while transforming a fashion show into a complete audience experience.",
+     approach:"Developed the creative direction and visual world surrounding the event, working across fashion, branding and presentation. I helped shape how the collections were communicated and experienced, creating cohesion between the designers, the event identity and the final runway presentation."},
+    {id:"ff22", kind:"scroll", at:[.95,.05], portrait:true, images:22, title:"Zaira_Christa_FW22",
+     role:"Fashion Design · Creative Direction · Garment Development · Styling",
+     problem:"The collection explored how a singular creative concept could be translated into a complete fashion language rather than a series of disconnected garments.",
+     approach:"Designed and developed the collection from initial research through to the final runway. I created the silhouettes, garment concepts, material combinations and styling, building a coherent visual narrative across the entire collection."},
     {id:"ss23", kind:"scroll", at:[.08,.5], portrait:true, images:12, title:"Zaira_Christa_SS23",
-     role:"[Role to come.]", problem:"[Problem to come.]", approach:"[What I did about it.]"},
-    {id:"bekaa", kind:"scroll", at:[.1,.92], small:true, title:"Bekaa",
-     role:"Creative strategy, brand world, hospitality concept.",
-     problem:"A neighbourhood of visitors and residents who share a postcode and rarely a room. The brief: make a bar that gives them one.",
-     approach:"A room that accumulates. Every night leaves something behind."},
-    {id:"void", kind:"scroll", at:[.9,.6], small:true, title:"VOID",
-     role:"Creative strategy, brand world, art direction.",
-     problem:"Long distance, close contact unavailable, and a body reduced to a scent memory. VOID is made for that gap.",
-     approach:"Perfumes named after presence, not nature."}
+     role:"Fashion Design · Creative Direction · Garment Development · Styling",
+     problem:"Following FW22, the challenge was to evolve the Zaira Christa design language while creating a collection with its own distinct identity and seasonal point of view.",
+     approach:"Developed the collection from concept and visual research through garment design and final presentation. I explored silhouette, fabrication and styling as tools for storytelling, translating the central concept into a cohesive runway collection."},
+    {id:"void", kind:"scroll", at:[.9,.6], ratio:1.25, images:2, title:"VOID_STUDIOS",
+     role:"Brand Strategy · Creative Direction · Art Direction · Graphic Design",
+     problem:"Void is a concept still to be built. Before it exists as a product, it needs a clear point of view, audience and visual universe capable of differentiating it within a highly image-driven market.",
+     approach:"Developing the brand ahead of launch, defining its positioning, visual identity and art direction. I am building the wider brand world across packaging, imagery, typography and campaign concepts, using research and strategy to guide each creative decision before anything is made."}
   ];
 
   const el = (tag, cls, text) => { const n = document.createElement(tag); if (cls) n.className = cls; if (text) n.textContent = text; return n; };
@@ -53,7 +55,7 @@
   right.classList.add("w2space");
   const IDLE = [
     "Click something. The rectangles are intentional.",
-    "Nothing open. Unlike my kerning, which was chosen very carefully.",
+    "Nothing open. The silence is a design decision.",
     "Pick a project. I did all of it on purpose.",
     "Currently showing: nothing. A bold choice, and an easy one to fix."
   ];
@@ -97,11 +99,46 @@
     }
   }
 
+  // one picture at a time, Back and Next (or the arrow keys) to move through them; the picture always shows whole
+  function mountPaged(p, view, tools){
+    const n = p.images || IMAGES;
+    let i = 1;
+    const label = p.title.replace(/_/g, " ");
+    const back = el("button", "btn", "Back"), next = el("button", "btn", "Next"), count = el("span", "w2count");
+    back.type = next.type = "button";
+    back.setAttribute("aria-label", "Previous image"); next.setAttribute("aria-label", "Next image");
+    count.setAttribute("aria-live", "polite");
+    tools.append(back, count, next);
+    const show = () => {
+      view.replaceChildren();
+      const img = new Image();
+      img.alt = label + ", image " + i + " of " + n;
+      const src = "assets/work2/" + p.id + "/" + i + ".jpg";
+      img.onerror = () => { view.replaceChildren(el("div", "w2ph", "Image " + i + " goes here: " + src)); };
+      img.src = src;
+      view.appendChild(img);
+      count.textContent = i + " / " + n;
+      new Image().src = "assets/work2/" + p.id + "/" + (i % n + 1) + ".jpg";   // the next one is ready before it is asked for
+    };
+    const go = d => { i = (i - 1 + d + n) % n + 1; show(); };
+    back.addEventListener("click", () => go(-1));
+    next.addEventListener("click", () => go(1));
+    view.addEventListener("keydown", e => {
+      if (e.key === "ArrowRight"){ e.preventDefault(); go(1); }
+      else if (e.key === "ArrowLeft"){ e.preventDefault(); go(-1); }
+    });
+    show();
+  }
+
   // ---- placing, moving and sizing ----
   function place(entry){
     const W = right.clientWidth, H = right.clientHeight, p = entry.p;
     let w, h;
     if (p.portrait){ h = H * .82; w = Math.min(W * .45, (h - 90) * .75); }
+    else if (p.ratio){   // opens just tall enough that the first picture (width / ratio) shows whole: window bars 90px, picture padding 32px
+      w = W * .6; h = (w - 32) / p.ratio + 122;
+      if (h > H * .92){ h = H * .92; w = (h - 122) * p.ratio + 32; }
+    }
     else if (p.small){ w = W * .42; h = Math.min(H * .5, w * .625 + 90); }
     else if (p.kind === "site"){ w = W * .7; h = Math.min(H * .82, w * .625 + 90); }
     else { w = W * .6; h = H * .68; }
@@ -188,6 +225,12 @@
       const a = el("a", "btn", "Open in new tab");
       a.href = p.url; a.target = "_blank"; a.rel = "noopener";
       tools.append(el("span", "stat", p.stat), a);
+    } else if (p.paged){
+      tools.append(el("span", "stat", "Click Next for more"));
+      view.classList.add("w2paged");
+      view.tabIndex = 0;
+      view.setAttribute("role", "region");
+      view.setAttribute("aria-label", p.title.replace(/_/g, " ") + " images");
     } else {
       tools.append(el("span", "stat", "Scroll to see more"));
       view.classList.add("w2scroll");
@@ -214,6 +257,16 @@
     return entry;
   }
 
+  // the writing never scrolls: the list and the writing share one size, shrunk together until all of it sits inside its box
+  function fitInfo(){
+    const left = info.parentElement;
+    left.style.removeProperty("--s");
+    if (phone.matches || !info.firstChild) return;
+    let size = parseFloat(getComputedStyle(items[0]).fontSize);
+    while (info.scrollHeight > info.clientHeight + 1 && size > 8){ size -= .5; left.style.setProperty("--s", size + "px"); }
+  }
+  window.addEventListener("resize", fitInfo);
+
   // ---- which window is in front, and what the list and the writing say ----
   function render(){
     const wasEmpty = idle.classList.contains("on");
@@ -226,6 +279,7 @@
       const p = front.p;
       info.append(line("Role", p.role), line("Problem", p.problem), line("What I did", p.approach));
     }
+    fitInfo();
     items.forEach(b => {
       const en = open.find(x => x.p.id === b.dataset.id);
       b.classList.toggle("on", !!en && en === front);
@@ -266,7 +320,9 @@
     right.appendChild(entry.win);
     open.push(entry);
     place(entry);
-    if (entry.p.kind === "site") entry.ro = mountSite(entry.p, entry.view); else mountImages(entry.p, entry.view);
+    if (entry.p.kind === "site") entry.ro = mountSite(entry.p, entry.view);
+    else if (entry.p.paged) mountPaged(entry.p, entry.view, entry.win.querySelector(".tools"));
+    else mountImages(entry.p, entry.view);
     entry.z = ++zTop; entry.win.style.zIndex = entry.z;
     front = entry;
     render();
