@@ -1,0 +1,293 @@
+{
+  "id": "research",
+  "title": "Research",
+  "claim": "I know how to see",
+  "flow": "Ask, observe, interpret.",
+  "practiceStatement": "I study how bodies, sound and dress make culture, then translate it for people who build things.",
+  "rhythm": "Question, fieldwork, observation, interpretation, implication",
+  "projects": [
+    {
+      "id": "sonic-anti-intimacy",
+      "name": "Sonic Anti-Intimacy",
+      "disciplines": "Sound Studies, Theory-Building",
+      "context": "University of Oxford, 2025",
+      "oneLineOutcome": "Applied in Bekaa: sound as a cocoon, not a cage.",
+      "slides": [
+        {
+          "n": 0,
+          "type": "question",
+          "title": null,
+          "text": "What, in sonic terms, might characterise the opposite of intimacy?",
+          "image": null,
+          "notes": "Question. Title of the essay.",
+          "status": "draft"
+        },
+        {
+          "n": 1,
+          "type": "fieldwork",
+          "title": null,
+          "text": "Four places where sound is present but does not connect: headphones, shopping-mall Muzak, voice assistants, Cage's 4'33\".",
+          "image": {
+            "src": "assets/research/anti-intimacy/01-places.jpg",
+            "alt": "Four objects: headphones, a shopping-mall speaker, a smart speaker, the score of 4'33\"",
+            "status": "needed",
+            "brief": "Four objects or screenshots in a grid"
+          },
+          "notes": "Where I listened. This project has no fieldwork, so this slide shows the evidence.",
+          "status": "draft"
+        },
+        {
+          "n": 2,
+          "type": "observation",
+          "title": null,
+          "text": "Three mechanisms: isolation, dominance, detachment.",
+          "bullets": [
+            "Muzak scores music on tempo, rhythm, instrumentation and orchestra size: the Stimulus Quotient",
+            "With music playing, customers stayed about three minutes longer (MacLeod, 1979)"
+          ],
+          "image": {
+            "src": "assets/research/anti-intimacy/02-stimulus-quotient.svg",
+            "alt": "Diagram of the Muzak Stimulus Quotient: tempo, rhythm, instrumentation, orchestra size",
+            "status": "needed",
+            "brief": "Redrawn diagram of the Stimulus Quotient"
+          },
+          "notes": "Observation. Proof object: the Stimulus Quotient, redrawn. Source: MacLeod, 1979.",
+          "status": "draft"
+        },
+        {
+          "n": 3,
+          "type": "interpretation",
+          "title": null,
+          "text": "Sonic anti-intimacy is presence without connection: the active engineering of disconnection through sound.",
+          "image": null,
+          "notes": "Interpretation. From the conclusion of the essay.",
+          "status": "draft"
+        },
+        {
+          "n": 4,
+          "type": "implication",
+          "title": null,
+          "text": "Streaming mood playlists are the new Muzak. Sound is a design decision, with consequences for how people treat each other in a room.",
+          "image": {
+            "src": "assets/research/anti-intimacy/04-neo-muzak.jpg",
+            "alt": "Streaming mood playlists beside a Muzak advertisement",
+            "status": "needed",
+            "brief": "Spotify mood playlist screenshots beside a Muzak ad"
+          },
+          "notes": "Implication. Anderson, Neo-Muzak, 2015. Check the journal citation before quoting.",
+          "status": "draft"
+        },
+        {
+          "n": 5,
+          "type": "outcome",
+          "title": null,
+          "text": "Applied in Bekaa: sound as a cocoon, not a cage.",
+          "image": null,
+          "link": {
+            "deck": "strategy",
+            "project": "bekaa"
+          },
+          "notes": "Outcome.",
+          "status": "draft"
+        }
+      ]
+    },
+    {
+      "id": "tokyo-drift",
+      "name": "Tokyo Drift",
+      "subtitle": "Fashion, sound, movement. The graffiti of the soul.",
+      "disciplines": "Ethnography, Music, Fashion",
+      "context": "University of Oxford, 2025. Fieldwork in Shibuya and Shimokitazawa, August to September 2024",
+      "oneLineOutcome": "To understand a cultural space, be a body within the crowd.",
+      "consentNote": "Confirm each named participant agreed to be named in a public portfolio, not only in the thesis.",
+      "slides": [
+        {
+          "n": 0,
+          "type": "question",
+          "title": null,
+          "text": "How did a musical culture rooted in African American struggle dig itself into Tokyo's nightlife, and what does the body do with borrowed style?",
+          "image": {
+            "src": "assets/research/tokyo/00-night.jpg",
+            "alt": "A Tokyo street at night",
+            "status": "needed",
+            "brief": "Zai's own night street photo"
+          },
+          "notes": "Question. Prologue and epilogue of the thesis.",
+          "status": "draft"
+        },
+        {
+          "n": 1,
+          "type": "fieldwork",
+          "title": null,
+          "text": "Three weeks. Eight clubs. Seven interviews and twelve informal conversations with DJs, rappers, designers and club owners.",
+          "image": {
+            "src": "assets/research/tokyo/01-fieldwork.jpg",
+            "alt": "Map of Shibuya and Shimokitazawa with the fieldwork route, beside fieldnote pages",
+            "status": "needed",
+            "brief": "Map of the two districts with the route, and fieldnote pages"
+          },
+          "notes": "Fieldwork. Seven interviews: four formal, two semi-structured, one by email (thesis Appendix B).",
+          "status": "draft"
+        },
+        {
+          "n": 2,
+          "type": "observation",
+          "title": null,
+          "text": "At HVEN the entrance is hidden and the rooms are joined by glass, so you can watch without being obvious.",
+          "bullets": [
+            "Dabo's debut cover outfit was chosen by his label, Def Jam Japan",
+            "Coma-Chi set personal Japanese lyrics over an American beat",
+            "YESBØWY took his dark green nails from a DJ he once saw in white gloves"
+          ],
+          "image": {
+            "src": "assets/research/tokyo/02-hven-plan.svg",
+            "alt": "Annotated plan of HVEN showing the three rooms and the glass walls",
+            "status": "needed",
+            "brief": "TO MAKE: redrawn HVEN plan, annotated"
+          },
+          "notes": "Observation. Proof object: Zai's own redrawn, annotated plan of HVEN (the Void, the Hanger, the Deck). The plan in the thesis comes from the club's website, so redraw it.",
+          "status": "draft"
+        },
+        {
+          "n": 3,
+          "type": "interpretation",
+          "title": null,
+          "text": "The club is a wall that is rewritten every night. Every outfit is a tag and every beat is a mark. Borrowed paint on local walls is authorship, not imitation.",
+          "image": null,
+          "notes": "Interpretation. Graffiti as ornament (Schacter, 2016). Image-led, one line.",
+          "status": "draft"
+        },
+        {
+          "n": 4,
+          "type": "implication",
+          "title": null,
+          "text": "Style is made by recombining borrowed codes. HVEN shows how to design connection when there is no leader to follow.",
+          "image": {
+            "src": "assets/research/tokyo/04-pair.jpg",
+            "alt": "A look worn by a performer beside the glass wall at HVEN",
+            "status": "needed",
+            "brief": "A look from Dabo or YESBØWY beside the HVEN glass wall, with permission"
+          },
+          "notes": "Implication.",
+          "status": "draft"
+        },
+        {
+          "n": 5,
+          "type": "outcome",
+          "title": null,
+          "text": "To truly understand a cultural space, it is necessary to be a body within the crowd.",
+          "image": {
+            "src": "assets/research/tokyo/05-cover.jpg",
+            "alt": "Cover art for Tokyo Drift",
+            "status": "needed",
+            "brief": "Zai's cover art"
+          },
+          "notes": "Outcome. From the epilogue.",
+          "status": "draft"
+        }
+      ]
+    },
+    {
+      "id": "tagging-the-body",
+      "name": "Tagging the Body",
+      "subtitle": "Sound, Fabric and Affect in London Clubs",
+      "disciplines": "Sensory Ethnography, Cultural Theory",
+      "context": "MA Cultural and Creative Industries, King's College London, 2026",
+      "oneLineOutcome": "The concept now works as a tool: it shapes the strategy for Bekaa.",
+      "consentNote": "Use first names or pseudonyms. Keep Kit's comments about dressing in less accepting venues out unless he agrees.",
+      "slides": [
+        {
+          "n": 0,
+          "type": "question",
+          "title": null,
+          "text": "How do sound and fabric produce the body as an affective and inscribed surface in London clubs?",
+          "image": null,
+          "notes": "Question. Introduction of the dissertation.",
+          "status": "draft"
+        },
+        {
+          "n": 1,
+          "type": "fieldwork",
+          "title": null,
+          "text": "Sensory ethnography and autoethnography. Five participants, four transcribed interviews and a structured fieldwork log.",
+          "image": {
+            "src": "assets/research/tagging/01-log.jpg",
+            "alt": "A redacted page of the fieldwork log beside an annotated transcript",
+            "status": "needed",
+            "brief": "Redacted log page or annotated transcript"
+          },
+          "notes": "Fieldwork. Three solo interviews and one joint interview.",
+          "status": "draft"
+        },
+        {
+          "n": 2,
+          "type": "observation",
+          "title": null,
+          "text": "Asked what a good club feels like, every participant said: safety.",
+          "quote": "It reduces all the anxiety that you might have felt about what you're wearing, about the space you're in. (Tallulah, on the bass)",
+          "image": null,
+          "notes": "Observation. Longest and most visual slide of the project. Then the meaning split: safe people, or being enveloped by sound.",
+          "status": "draft"
+        },
+        {
+          "n": 3,
+          "type": "interpretation",
+          "title": null,
+          "text": "Archival capital: the value produced when repeated, chosen, sensory encounter leaves traces on the body.",
+          "bullets": [
+            "Accumulation",
+            "Expression",
+            "Legibility",
+            "Conversion, failure or refusal"
+          ],
+          "image": {
+            "src": "assets/research/tagging/03-four-stages.svg",
+            "alt": "Diagram of the four stages of archival capital",
+            "status": "needed",
+            "brief": "Four stages: accumulation, expression, legibility, conversion, failure or refusal"
+          },
+          "notes": "Interpretation. Proof object: the four stages as a designed diagram, with failure given equal weight.",
+          "status": "draft"
+        },
+        {
+          "n": 4,
+          "type": "implication",
+          "title": null,
+          "text": "A room has to feel safe before a body will surrender to it. Venues, brands and garments can design for the conditions that let people accumulate and show what they carry.",
+          "image": {
+            "src": "assets/research/tagging/04-pair.jpg",
+            "alt": "Bekaa beside a garment detail",
+            "status": "needed",
+            "brief": "Bekaa and a garment detail side by side"
+          },
+          "notes": "Implication.",
+          "status": "draft"
+        },
+        {
+          "n": 5,
+          "type": "outcome",
+          "title": null,
+          "text": "The concept now works as a tool: it shapes the strategy for Bekaa.",
+          "image": null,
+          "link": {
+            "deck": "strategy",
+            "project": "bekaa"
+          },
+          "notes": "Outcome. The attached dissertation still has the template Conclusion. Update this slide from the final version.",
+          "status": "draft"
+        }
+      ]
+    }
+  ],
+  "closing": {
+    "type": "closing",
+    "status": "needs-input",
+    "fields": {
+      "bio": null,
+      "lookingFor": null,
+      "contact": null,
+      "siteLink": "https://www.zairachrista.com"
+    },
+    "notes": "Short bio, what you are looking for, contact details. Not yet written."
+  }
+}

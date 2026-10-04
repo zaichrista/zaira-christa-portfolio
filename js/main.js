@@ -135,7 +135,15 @@ const DECKS = {
       {t:"A hospitality concept", b:["A restaurant, as a feeling","Concept, room, menu, mood","Invented from nothing"]},
       {t:"The financial plan", b:["Yes, really","Spreadsheets, but romantic","Confidential until someone hires me"]}
     ],
-    take:["Strategy is taste with evidence","A brand is a promise with a typeface","The spreadsheet is also a love letter"]
+    take:["Strategy is taste with evidence","A brand is a promise with a typeface","The spreadsheet is also a love letter"],
+    // the real Creative Strategy deck: one image per page of the PDF, shown in the same window with the same thumbnails and transitions
+    shots:[
+      ["Creative Strategy","Cover"],["Selected work","Two projects"],["Bekaa","A bar built to be remembered"],
+      ["The problem","South Kensington"],["The idea","Archival capital"],["How it works","Accumulate. Express. Be legible."],
+      ["Proof","What it kept"],["VOID","Fragrance, felt first"],["Origin","The smell of him"],
+      ["The gap","Feelings first. Scent second."],["The question","Favourite memory"],["The method","Distil a moment"],
+      ["The first customer","The woman who yearns"],["Zaira Christa","More on request"]
+    ].map((t, i) => ({src:"assets/strategy/slide-" + String(i + 1).padStart(2, "0") + ".jpg", label:t[0], alt:t[0] + ". " + t[1] + "."}))
   },
   research:{
     file:"Research_(please_read).pptx", title:"Research", sub:"theory, but make it useful",
@@ -207,6 +215,8 @@ function wireGallery(sl, auto){
   });
 }
 function buildSlides(d){
+  if (d.shots) return d.shots.map(x => ({label:x.label, k:"shot", src:x.src,
+    html:`<img src="${x.src}" alt="${x.alt}" draggable="false">`}));
   const out = [];
   out.push({label:d.title, dark:true, k:"title",
     html:`<h2>${d.title}</h2><p class="sub">${d.sub}</p><p class="by">A presentation by Zaira Christa</p>`});
@@ -345,7 +355,9 @@ window.addEventListener("resize", () =>
 // ---- the Finder window
 const finderEl = document.getElementById("finder");
 makeWindow(finderEl);
-finderEl.querySelector(".wclose").addEventListener("click", () => { finderEl.classList.add("closed"); sadStart(); });
+const closeFinder = () => { finderEl.classList.add("closed"); sadStart(); };
+finderEl.querySelector(".wclose").addEventListener("click", closeFinder);
+finderEl.addEventListener("keydown", e => { if (e.key === "Escape") closeFinder(); });
 let finderPlaced = false;
 function placeFinder(){
   if (finderPlaced) return;
@@ -361,6 +373,41 @@ function placeFinder(){
 // ---- the "presentations": each file opens its own window, and all five can be open at once
 const openDecks = {};
 let cascade = 0;
+// decks that have been rebuilt as real pages (work/<name>/) open inside the same kind of window
+const REAL_DECKS = {};
+// cascade the windows so five of them don't land exactly on top of each other
+function placeDeckWindow(el){
+  const hh = headerEl.offsetHeight, n = cascade++ % 6;
+  const w = Math.min(960, innerWidth - 60), h = Math.max(260, Math.min(600, innerHeight - hh - 180));
+  el.style.width = w + "px"; el.style.height = h + "px";
+  el.style.left = Math.max(10, Math.min((innerWidth - w) / 2 + (n - 2) * 34, innerWidth - w - 10)) + "px";
+  el.style.top = (hh + 10 + n * 30) + "px";
+}
+function openRealDeck(id, d, btnEl){
+  const el = document.createElement("div");
+  el.className = "win ppt"; el.tabIndex = -1;
+  el.setAttribute("role","dialog"); el.setAttribute("aria-label", d.file);
+  el.innerHTML = `
+    <div class="tbar"><div class="dots"><button type="button" class="pclose" aria-label="Close presentation"></button><i></i><i></i></div><div class="ttl"></div></div>
+    <iframe class="pframe" allowfullscreen title=""></iframe>`;
+  el.querySelector(".ttl").textContent = d.file;
+  const frame = el.querySelector(".pframe");
+  frame.title = d.title + " presentation";
+  frame.src = REAL_DECKS[id];
+  frame.addEventListener("load", () => { if (openDecks[id]) frame.contentWindow.focus(); });
+  function close(){
+    el.remove();
+    delete openDecks[id];
+    if (btnEl && document.body.classList.contains("work")) btnEl.focus();
+  }
+  el.querySelector(".pclose").addEventListener("click", () => { close(); sadStart(); });
+  el.addEventListener("keydown", e => { if (e.key === "Escape"){ close(); sadStart(); } });
+  placeDeckWindow(el);
+  document.body.appendChild(el);
+  raise(el); makeWindow(el);
+  openDecks[id] = {el, close};
+  el.focus();
+}
 function openDeck(id, btnEl){
   const d = DECKS[id]; if (!d) return;
   if (openDecks[id]){ restoreWin(openDecks[id].el); return; }
@@ -368,6 +415,8 @@ function openDeck(id, btnEl){
   if (ri >= 0) recent.splice(ri, 1);
   recent.unshift(id);
   if (loc === "recents") showLoc("recents");
+
+  if (REAL_DECKS[id]) return openRealDeck(id, d, btnEl);
 
   const slides = buildSlides(d);
   let cur = -1, tBag = [], tName = "none yet", tmr = null;
@@ -438,7 +487,8 @@ function openDeck(id, btnEl){
   slides.forEach((s, i) => {
     const b = document.createElement("button");
     b.type = "button"; b.className = "thumb" + (s.dark ? " dark" : "");
-    b.innerHTML = `<span class="n">${i + 1}</span><span class="mini">${s.label}</span>`;
+    b.innerHTML = `<span class="n">${i + 1}</span><span class="mini">${s.src ? `<img src="${s.src}" alt="" loading="lazy">` : s.label}</span>`;
+    if (s.src) b.setAttribute("aria-label", "Slide " + (i + 1) + ": " + s.label);
     b.addEventListener("click", () => go(i));
     thumbsEl.appendChild(b);
   });
@@ -454,12 +504,7 @@ function openDeck(id, btnEl){
     else if (e.key === "End"){ e.preventDefault(); go(slides.length - 1); }
   });
 
-  // cascade the windows so five of them don't land exactly on top of each other
-  const hh = headerEl.offsetHeight, n = cascade++ % 6;
-  const w = Math.min(960, innerWidth - 60), h = Math.max(260, Math.min(600, innerHeight - hh - 180));
-  el.style.width = w + "px"; el.style.height = h + "px";
-  el.style.left = Math.max(10, Math.min((innerWidth - w) / 2 + (n - 2) * 34, innerWidth - w - 10)) + "px";
-  el.style.top = (hh + 10 + n * 30) + "px";
+  placeDeckWindow(el);
 
   document.body.appendChild(el);
   raise(el); makeWindow(el);
@@ -485,6 +530,7 @@ let loc = "work";
 const LOCS = {
   work:      {title:"Work",      note:"", stat:n => n + " items"},
   recents:   {title:"Recents",   note:"Nothing opened yet. Open something, I dare you.", stat:n => n + (n === 1 ? " item" : " items")},
+  websites:  {title:"websites",  note:"", stat:n => n + " items"},
   desktop:   {title:"Desktop",   note:"Nothing here. The mess is elsewhere.", stat:n => n + (n === 1 ? " item" : " items")},
   downloads: {title:"Downloads", note:"I said do not open.", stat:() => "0 items"},
   trash:     {title:"Trash",     note:"The Trash is empty.", stat:n => n + (n === 1 ? " item" : " items") + (n ? " (double-click to put back)" : "")}
@@ -541,9 +587,14 @@ function showLoc(name){
       deskCount++;
     }
     addDyn("sav", "sav-ico", "ZAIRA.sav", b => { b._open = openSheet; });
-    deskCount++;
+    addDyn("folder", "folder-ico", "websites", (b, ico) => {
+      ico.appendChild(document.querySelector("#dWebsites svg").cloneNode(true));
+      b._open = () => showLoc("websites");
+    });
+    deskCount += 2;
   }
-  const count = name === "trash" ? trashed.length : name === "desktop" ? deskCount : ids.length;
+  if (name === "websites") SITES.forEach(w => addDyn("html", "html-ico", w.name, b => { b._open = w.open; }));
+  const count = name === "trash" ? trashed.length : name === "desktop" ? deskCount : name === "websites" ? SITES.length : ids.length;
   selectFile(null);
   emptyEl.hidden = count > 0;
   emptyEl.textContent = LOCS[name].note;
@@ -606,7 +657,7 @@ dicons.forEach(b => {
   b.addEventListener("dblclick", () => openIcon(b));
 });
 document.addEventListener("pointerdown", e => { if (!e.target.closest(".dicon")) selIcon(null); });
-function openIcon(b){ if (b.id === "dCv") openCv(); else if (b.id === "dSheet") openSheet(); else restoreWin(finderEl); }
+function openIcon(b){ if (b.id === "dCv") openCv(); else if (b.id === "dWebsites"){ showLoc("websites"); restoreWin(finderEl); } else if (b.id === "dSheet") openSheet(); else restoreWin(finderEl); }
 
 // ---- the CV in the bin: the visitor is thrown back to Home, and the dock's Finder stays sad until Home's reset button
 const SAD_KEY = "zc-sad";
@@ -682,6 +733,56 @@ function openCv(){
   restoreWin(pdfEl);
 }
 
+// ---- the client websites, each opened in a little window (the iframe loads the first time it is opened)
+const siteTpl = document.getElementById("sitewin");
+const SITES = [];
+function makeSite(name, url, label, el, offset){
+  const view = el.querySelector(".pdfview");
+  let placed = false;
+  makeWindow(el);
+  el.querySelector(".wclose").addEventListener("click", () => el.classList.add("closed"));
+  el.addEventListener("keydown", e => { if (e.key === "Escape") el.classList.add("closed"); });
+  const open = () => {
+    if (!placed){
+      placed = true;
+      const hh = headerEl.offsetHeight;
+      // landscape, roughly 16:10 plus the title and tool bars, shrunk to fit short screens
+      const chrome = 90, availH = innerHeight - hh - 110;
+      let w = Math.min(1040, innerWidth - 40), h = w * .625 + chrome;
+      if (h > availH){ h = availH; w = (h - chrome) / .625; }
+      el.style.width = w + "px"; el.style.height = h + "px";
+      el.style.left = Math.max(10, Math.min((innerWidth - w) / 2 + offset, innerWidth - w - 10)) + "px";
+      el.style.top = (hh + 22 + (offset > 0 ? 24 : 0)) + "px";
+      const f = document.createElement("iframe");
+      f.src = url; f.title = label;
+      view.appendChild(f);
+      // the site is drawn at a desktop width and scaled to the window, so it always looks like the landscape version
+      const fit = () => {
+        const deskW = view.clientWidth > 700 ? 1600 : view.clientWidth;   // phones get the site's own phone layout
+        const k = view.clientWidth / deskW;
+        f.style.width = deskW + "px";
+        f.style.height = (view.clientHeight / k) + "px";
+        f.style.transform = "scale(" + k + ")";
+      };
+      new ResizeObserver(fit).observe(view);
+      fit();
+    }
+    restoreWin(el);
+  };
+  SITES.push({name, open});
+}
+makeSite("Reach_Riverside.html", "https://zaichrista.github.io/Reach-Riverside-site/", "Reach Riverside website", siteTpl, -40);
+const site2 = siteTpl.cloneNode(true);
+site2.id = "sitewin2";
+site2.setAttribute("aria-label", "Mandaloun Westfield website");
+site2.querySelector(".ttl").textContent = "Mandaloun_Westfield.html";
+site2.querySelector(".wclose").id = "siteClose2";
+site2.querySelector(".stat").textContent = "zaichrista.github.io/Mandaloun-Westfield";
+site2.querySelector("a.btn").href = "https://zaichrista.github.io/Mandaloun-Westfield/";
+site2.querySelector(".pdfview").id = "siteview2";
+siteTpl.after(site2);
+makeSite("Mandaloun_Westfield.html", "https://zaichrista.github.io/Mandaloun-Westfield/", "Mandaloun Westfield website", site2, 40);
+
 // =====================================================
 //  NO SCROLLING, ANYWHERE
 // =====================================================
@@ -724,7 +825,7 @@ const canNope = () => !document.body.classList.contains("substack") && !pageScro
 const BIG_WHEEL = 800, BIG_TOUCH = 160;
 let wheelSum = 0, wheelDone = false, wheelIdle = null;
 window.addEventListener("wheel", e => {
-  if (!canNope() || (e.target.closest && e.target.closest(".thumbs,.fbody,.sbody,.pdfview,.gal,textarea"))) return;
+  if (!canNope() || (e.target.closest && e.target.closest(".thumbs,.fbody,.sbody,.pdfview,.gal,.w2scroll,textarea"))) return;
   clearTimeout(wheelIdle);
   wheelIdle = setTimeout(() => { wheelSum = 0; wheelDone = false; }, 400);
   if (e.deltaY <= 0 || wheelDone) return;
@@ -849,7 +950,7 @@ const MIN_TEXT_PX = 11;   // smallest body text size the fit is allowed to produ
 const phoneMQ = window.matchMedia("(max-width:560px)");
 const pageScrolls = () => {
   const p = document.querySelector(".page.active");
-  return !!p && /^(about|contact)$/.test(p.id) && p.scrollHeight > p.clientHeight + 1;
+  return !!p && /^(about|contact|work2)$/.test(p.id) && p.scrollHeight > p.clientHeight + 1;
 };
 function fitPage(page){
   if (!page || !page.classList.contains("active")) return;
@@ -937,6 +1038,7 @@ function wireSticky(el){
   el.querySelector(".bin").addEventListener("click", () => binIt(el));
 }
 wireSticky(document.getElementById("sticky"));
+wireSticky(document.getElementById("stickyWeb"));
 // the first note: a phone (small and touch-only) is told to try a desktop view; laptops and desktops keep the original line.
 // It follows the screen if it changes, unless the visitor has already written on the note.
 const NOTE_DESKTOP = "Rectangles are permitted in this office.", NOTE_PHONE = "maybe a desktop view?";
@@ -989,6 +1091,7 @@ const statsEl = document.getElementById("stats");
 const sheetEl = document.getElementById("sheet");
 makeWindow(sheetEl);
 sheetEl.querySelector(".wclose").addEventListener("click", () => sheetEl.classList.add("closed"));
+sheetEl.addEventListener("keydown", e => { if (e.key === "Escape") sheetEl.classList.add("closed"); });
 let sheetPlaced = false, sheetSized = false;
 function openSheet(){
   if (!sheetPlaced){
@@ -1008,7 +1111,7 @@ function openSheet(){
 }
 document.getElementById("openSheet").addEventListener("click", openSheet);
 sheetEl.querySelectorAll(".tabs button").forEach(b => b.addEventListener("click", () => {
-  sheetEl.querySelectorAll(".tabs button").forEach(x => x.classList.toggle("on", x === b));
+  sheetEl.querySelectorAll(".tabs button").forEach(x => { x.classList.toggle("on", x === b); x.setAttribute("aria-selected", x === b ? "true" : "false"); });
   sheetEl.querySelectorAll(".tab").forEach(t => t.classList.toggle("on", t.id === "tab-" + b.dataset.tab));
 }));
 
@@ -1016,8 +1119,13 @@ sheetEl.querySelectorAll(".tabs button").forEach(b => b.addEventListener("click"
 const pages = document.querySelectorAll(".page");
 const navLinks = document.querySelectorAll("nav a");
 // how: "push" adds a history entry (so Back works), "replace" swaps the current one, "none" is for Back/Forward itself
+const TITLES = {home:"Zaira Christa", about:"About | Zaira Christa", work:"Work | Zaira Christa", work2:"Work | Zaira Christa", contact:"Contact | Zaira Christa"};
+const themeMeta = document.querySelector('meta[name="theme-color"]');
+const THEME = {home:"#121211", about:"#f2efe9", work:"#0095B6", work2:"#121211", contact:"#f2efe9"};
 function show(id, how = "push"){
   const same = document.body.className === id;
+  if (TITLES[id]) document.title = TITLES[id];
+  if (themeMeta && THEME[id]) themeMeta.content = THEME[id];
   if (id !== "work"){ closeAllDecks(); sadHide(); }
   if (id !== "home") closeSong();
   document.body.className = id;
@@ -1049,12 +1157,15 @@ document.querySelectorAll("[data-go]").forEach(el =>
     show(el.dataset.go);
   })
 );
-const start = location.hash.replace("#","");
-if (["about","work","contact"].includes(start)) show(start, "replace");
+// the old Work page (#work) is hidden: old links and bookmarks land on the new Work page. Remove this alias to bring the old one back.
+const ALIAS = {work:"work2"};
+const hashPage = () => { const h = location.hash.replace("#",""); return ALIAS[h] || h; };
+const start = hashPage();
+if (["about","work","work2","contact"].includes(start)) show(start, "replace");
 // the browser's Back and Forward arrows move between pages
 window.addEventListener("popstate", () => {
-  const id = location.hash.replace("#","");
-  show(["about","work","contact"].includes(id) ? id : "home", "none");
+  const id = hashPage();
+  show(["about","work","work2","contact"].includes(id) ? id : "home", "none");
 });
 fixStretch();
 
@@ -1075,17 +1186,19 @@ document.getElementById("form").addEventListener("submit", e => {
     "&body=" + encodeURIComponent("Your Royal Highness,\n\n" + m + "\n\nYours faithfully,\n" + n);
 });
 
-// ---- the cookie: asks the first time the site is opened, a moment after the page opens.
+// ---- the cookie: asks only when something needs it (the sun, or "Cookie settings"), never over the opening.
 // The only thing that can set cookies is the Spotify player behind the sun, so that is what Accept and Reject control.
 const cookieEl = document.getElementById("cookie");
 try { localStorage.removeItem("zc-cookie"); } catch(e) {}   // the old pop-up's key; it recorded no real choice
 try { consent = localStorage.getItem("zc-consent"); } catch(e) {}
 if (consent !== "yes" && consent !== "no") consent = null;
-if (consent === null) setTimeout(() => { if (consent === null) showCookie(); }, 1400);
 // Once cookies are accepted, Spotify's player script is loaded ahead of time. That way the click on the sun can start
 // the song straight away: browsers only allow sound to start from a click, and waiting for the script would lose it.
 if (consent === "yes") loadSpotifyApi();
-function showCookie(){ cookieEl.hidden = false; }
+function showCookie(){
+  cookieEl.hidden = false;
+  const first = cookieEl.querySelector("button"); if (first) first.focus();
+}
 cookieEl.querySelectorAll("[data-ck]").forEach(b => b.addEventListener("click", () => {
   consent = b.dataset.ck;
   cookieEl.hidden = true;
@@ -1095,6 +1208,7 @@ cookieEl.querySelectorAll("[data-ck]").forEach(b => b.addEventListener("click", 
   else if (consent === "no"){ songWanted = false; closeSong(); }
 }));
 document.getElementById("cookieSettings").addEventListener("click", showCookie);
+cookieEl.addEventListener("keydown", e => { if (e.key === "Escape"){ cookieEl.hidden = true; songWanted = false; } });
 
 // the dock's Bin opens the Finder at the Trash
 dockBin.addEventListener("click", () => { restoreWin(finderEl); showLoc("trash"); });

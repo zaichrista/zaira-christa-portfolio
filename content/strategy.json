@@ -1,0 +1,169 @@
+{
+  "id": "strategy",
+  "title": "Creative Strategy",
+  "claim": "I can find the idea",
+  "flow": "See the problem, find the insight, build the idea.",
+  "practiceStatement": "I find the idea inside a cultural problem, then build the world around it.",
+  "rhythm": "Problem, idea, how it works, proof",
+  "projects": [
+    {
+      "id": "bekaa",
+      "name": "Bekaa",
+      "disciplines": "Creative Strategy, Brand World, Hospitality Concept",
+      "context": "Original concept, 2026",
+      "oneLineOutcome": "A bar built to be remembered. Concept, research and costed plan for South Kensington.",
+      "slides": [
+        {
+          "n": 0,
+          "type": "expression",
+          "title": "A bar built to be remembered.",
+          "text": null,
+          "image": {
+            "src": "assets/strategy/bekaa/00-room-evening.jpg",
+            "alt": "The Bekaa room in the evening, full",
+            "status": "needed",
+            "brief": "The room, evening, full"
+          },
+          "notes": "Opening slide of the project, from the Creative Strategy PDF.",
+          "status": "draft"
+        },
+        {
+          "n": 1,
+          "type": "world",
+          "title": "South Kensington has places to eat. Almost none to belong.",
+          "text": "A neighbourhood of visitors and residents who share a postcode and rarely a room. The brief: make a bar that gives them one.",
+          "image": null,
+          "notes": "The problem.",
+          "status": "draft"
+        },
+        {
+          "n": 2,
+          "type": "idea",
+          "title": "Archival capital.",
+          "text": "A room that accumulates. Every night leaves something behind, and what a bar keeps is what it comes to be worth. The theory is mine; the plan makes it usable.",
+          "image": null,
+          "notes": "The idea.",
+          "status": "draft"
+        },
+        {
+          "n": 3,
+          "type": "strategy",
+          "title": "Accumulate. Express. Be legible.",
+          "text": null,
+          "bullets": [
+            "Accumulation. Objects, regulars and rituals gathered on purpose.",
+            "Expression. The room says what it keeps, in menu, music and dress.",
+            "Legibility. A stranger reads the story in ten seconds."
+          ],
+          "image": null,
+          "notes": "How it works.",
+          "status": "draft"
+        },
+        {
+          "n": 4,
+          "type": "expression",
+          "title": "What it kept.",
+          "text": "Space for the result: what the room collected, who came back, what it earned.",
+          "image": {
+            "src": "assets/strategy/bekaa/04-room-six-months.jpg",
+            "alt": "The Bekaa room six months in",
+            "status": "needed",
+            "brief": "TO MAKE: the room, six months in"
+          },
+          "notes": "Proof. The result is still to be supplied.",
+          "status": "needs-input"
+        }
+      ]
+    },
+    {
+      "id": "void",
+      "name": "VOID",
+      "disciplines": "Creative Strategy, Brand World, Art Direction",
+      "context": "Independent Project, 2026",
+      "oneLineOutcome": "A fragrance house that begins with a feeling, not a scent. Concept stage.",
+      "slides": [
+        {
+          "n": 0,
+          "type": "expression",
+          "title": "Fragrance, felt first.",
+          "text": null,
+          "image": {
+            "src": "assets/strategy/void/00-bottle.jpg",
+            "alt": "The VOID bottle, unlabelled",
+            "status": "needed",
+            "brief": "The bottle, unlabelled"
+          },
+          "notes": "Opening slide of the project, from the Creative Strategy PDF.",
+          "status": "draft"
+        },
+        {
+          "n": 1,
+          "type": "world",
+          "title": "The one thing I wanted was the smell of him.",
+          "text": "The name is the distance. Long distance, close contact unavailable, and a body reduced to a scent memory. VOID is made for that gap.",
+          "image": null,
+          "notes": "Origin. Personal to Zai.",
+          "status": "draft"
+        },
+        {
+          "n": 2,
+          "type": "idea",
+          "title": "Feelings first. Scent second.",
+          "text": "Ffern names perfumes after nature. VOID names them after presence. No one yet sells fragrance as a feeling, a time or a memory before it is a pleasant smell.",
+          "image": null,
+          "notes": "The gap.",
+          "status": "draft"
+        },
+        {
+          "n": 3,
+          "type": "question",
+          "title": null,
+          "text": "What does your favourite memory smell like?",
+          "image": null,
+          "notes": "The question.",
+          "status": "draft"
+        },
+        {
+          "n": 4,
+          "type": "implication",
+          "title": "Distil a moment.",
+          "text": null,
+          "bullets": [
+            "Grass after rain.",
+            "Tobacco smoke on a jacket.",
+            "After sex.",
+            "The smell of the one you love."
+          ],
+          "image": null,
+          "notes": "The method.",
+          "status": "draft"
+        },
+        {
+          "n": 5,
+          "type": "expression",
+          "title": "The woman who yearns.",
+          "text": "VOID earns by luring people closer to humanity, in a time when humanity is getting more distant.",
+          "image": {
+            "src": "assets/strategy/void/05-customer.jpg",
+            "alt": "The customer, a figure at a window",
+            "status": "needed",
+            "brief": "TO MAKE: the customer, a figure at a window"
+          },
+          "notes": "The first customer.",
+          "status": "needs-input"
+        }
+      ]
+    }
+  ],
+  "closing": {
+    "type": "closing",
+    "status": "needs-input",
+    "fields": {
+      "bio": null,
+      "lookingFor": null,
+      "contact": null,
+      "siteLink": "https://www.zairachrista.com"
+    },
+    "notes": "More on request. Short bio, what you are looking for and contact details are not yet written."
+  }
+}

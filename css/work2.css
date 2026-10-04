@@ -1,0 +1,127 @@
+/* ---------- WORK II : "I did this" on the left, movable windows on the right ---------- */
+body.work2{background:var(--white)}
+#work2{padding-top:6.5rem;font-family:var(--sans)}
+.w2{display:grid;grid-template-columns:minmax(0,2.6fr) minmax(0,9.4fr);gap:clamp(.5rem,1vw,1rem);align-items:start}
+.w2-left{min-width:0}
+
+/* stretched Times headings; the second one is the smaller one */
+.w2h1,.w2h2{font-family:var(--serif);font-weight:400;letter-spacing:-.01em}
+.w2h1{font-size:clamp(2.6rem,min(5.2vw,12vh),6rem);line-height:.95}
+.w2sub{font-size:.18em;letter-spacing:0;vertical-align:.2em;white-space:nowrap}
+.w2h2 .w2sub{font-size:.33em}   /* the heading is smaller, so the subheading is scaled up to match the first one */
+.w2h2{font-size:clamp(1.5rem,min(2.8vw,5.5vh),2.8rem);line-height:1;margin-top:2.2rem}
+
+/* the project lists */
+.w2list{list-style:none;margin:1.2rem 0 0;padding:0}
+.w2item{
+  display:inline-flex;align-items:baseline;gap:1rem;padding:.4rem 0;border:0;
+  background:none;color:inherit;cursor:pointer;text-align:left;
+  font-family:var(--serif);font-size:clamp(1.1rem,min(1.7vw,3.6vh),1.7rem);line-height:1.15;
+  transition:padding-left .25s ease;
+}
+.w2item i{font-family:var(--sans);font-style:normal;font-size:11px;letter-spacing:.12em;opacity:.6;min-width:1.4rem}
+.w2item:hover,.w2item:focus-visible,.w2item.on{padding-left:.7rem}
+.w2item span{position:relative}
+.w2item span::after{
+  content:"";position:absolute;left:-2px;right:-2px;bottom:-4px;height:6px;background:currentColor;
+  clip-path:inset(0 100% 0 0);transition:clip-path .35s ease;
+  -webkit-mask:var(--wob) center/100% 100% no-repeat;mask:var(--wob) center/100% 100% no-repeat;
+}
+.w2item.on span::after{clip-path:inset(0 0 0 0)}
+.w2item.pinned::after{
+  content:"open";margin-left:.4rem;font-family:var(--sans);font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--deep-bondi);
+}
+
+/* the area the windows live in */
+.w2-right{position:sticky;top:4rem;margin-top:-2.5rem;margin-left:-.5rem;min-width:0}
+.w2space{
+  position:relative;overflow:hidden;height:calc(100dvh - 9.5rem);min-height:26rem;
+  border:1px dashed rgba(255,255,255,.28);
+}
+.w2idle{
+  display:none;position:absolute;inset:0;align-items:center;justify-content:center;text-align:center;
+  padding:2rem;font-family:var(--serif);font-style:italic;font-size:clamp(1.1rem,2vw,1.7rem);line-height:1.3;color:var(--ice);
+}
+.w2idle.on{display:flex}
+
+/* a window: platinum, movable, resizable */
+.w2win{
+  position:absolute;display:flex;flex-direction:column;overflow:hidden;background:var(--ice);color:var(--charcoal);
+  border:1px solid var(--charcoal);box-shadow:6px 6px 0 rgba(36,40,41,.28);font-family:var(--sans);
+  animation:fade .3s ease;
+}
+.w2win:not(.front){box-shadow:3px 3px 0 rgba(36,40,41,.28)}
+.w2win .tbar{background:linear-gradient(var(--ice),var(--frost));border-bottom:1px solid var(--crt);color:var(--charcoal);cursor:grab;touch-action:none;user-select:none;-webkit-user-select:none}
+.w2win .tbar:active{cursor:grabbing}
+.w2win:not(.front) .tbar{background:var(--frost);color:var(--crt)}
+.w2win .tools{background:var(--ice);border-bottom:1px solid rgba(91,98,100,.55)}
+.w2win .btn{background:var(--ice);color:var(--charcoal);border-color:var(--charcoal);text-decoration:none;text-align:center}
+.w2win .btn:hover{background:var(--deep-bondi);border-color:var(--deep-bondi);color:var(--ice)}
+.w2win .stat{margin-right:auto;margin-left:0;color:var(--crt);font-size:.8rem}
+.w2win.max{left:0!important;top:0!important;width:100%!important;height:100%!important;box-shadow:none}
+.w2win.max .tbar{cursor:default}
+.w2win.max .w2rz{display:none}
+
+.w2view{flex:1;min-height:0;position:relative;overflow:hidden;background:var(--crt)}
+.w2view iframe{position:absolute;left:0;top:0;display:block;border:0;background:#fff;max-width:none;transform-origin:0 0;height:calc(100% / var(--k,1));transform:scale(var(--k,1))}
+/* a click on a window behind brings it forward, rather than landing in the site */
+.w2win.site:not(.front) .w2view::after{content:"";position:absolute;inset:0;z-index:3}
+.w2space.busy iframe{pointer-events:none}
+.w2space.busy{user-select:none;-webkit-user-select:none}
+
+/* edges and corners to resize from */
+.w2rz{position:absolute;z-index:5;touch-action:none}
+.w2rz-n,.w2rz-s{left:12px;right:12px;height:7px;cursor:ns-resize}
+.w2rz-e,.w2rz-w{top:12px;bottom:12px;width:7px;cursor:ew-resize}
+.w2rz-n{top:-3px}.w2rz-s{bottom:-3px}.w2rz-e{right:-3px}.w2rz-w{left:-3px}
+.w2rz-ne,.w2rz-nw,.w2rz-se,.w2rz-sw{width:16px;height:16px}
+.w2rz-ne{top:-3px;right:-3px;cursor:nesw-resize}
+.w2rz-sw{bottom:-3px;left:-3px;cursor:nesw-resize}
+.w2rz-nw{top:-3px;left:-3px;cursor:nwse-resize}
+.w2rz-se{bottom:-3px;right:-3px;cursor:nwse-resize}
+
+/* the "how I think" windows scroll, and hold several images */
+.w2view.w2scroll{overflow-y:scroll;overscroll-behavior:contain;padding:1rem;scrollbar-width:thin}
+.w2scroll:focus-visible{outline:2px solid var(--bondi);outline-offset:-3px}
+.w2scroll figure{margin:0 0 1rem}
+.w2scroll figure:last-child{margin-bottom:0}
+.w2scroll img{display:block;width:100%;height:auto;background:#fff}
+.w2ph{
+  aspect-ratio:4/3;display:flex;align-items:center;justify-content:center;text-align:center;padding:1rem;
+  background:var(--ice);border:1px dashed var(--charcoal);color:var(--crt);font-size:.78rem;line-height:1.4;
+}
+.portrait .w2ph{aspect-ratio:3/4}
+
+/* the writing under the "how I think" list */
+.w2note{margin-top:3.5rem;font-family:var(--serif);font-size:1.05rem;line-height:1.45}
+.w2note:empty{display:none}
+.w2note p+p{margin-top:.5rem}
+.w2note b{font-family:var(--sans);font-size:10px;font-weight:400;letter-spacing:.12em;text-transform:uppercase;margin-right:.5rem}
+
+/* the page is black with white writing, like the home page; the windows keep the platinum look */
+body.work2{background:var(--black);color:var(--white)}
+body.work2 header{color:var(--white)}
+.w2note{color:var(--white)}
+.w2note b,.w2item.pinned::after{color:var(--bondi)}
+
+/* phones: no floating, the windows stack under the list */
+@media(max-width:800px){
+  #work2{padding-top:5.5rem}
+  .w2{grid-template-columns:1fr}
+  .w2-right{position:static;margin:0}
+  .w2space{height:auto;min-height:0;overflow:visible;border:0;display:flex;flex-direction:column;gap:1.4rem}
+  .w2win{position:relative;left:auto!important;top:auto!important;width:100%!important;height:auto!important;z-index:auto!important}
+  .w2win.portrait{width:min(100%,24rem)!important}
+  .w2win.front{outline:2px solid var(--bondi);outline-offset:3px}
+  .w2view{flex:none;aspect-ratio:16/10}
+  .w2win.portrait .w2view{aspect-ratio:3/4}
+  .w2win.max .w2view{aspect-ratio:auto;height:75dvh}
+  .w2win.max{left:auto!important;top:auto!important;width:100%!important;height:auto!important}
+  .w2win .tbar{cursor:default}
+  .w2rz{display:none}
+  .w2idle{position:static;padding:1rem 0;justify-content:flex-start;text-align:left}
+}
+@media(prefers-reduced-motion:reduce){
+  .w2win{animation:none}
+  .w2item,.w2item span::after{transition:none}
+}

@@ -1,0 +1,329 @@
+/*
+  DECK LAYOUTS
+  Reads everything from deck-theme.css. Change the look there, not here.
+
+  Each slide is: .slide (surface) > .frame (the 16:9 box, a size container) > pieces.
+  Inside .frame, 1cqw is 1% of the slide width, written as --u.
+*/
+*{box-sizing:border-box}
+html,body{margin:0;height:100%;background:var(--stage-bg);color:var(--fg-default)}
+body{font-family:var(--font-text);-webkit-font-smoothing:antialiased;overflow:hidden}
+a{color:inherit}
+:focus-visible{outline:3px solid var(--c-focus);outline-offset:3px}
+.chrome :focus-visible,.slide.kind-slide.fam-bleed :focus-visible,.t-interpretation :focus-visible{outline-color:#fff}
+.sr-only{position:absolute;width:1px;height:1px;margin:-1px;padding:0;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0}
+.deck-loading,.deck-error{margin:0;padding:2rem;font:14px/1.4 var(--font-text);color:var(--chrome-fg)}
+
+/* ---------- the stage: 16:9, fitted to the screen ---------- */
+.deck{--u:1cqw;display:grid;grid-template-rows:minmax(0,1fr) var(--chrome-h);height:100vh;height:100dvh}
+.stage-wrap{position:relative;display:grid;place-items:center;min-height:0;min-width:0}
+.stage{
+  position:relative;aspect-ratio:16/9;overflow:hidden;background:var(--bg-default);touch-action:pan-y;
+  width:min(100%,calc((100vh - var(--chrome-h)) * 16 / 9));
+  width:min(100%,calc((100dvh - var(--chrome-h)) * 16 / 9));
+  box-shadow:0 0 6rem rgba(0,0,0,.6);
+}
+
+/* ---------- a slide ---------- */
+.slide{
+  --bg:var(--bg-default);--fg:var(--fg-default);
+  position:absolute;inset:0;overflow:hidden;background:var(--bg);color:var(--fg);
+  opacity:0;visibility:hidden;
+  transition:opacity var(--dur) var(--ease),visibility 0s linear var(--dur);
+}
+.slide.is-current{opacity:1;visibility:visible;transition-delay:0s}
+.frame{container-type:size;position:absolute;inset:0;display:grid;grid-template:minmax(0,1fr) / minmax(0,1fr)}
+
+.fam-cover{--bg:var(--bg-cover);--fg:var(--fg-cover)}
+.fam-work{--bg:var(--bg-work);--fg:var(--fg-work)}
+.fam-titlecard{--bg:var(--bg-titlecard);--fg:var(--fg-titlecard)}
+.fam-closing{--bg:var(--bg-closing);--fg:var(--fg-closing)}
+.t-insight{--bg:var(--bg-insight);--fg:var(--fg-insight)}
+.t-interpretation{--bg:var(--bg-interpretation);--fg:var(--fg-interpretation)}
+.t-outcome{--bg:var(--bg-outcome);--fg:var(--fg-outcome)}
+.fam-bleed,.t-expression,.t-runway{--bg:var(--bg-dark);--fg:var(--fg-dark)}
+
+/* running label in the corner: the project name, never the act */
+.folio{
+  position:absolute;z-index:4;top:calc(var(--u) * 2.4);left:calc(var(--u) * var(--pad));
+  font:calc(var(--u) * var(--fs-label))/1.2 var(--font-label);font-size:max(var(--min-small),calc(var(--u) * var(--fs-label)));
+  letter-spacing:var(--tracking-label);text-transform:uppercase;
+  color:#fff;mix-blend-mode:difference;pointer-events:none;
+}
+
+/* dev-only marker for slides that still need something from Zai */
+.tbs{
+  position:absolute;z-index:6;top:calc(var(--u) * 2);right:calc(var(--u) * 2);
+  background:#ffe100;color:#000;border:2px dashed #000;padding:.45em .9em;
+  font:700 12px/1 var(--font-label);letter-spacing:.12em;text-transform:uppercase;
+}
+.tile .tbs,.cl-row .tbs{position:static;display:inline-block;margin-top:.6em}
+
+/* ---------- text pieces ---------- */
+.copy{
+  position:relative;z-index:2;min-width:0;min-height:0;
+  padding:calc(var(--u) * var(--pad));
+  display:flex;flex-direction:column;justify-content:center;gap:calc(var(--u) * var(--gap));
+}
+.title,.text,.quote,.cover-title,.cover-statement,.pt-name,.pt-sub,.work-label{margin:0}
+.text{
+  font-family:var(--font-display);font-weight:var(--fw-display);line-height:1.22;letter-spacing:-.01em;max-width:28em;text-wrap:pretty;
+  font-size:max(var(--min-body),calc(var(--u) * var(--fs-body)));
+}
+.title{font-family:var(--font-display);font-weight:var(--fw-display);line-height:var(--lh-display);letter-spacing:var(--tracking-display);font-size:calc(var(--u) * 5)}
+.bullets{
+  list-style:none;margin:0;padding:0;display:grid;gap:calc(var(--u) * 1.1);max-width:34em;
+  font:max(var(--min-small),calc(var(--u) * var(--fs-bullet)))/1.4 var(--font-text);
+}
+.bullets li{border-top:1px solid currentColor;padding-top:.7em}
+.bullets li{border-top-color:color-mix(in srgb,currentColor 35%,transparent)}
+.quote{
+  font:italic max(var(--min-small),calc(var(--u) * 1.25))/1.4 var(--font-display);max-width:30em;
+  border-left:2px solid var(--accent);padding-left:calc(var(--u) * 1.4);
+}
+.applied,.url{
+  align-self:flex-start;font:max(var(--min-small),calc(var(--u) * var(--fs-label)))/1.2 var(--font-label);
+  letter-spacing:var(--tracking-label);text-transform:uppercase;text-decoration:none;
+  border-bottom:1px solid currentColor;padding-bottom:.3em;
+}
+.applied:hover,.url:hover{border-bottom-width:3px}
+
+/* ---------- pictures and placeholders ---------- */
+.media{position:relative;min-width:0;min-height:0;overflow:hidden}
+.fig{margin:0;position:relative;width:100%;height:100%;overflow:hidden}
+.fig img{display:block;width:100%;height:100%;object-fit:cover}
+.fig.contain{background:var(--bg-diagram)}
+.fig.contain img{object-fit:contain}
+.fig.contain.ph{background:none}
+.ph{
+  display:flex;flex-direction:column;justify-content:flex-end;gap:calc(var(--u) * 1.2);
+  padding:calc(var(--u) * 7) calc(var(--u) * 3.2) calc(var(--u) * 3.2);color:var(--ph-fg);
+  background:repeating-linear-gradient(135deg,var(--ph-a) 0 calc(var(--u) * 1.1),var(--ph-b) calc(var(--u) * 1.1) calc(var(--u) * 2.2));
+  outline:2px dashed var(--ph-line);outline-offset:calc(var(--u) * -1.4);
+}
+.fam-bleed .ph,.t-expression .ph,.t-runway .ph{
+  color:var(--ph-dark-fg);outline-color:var(--ph-dark-line);
+  background:repeating-linear-gradient(135deg,var(--ph-dark-a) 0 calc(var(--u) * 1.1),var(--ph-dark-b) calc(var(--u) * 1.1) calc(var(--u) * 2.2));
+}
+.fam-bleed .ph .ph-tag,.t-expression .ph .ph-tag,.t-runway .ph .ph-tag{background:var(--ph-dark-tag-bg);color:var(--ph-dark-tag-fg)}
+.ph-tag{
+  align-self:flex-start;background:var(--ph-tag-bg);color:var(--ph-tag-fg);padding:.5em .9em;
+  font:700 max(var(--min-small),calc(var(--u) * var(--fs-label)))/1 var(--font-label);letter-spacing:var(--tracking-label);text-transform:uppercase;
+}
+.ph-brief{margin:0;max-width:22em;font:max(var(--min-body),calc(var(--u) * 1.7))/1.25 var(--font-display)}
+.ph-src{margin:0;font:max(var(--min-small),calc(var(--u) * .8))/1.2 ui-monospace,Menlo,monospace;opacity:.7;word-break:break-all}
+
+/* slow push-in on big pictures */
+.slide.is-current .fig.drift img{animation:drift var(--drift) ease-out both}
+@keyframes drift{from{transform:scale(1)}to{transform:scale(1.07)}}
+/* text rising in, line by line */
+.slide.is-current [data-r]{animation:rise var(--dur-slow) var(--ease) both;animation-delay:calc(var(--i,0) * var(--stagger))}
+@keyframes rise{from{opacity:0;transform:translateY(calc(var(--u) * 1.4))}to{opacity:1;transform:none}}
+
+/* ---------- cover ---------- */
+.fam-cover .copy{justify-content:flex-end;gap:calc(var(--u) * 3)}
+.cover-title{
+  font-family:var(--font-display);font-weight:var(--fw-display);line-height:var(--lh-display);letter-spacing:var(--tracking-display);
+  font-size:calc(var(--u) * var(--fs-cover));text-wrap:balance;
+}
+.cover-statement{
+  font-family:var(--font-display);line-height:1.2;max-width:24em;
+  font-size:max(var(--min-body),calc(var(--u) * 2.3));padding-top:calc(var(--u) * 1.6);border-top:3px solid var(--accent);
+}
+
+/* ---------- selected work ---------- */
+.fam-work .copy{justify-content:flex-start;padding-top:calc(var(--u) * 7)}
+.work-label{
+  font:max(var(--min-small),calc(var(--u) * var(--fs-label)))/1.2 var(--font-label);letter-spacing:var(--tracking-label);text-transform:uppercase;
+}
+.work-grid{display:grid;grid-template-columns:repeat(var(--n),minmax(0,1fr));gap:calc(var(--u) * 2);flex:1;min-height:0}
+.tile{
+  display:flex;flex-direction:column;justify-content:space-between;gap:calc(var(--u) * 2);min-width:0;
+  padding:calc(var(--u) * 2.4);border:1px solid currentColor;text-decoration:none;
+  transition:background var(--dur) var(--ease),color var(--dur) var(--ease);
+}
+.tile:hover{background:var(--c-ink);color:var(--c-paper)}
+.tile-n{font:max(var(--min-small),calc(var(--u) * var(--fs-label)))/1 var(--font-label);letter-spacing:var(--tracking-label)}
+.tile-name{
+  font-family:var(--font-display);line-height:var(--lh-display);letter-spacing:var(--tracking-display);
+  font-size:calc(var(--u) * 5.6);margin-top:auto;overflow-wrap:anywhere;
+}
+.tile-out{font:max(var(--min-body),calc(var(--u) * 1.5))/1.3 var(--font-display);max-width:20em}
+
+/* ---------- project title card ---------- */
+.fam-titlecard .copy{justify-content:flex-end;gap:calc(var(--u) * 1.2)}
+.pt-name{
+  font-family:var(--font-display);font-weight:var(--fw-display);line-height:var(--lh-display);letter-spacing:var(--tracking-display);
+  font-size:calc(var(--u) * var(--fs-titlecard));text-wrap:balance;margin-bottom:calc(var(--u) * 1.4);
+}
+.pt-sub{font:italic max(var(--min-body),calc(var(--u) * 2))/1.2 var(--font-display)}
+.pt-disc,.pt-context{margin:0}
+.pt-disc{
+  font:max(var(--min-small),calc(var(--u) * 1.05))/1.3 var(--font-label);letter-spacing:var(--tracking-label);text-transform:uppercase;
+  padding-top:calc(var(--u) * 1.2);border-top:2px solid currentColor;
+}
+.pt-context{font:max(var(--min-body),calc(var(--u) * 1.5))/1.3 var(--font-display)}
+
+/* ---------- statements: question, insight, interpretation ---------- */
+.fam-statement .copy{justify-content:center}
+.fam-statement .text,.fam-split .no-media .text{font-style:var(--style-statement);letter-spacing:var(--tracking-display);line-height:var(--lh-display)}
+.t-question .text{font-size:max(26px,calc(var(--u) * var(--fs-question)));max-width:15em}
+/* insight: one sentence, a nearly empty slide */
+.t-insight .copy{justify-content:flex-end}
+.t-insight .text{font-size:max(30px,calc(var(--u) * var(--fs-insight)));max-width:12em}
+.t-interpretation .text{font-size:max(28px,calc(var(--u) * var(--fs-interpretation)));max-width:14em}
+.t-interpretation .copy{justify-content:flex-end}
+
+/* ---------- split: words beside a picture ---------- */
+.fam-split .frame:not(.no-media){grid-template-columns:minmax(0,5fr) minmax(0,7fr)}
+.fam-split .frame:not(.no-media) .media{grid-column:2;grid-row:1}
+.fam-split .frame:not(.no-media) .copy{grid-column:1;grid-row:1}
+.fam-split .frame.flip:not(.no-media){grid-template-columns:minmax(0,7fr) minmax(0,5fr)}
+.fam-split .frame.flip:not(.no-media) .media{grid-column:1}
+.fam-split .frame.flip:not(.no-media) .copy{grid-column:2}
+.fam-split .copy{justify-content:flex-end}
+.fam-split .no-media .copy{justify-content:center}
+.fam-split .no-media .text{font-size:max(26px,calc(var(--u) * 4));max-width:17em}
+
+/* ---------- led: the picture is the slide, words are a caption ---------- */
+.fam-led .media,.fam-bleed .media{grid-area:1/1}
+.fam-led .copy,.fam-bleed .copy{grid-area:1/1}
+.fam-led .copy{align-self:end;justify-content:flex-end;gap:calc(var(--u) * .8);padding:calc(var(--u) * 3) calc(var(--u) * var(--pad));
+  background:var(--scrim);color:#f4f4f2;pointer-events:none}
+.fam-led .copy a{pointer-events:auto}
+.fam-led .text{font-size:max(var(--min-body),calc(var(--u) * 2));max-width:30em}
+.fam-led .no-media .copy,.fam-led .frame.no-media .copy{background:none;color:inherit;align-self:center;pointer-events:auto}
+.t-lineup .copy,.t-experience .copy,.t-problem .copy,.t-strategy .copy{background:none;color:inherit}
+.t-experience .copy{align-self:end;align-items:center;padding-bottom:calc(var(--u) * 1.6)}
+.t-experience .url{align-self:center}
+
+/* ---------- bleed: tension and hero ---------- */
+.fam-bleed .frame:not(.no-media)::before{content:"";position:absolute;inset:0;z-index:1;background:var(--scrim);pointer-events:none}
+.fam-bleed .copy{align-self:end;justify-content:flex-end;max-width:70%;padding-bottom:calc(var(--u) * 4.5)}
+.t-tension .text{font-size:max(var(--min-body),calc(var(--u) * var(--fs-tension)));line-height:1.1;letter-spacing:-.02em;max-width:19em}
+.t-tension .bullets{max-width:30em;grid-template-columns:repeat(auto-fit,minmax(14em,1fr))}
+.t-hero .copy{max-width:none}
+.fam-bleed .ph{justify-content:flex-start;align-items:flex-end;text-align:right}
+.fam-bleed .no-media .copy{max-width:none;justify-content:center}
+
+/* ---------- idea: the position, with a caption-style definition ---------- */
+.t-idea .copy{justify-content:flex-end}
+.t-idea .title{font-size:calc(var(--u) * var(--fs-idea-title));line-height:.88;margin-bottom:calc(var(--u) * 1.4)}
+.t-idea .text{font-size:max(var(--min-body),calc(var(--u) * var(--fs-idea-text)));max-width:24em}
+.t-idea .no-title .text{font-size:max(26px,calc(var(--u) * 3.8));line-height:1.02;letter-spacing:var(--tracking-display);max-width:17em}
+.t-idea .quote{margin-top:calc(var(--u) * 1.2)}
+
+/* ---------- outcome: one line that closes the project ---------- */
+.t-outcome .copy{justify-content:flex-end}
+.t-outcome .text{font-size:max(26px,calc(var(--u) * var(--fs-outcome)));line-height:var(--lh-display);letter-spacing:var(--tracking-display);max-width:15em}
+.t-outcome .bullets{max-width:44em;grid-template-columns:repeat(auto-fit,minmax(16em,1fr))}
+
+/* ---------- closing ---------- */
+.fam-closing .copy{justify-content:flex-end}
+.cl{margin:0;display:grid;gap:calc(var(--u) * 2)}
+.cl-row{display:grid;grid-template-columns:calc(var(--u) * 14) minmax(0,1fr);gap:calc(var(--u) * 2);padding-top:calc(var(--u) * 1.4);border-top:1px solid currentColor}
+.cl dt{font:max(var(--min-small),calc(var(--u) * var(--fs-label)))/1.4 var(--font-label);letter-spacing:var(--tracking-label);text-transform:uppercase}
+.cl dd{margin:0;font:max(var(--min-body),calc(var(--u) * 2.2))/1.2 var(--font-display)}
+
+/* ---------- chrome: the bar under the slide ---------- */
+.chrome{
+  display:flex;align-items:center;gap:1rem;padding:0 1rem;min-width:0;
+  background:var(--chrome-bg);color:var(--chrome-fg);font:12px/1 var(--font-label);
+}
+.chrome-home{letter-spacing:.12em;text-transform:uppercase;text-decoration:none;white-space:nowrap}
+.chrome-home:hover{text-decoration:underline}
+.embedded .chrome-home{display:none}
+.chrome-nav,.chrome-tools{display:flex;align-items:center;gap:.5rem}
+.counter{min-width:5.5em;text-align:center;font-variant-numeric:tabular-nums;letter-spacing:.08em}
+.btn{
+  min-width:2.5rem;height:2.5rem;padding:0 .8rem;display:inline-grid;place-items:center;cursor:pointer;
+  background:none;color:inherit;border:1px solid var(--chrome-line);border-radius:0;font:inherit;font-size:16px;
+}
+.btn-text{font-size:12px;letter-spacing:.1em;text-transform:uppercase}
+.btn:hover:not(:disabled){background:var(--chrome-fg);color:var(--chrome-bg)}
+.btn[aria-pressed="true"]{background:var(--chrome-fg);color:var(--chrome-bg)}
+.btn:disabled{opacity:.3;cursor:default}
+.progress{position:relative;flex:1;height:2px;background:var(--chrome-line);min-width:3rem}
+.fill{position:absolute;inset:0;background:var(--chrome-fg);transform-origin:0 50%;transition:transform var(--dur) var(--ease)}
+.tick{position:absolute;top:-4px;width:1px;height:10px;background:var(--chrome-fg);opacity:.6}
+
+/* speaker notes: hidden until toggled */
+.notes{
+  position:absolute;z-index:20;left:0;right:0;bottom:0;max-height:42%;overflow:auto;
+  padding:1rem 1.25rem;background:rgba(10,10,10,.94);color:#e8ebe9;font:15px/1.5 var(--font-text);
+}
+.notes[hidden]{display:none}
+.notes-head{margin:0 0 .5rem;font-size:11px;letter-spacing:.12em;text-transform:uppercase;opacity:.7}
+.notes-body{white-space:pre-wrap;max-width:60em}
+
+/* ---------- phone and other portrait screens ---------- */
+@media screen and (max-aspect-ratio:4/5){
+  .deck{--u:min(2.7cqw,12px);--chrome-h:3.5rem}
+  .stage-wrap{place-items:stretch}
+  .stage{aspect-ratio:auto;width:100%;height:100%;box-shadow:none}
+  .chrome{gap:.6rem;padding:0 .6rem}
+  .chrome-home,.btn-fs{display:none}
+  .counter{min-width:4.6em}
+  .btn{min-width:2.75rem;height:2.75rem}
+  .notes{max-height:55%}
+
+  :root{--pad:2.9;--gap:2.2}
+  .copy{overflow:auto;gap:calc(var(--u) * var(--gap))}
+  .folio{top:calc(var(--u) * 3)}
+
+  .fam-split .frame:not(.no-media),.fam-split .frame.flip:not(.no-media){grid-template-columns:minmax(0,1fr);grid-template-rows:minmax(0,5fr) minmax(0,6fr)}
+  .fam-split .frame:not(.no-media) .media,.fam-split .frame.flip:not(.no-media) .media{grid-column:1;grid-row:1}
+  .fam-split .frame:not(.no-media) .copy,.fam-split .frame.flip:not(.no-media) .copy{grid-column:1;grid-row:2;justify-content:flex-start}
+
+  .fam-led .frame,.fam-bleed .frame{grid-template-rows:minmax(0,1fr) auto}
+  .fam-led .media,.fam-bleed .media{grid-area:1/1}
+  .fam-led .copy,.fam-bleed .copy,.fam-led .frame.no-media .copy{grid-area:2/1;align-self:stretch;max-width:none;background:var(--bg);color:var(--fg);pointer-events:auto;max-height:62cqh;padding:calc(var(--u) * 4) calc(var(--u) * var(--pad))}
+  .fam-bleed .frame:not(.no-media)::before{display:none}
+  .fam-bleed .ph{align-items:flex-start;text-align:left}
+  .ph{padding-top:calc(var(--u) * 8)}
+  .t-experience .copy{align-items:flex-start}
+  .t-tension .text{font-size:max(16px,calc(var(--u) * 2))}
+  .fam-led .text{font-size:max(var(--min-body),calc(var(--u) * 2))}
+  .fam-split .no-media .text,.t-idea .no-title .text{font-size:max(26px,calc(var(--u) * 5))}
+  .t-idea .title{font-size:calc(var(--u) * 14)}
+  .t-idea .text{font-size:max(16px,calc(var(--u) * 2.2))}
+  .t-outcome .bullets,.t-tension .bullets{grid-template-columns:1fr}
+  .text{font-size:max(16px,calc(var(--u) * 2))}
+  .bullets{font-size:max(13px,calc(var(--u) * 1.5))}
+  .quote{font-size:max(13px,calc(var(--u) * 1.5))}
+
+  .cover-title{font-size:calc(var(--u) * 11)}
+  .cover-statement{font-size:max(var(--min-body),calc(var(--u) * 3.3))}
+  .pt-name{font-size:calc(var(--u) * 11)}
+  .fam-work .copy{padding-top:calc(var(--u) * 10)}
+  .work-grid{grid-template-columns:1fr;grid-auto-rows:minmax(0,1fr)}
+  .tile{padding:calc(var(--u) * 3);flex-direction:row;flex-wrap:wrap;align-items:flex-end}
+  .tile-name{font-size:calc(var(--u) * 8);margin-top:0}
+  .tile-out{font-size:max(var(--min-body),calc(var(--u) * 2.4))}
+  .cl-row{grid-template-columns:1fr;gap:calc(var(--u) * 1)}
+  .cl dd{font-size:max(var(--min-body),calc(var(--u) * 3.2))}
+}
+
+/* ---------- reduced motion ---------- */
+@media (prefers-reduced-motion:reduce){
+  .slide,.fill,.tile{transition:none}
+  .slide.is-current [data-r],.slide.is-current .fig.drift img{animation:none}
+}
+
+/* ---------- print: one slide per page, so a deck saves as a PDF ---------- */
+@page{size:13.333in 7.5in;margin:0}
+@media print{
+  html,body{height:auto;overflow:visible;background:#fff}
+  .deck{display:block;height:auto;--u:1cqw}
+  .chrome,.notes,.tbs,.deck-loading{display:none!important}
+  .stage-wrap{display:block}
+  .stage{width:auto;aspect-ratio:auto;overflow:visible;box-shadow:none;touch-action:auto;background:none}
+  .slide{
+    position:relative;inset:auto;width:13.333in;height:7.5in;opacity:1!important;visibility:visible!important;
+    transition:none;break-after:page;page-break-after:always;
+    -webkit-print-color-adjust:exact;print-color-adjust:exact;
+  }
+  .slide:last-child{break-after:auto;page-break-after:auto}
+  [data-r],.fig.drift img{animation:none!important;opacity:1!important;transform:none!important}
+  .tile:hover{background:none;color:inherit}
+}

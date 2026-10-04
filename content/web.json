@@ -1,0 +1,235 @@
+{
+  "id": "web",
+  "title": "Web Design",
+  "claim": "I can translate a brand into an experience",
+  "flow": "Understand the brand, design the system, build the experience.",
+  "practiceStatement": "I translate a brand's atmosphere into an experience people can use.",
+  "rhythm": "Client, problem, direction, system, experience",
+  "projects": [
+    {
+      "id": "the-reach-riverside",
+      "name": "The Reach Riverside",
+      "disciplines": "Web Design, Brand Translation",
+      "context": "Client work, West London. Formerly The Reach Brasserie",
+      "url": "https://www.thereachriverside.com/",
+      "oneLineOutcome": null,
+      "slides": [
+        {
+          "n": 0,
+          "type": "question",
+          "title": null,
+          "text": "How do you make a riverside restaurant feel as distinctive online as it does in person?",
+          "image": null,
+          "notes": "Question. Draft.",
+          "status": "draft"
+        },
+        {
+          "n": 1,
+          "type": "client",
+          "title": null,
+          "text": null,
+          "image": null,
+          "notes": "Client. Who they are and what the site had to do.",
+          "status": "needs-input"
+        },
+        {
+          "n": 2,
+          "type": "problem",
+          "title": null,
+          "text": null,
+          "image": {
+            "src": "assets/web/reach/02-before.jpg",
+            "alt": "The previous The Reach Riverside website",
+            "status": "needed",
+            "brief": "Before screenshots"
+          },
+          "notes": "Problem. A before and after does more than any paragraph.",
+          "status": "needs-input"
+        },
+        {
+          "n": 3,
+          "type": "direction",
+          "title": null,
+          "text": "Dark navy and cream with gold. Pink banquettes and brass. Day and night imagery split. Good times by the river.",
+          "image": {
+            "src": "assets/web/reach/03-direction.jpg",
+            "alt": "Colour, type and imagery direction for The Reach Riverside",
+            "status": "needed",
+            "brief": "Palette, type, imagery references"
+          },
+          "notes": "Direction. Confirm type and exact colours from the build.",
+          "status": "draft"
+        },
+        {
+          "n": 4,
+          "type": "system-structure",
+          "title": null,
+          "text": "Home, Menus, About, Private Dining and Events, What's On, Christmas, Contact. Booking one tap away.",
+          "image": {
+            "src": "assets/web/reach/04-sitemap.svg",
+            "alt": "Sitemap for the The Reach Riverside website",
+            "status": "needed",
+            "brief": "Sitemap diagram"
+          },
+          "notes": "System. Structure and navigation.",
+          "status": "draft"
+        },
+        {
+          "n": 5,
+          "type": "system-components",
+          "title": null,
+          "text": "Menus by time of day: brunch, lunch, small plates, dinner, cocktails, Sunday roast. A scrolling carousel. A what's-on page.",
+          "image": {
+            "src": "assets/web/reach/05-components.jpg",
+            "alt": "Key components of the The Reach Riverside website",
+            "status": "needed",
+            "brief": "Component close-ups"
+          },
+          "notes": "System. Components and interactions.",
+          "status": "draft"
+        },
+        {
+          "n": 6,
+          "type": "experience",
+          "title": null,
+          "text": null,
+          "image": {
+            "src": "assets/web/reach/06-experience.jpg",
+            "alt": "The The Reach Riverside website on desktop and phone",
+            "status": "needed",
+            "brief": "Desktop and phone side by side"
+          },
+          "notes": "Experience. Proof object: desktop and phone side by side, with the URL https://www.thereachriverside.com/.",
+          "status": "needs-input"
+        },
+        {
+          "n": 7,
+          "type": "outcome",
+          "title": null,
+          "text": null,
+          "image": null,
+          "notes": "Outcome. One line on what the site now does. A real figure if there is one: bookings, enquiries, time on page.",
+          "status": "needs-input"
+        }
+      ]
+    },
+    {
+      "id": "mandaloun-westfield",
+      "name": "Mandaloun Westfield",
+      "disciplines": "Web Design, Brand Translation",
+      "context": "Client work",
+      "url": "https://www.mandaloun.com",
+      "oneLineOutcome": null,
+      "slides": [
+        {
+          "n": 0,
+          "type": "question",
+          "title": null,
+          "text": "How do you make cooking made to be shared feel shared before anyone arrives?",
+          "image": null,
+          "notes": "Question. Draft.",
+          "status": "draft"
+        },
+        {
+          "n": 1,
+          "type": "client",
+          "title": null,
+          "text": "A Lebanese restaurant at Westfield: mezze, charcoal grills, Bekaa Valley wine, shisha and lounge, private dining for up to 130.",
+          "image": null,
+          "notes": "Client. Who they are and what the site had to do.",
+          "status": "draft"
+        },
+        {
+          "n": 2,
+          "type": "problem",
+          "title": null,
+          "text": null,
+          "image": {
+            "src": "assets/web/mandaloun/02-before.jpg",
+            "alt": "The previous Mandaloun Westfield website",
+            "status": "needed",
+            "brief": "Before screenshots"
+          },
+          "notes": "Problem. A before and after does more than any paragraph. Confirm which URL is the before and which the after. Zai has said the owner disliked the previous visuals and structure.",
+          "status": "needs-input"
+        },
+        {
+          "n": 3,
+          "type": "direction",
+          "title": null,
+          "text": "Deep teal on light grounds. Generous whitespace. Abundant tablescapes. Lebanese cooking, made to be shared.",
+          "image": {
+            "src": "assets/web/mandaloun/03-direction.jpg",
+            "alt": "Colour, type and imagery direction for Mandaloun Westfield",
+            "status": "needed",
+            "brief": "Palette, type, imagery references"
+          },
+          "notes": "Direction. Confirm type and exact colours from the build. Teal on the live site is approximately #0E3A43.",
+          "status": "draft"
+        },
+        {
+          "n": 4,
+          "type": "system-structure",
+          "title": null,
+          "text": "Menus, Lunch, Private Dining, Shisha and Lounge, Gallery, Our Story, Visit. Booking and phone always visible.",
+          "image": {
+            "src": "assets/web/mandaloun/04-sitemap.svg",
+            "alt": "Sitemap for the Mandaloun Westfield website",
+            "status": "needed",
+            "brief": "Sitemap diagram"
+          },
+          "notes": "System. Structure and navigation.",
+          "status": "draft"
+        },
+        {
+          "n": 5,
+          "type": "system-components",
+          "title": null,
+          "text": "The Grand Mezze as the hero offer. An all-day structure from breakfast to midnight. Guest testimonials.",
+          "image": {
+            "src": "assets/web/mandaloun/05-components.jpg",
+            "alt": "Key components of the Mandaloun Westfield website",
+            "status": "needed",
+            "brief": "Component close-ups"
+          },
+          "notes": "System. Components and interactions.",
+          "status": "draft"
+        },
+        {
+          "n": 6,
+          "type": "experience",
+          "title": null,
+          "text": null,
+          "image": {
+            "src": "assets/web/mandaloun/06-experience.jpg",
+            "alt": "The Mandaloun Westfield website on desktop and phone",
+            "status": "needed",
+            "brief": "Desktop and phone side by side"
+          },
+          "notes": "Experience. Proof object: desktop and phone side by side, with the URL https://www.mandaloun.com.",
+          "status": "needs-input"
+        },
+        {
+          "n": 7,
+          "type": "outcome",
+          "title": null,
+          "text": null,
+          "image": null,
+          "notes": "Outcome. One line on what the site now does. A real figure if there is one: bookings, enquiries, time on page.",
+          "status": "needs-input"
+        }
+      ]
+    }
+  ],
+  "closing": {
+    "type": "closing",
+    "status": "needs-input",
+    "fields": {
+      "bio": null,
+      "lookingFor": null,
+      "contact": null,
+      "siteLink": "https://www.zairachrista.com"
+    },
+    "notes": "Short bio, what you are looking for, contact details. Not yet written."
+  }
+}

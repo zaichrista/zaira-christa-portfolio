@@ -24,7 +24,7 @@ jobs:
       - uses: actions/checkout@v4
       # stamp each deploy into the asset links, so a browser never pairs a new page with old cached scripts
       - name: Version the asset links
-        run: sed -i "s/__V__/${GITHUB_SHA::7}/g" index.html privacy.html terms.html accessibility.html
+        run: find . -name "*.html" -not -path "./.git/*" -exec sed -i "s/__V__/${GITHUB_SHA::7}/g" {} +
       - uses: actions/configure-pages@v5
       - uses: actions/upload-pages-artifact@v3
         with:

@@ -7,35 +7,47 @@
 <meta name="description" content="Zaira Christa, a London-based creative strategist and designer. Portfolio, work and contact.">
 <meta name="referrer" content="strict-origin-when-cross-origin">
 <meta name="theme-color" content="#121211">
+<link rel="canonical" href="https://zaichrista.github.io/zaira-christa-portfolio/">
 <meta property="og:type" content="website">
+<meta property="og:url" content="https://zaichrista.github.io/zaira-christa-portfolio/">
+<meta property="og:image" content="https://zaichrista.github.io/zaira-christa-portfolio/assets/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://zaichrista.github.io/zaira-christa-portfolio/assets/og.png">
 <meta property="og:title" content="Zaira Christa">
 <meta property="og:description" content="Creative strategist and designer based in London. Portfolio, work and contact.">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%23121211'/%3E%3Ctext x='16' y='23' text-anchor='middle' font-family='Times New Roman,serif' font-size='20' fill='%23f2efe9'%3EZ%3C/text%3E%3C/svg%3E">
+<link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
 <link rel="stylesheet" href="css/style.css?v=__V__">
+<link rel="stylesheet" href="css/work2.css?v=__V__">
 </head>
 <body class="home">
 
 <header>
-  <a class="mb-z" data-go="home" aria-label="Home"><svg viewBox="0 0 22 22" aria-hidden="true"><path d="M11 5.6C8.9 5.6 8.3 7.9 7.7 9.6C7 11.6 4.3 13 4.3 16.2C4.3 19.4 7 21.2 11 21.2C15 21.2 17.7 19.4 17.7 16.2C17.7 13 15 11.6 14.3 9.6C13.7 7.9 13.1 5.6 11 5.6z"/><path d="M10.4 6L10.8 2.2L12 2.2L11.6 6z"/><path d="M12 3.6C13 1.6 15.4 1.4 16.6 2.2C15.8 4.2 13.6 4.6 12 3.6z"/></svg></a>
-  <a class="mark" data-go="home">Zaira Christa</a>
+  <a class="mb-z" href="#home" data-go="home" aria-label="Home"><svg viewBox="0 0 22 22" aria-hidden="true"><path d="M11 5.6C8.9 5.6 8.3 7.9 7.7 9.6C7 11.6 4.3 13 4.3 16.2C4.3 19.4 7 21.2 11 21.2C15 21.2 17.7 19.4 17.7 16.2C17.7 13 15 11.6 14.3 9.6C13.7 7.9 13.1 5.6 11 5.6z"/><path d="M10.4 6L10.8 2.2L12 2.2L11.6 6z"/><path d="M12 3.6C13 1.6 15.4 1.4 16.6 2.2C15.8 4.2 13.6 4.6 12 3.6z"/></svg></a>
+  <a class="mark" href="#home" data-go="home">Zaira Christa</a>
   <span class="mb-menus" aria-hidden="true"><span>File</span><span>Edit</span><span>View</span><span>Go</span><span>Window</span><span>Help</span></span>
   <nav>
-    <a data-go="home" class="cur">Home</a>
-    <a data-go="about"><i>01</i>About</a>
-    <a data-go="work"><i>02</i>Work</a>
-    <a data-go="contact"><i>03</i>Contact</a>
+    <a href="#home" data-go="home" class="cur">Home</a>
+    <a href="#about" data-go="about"><i>01</i>About</a>
+    <!-- the old desktop-style Work page is hidden, not deleted: put this link back (and remove the work alias in js/main.js) to bring it back
+    <a href="#work" data-go="work"><i>02</i>Work</a> -->
+    <a href="#work2" data-go="work2"><i>02</i>Work</a>
+    <a href="#contact" data-go="contact"><i>03</i>Contact</a>
   </nav>
 </header>
 
 <!-- HOME -->
 <main id="home" class="page active">
-  <div class="hero" id="hero" aria-label="Zaira Christa"></div>
+  <h1 class="sr-only">Zaira Christa</h1>
+  <div class="hero" id="hero" aria-hidden="true"></div>
   <p class="tagline">A creative strategist and designer who (really) wants a job.</p>
   <p class="squish label">(squish the letters)</p>
   <button class="resq label" id="resetSquish" type="button">reset</button>
 </main>
 <button class="scrollcue label" id="scrollcue" type="button">(Scroll)</button>
-<button class="sun" id="sun" type="button" aria-label="Sun" title="Light mode">
+<button class="sun" id="sun" type="button" aria-label="Play a song" title="Play a song">
   <svg viewBox="0 0 32 32" width="30" height="30" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" aria-hidden="true">
     <circle cx="16" cy="16" r="5.5"/>
     <g class="rays"><path d="M16 3v4M16 25v4M3 16h4M25 16h4M7 7l2.8 2.8M22.2 22.2L25 25M25 7l-2.8 2.8M9.8 22.2L7 25"/></g>
@@ -67,7 +79,7 @@
   <div class="about-grid">
     <h1 class="stmt stretch" style="grid-column:1 / -1">I'm Zai &lt;3</h1>
     <div class="about-left">
-      <div class="photo blob b1"><img src="assets/images/zaira.jpg" alt="Black and white photo of Zaira smiling over her shoulder, in a long patterned halter dress on a cobbled path"></div>
+      <div class="photo blob b1"><img src="assets/images/zaira.jpg" width="796" height="986" decoding="async" alt="Black and white photo of Zaira smiling over her shoulder, in a long patterned halter dress on a cobbled path"></div>
 
     </div>
     <div class="about-right prose">
@@ -92,11 +104,34 @@
   </div>
 </section>
 
+<!-- WORK II -->
+<section id="work2" class="page">
+  <div class="w2">
+    <div class="w2-left">
+      <h1 class="stretch w2h1" style="--k:1.5">I made these <span class="w2sub">(websites)</span></h1>
+      <ol class="w2list">
+        <li><button type="button" class="w2item" data-id="reach" aria-pressed="false"><i>01</i><span>The Reach Riverside</span></button></li>
+        <li><button type="button" class="w2item" data-id="mandaloun" aria-pressed="false"><i>02</i><span>Mandaloun</span></button></li>
+      </ol>
+      <h2 class="stretch w2h2" style="--k:1.4">and these too <span class="w2sub">(not websites)</span></h2>
+      <ol class="w2list">
+        <li><button type="button" class="w2item" data-id="gala" aria-pressed="false"><i>03</i><span>The Oxford Fashion Gala</span></button></li>
+        <li><button type="button" class="w2item" data-id="ff22" aria-pressed="false"><i>04</i><span>Zaira Christa FF22</span></button></li>
+        <li><button type="button" class="w2item" data-id="ss23" aria-pressed="false"><i>05</i><span>Zaira Christa SS23</span></button></li>
+        <li><button type="button" class="w2item" data-id="bekaa" aria-pressed="false"><i>06</i><span>Bekaa</span></button></li>
+        <li><button type="button" class="w2item" data-id="void" aria-pressed="false"><i>07</i><span>Void</span></button></li>
+      </ol>
+      <div class="w2note" id="w2info" aria-live="polite"></div>
+    </div>
+    <div class="w2-right" id="w2right"></div>
+  </div>
+</section>
+
 <!-- WORK -->
 <section id="work" class="page">
   <div class="desk" id="desk">
     <button class="dicon" id="dFolder" type="button" aria-label="Work, folder. Double-click to open." style="--x:41%;--y:31%">
-      <svg viewBox="0 0 64 56" aria-hidden="true"><path d="M3 9a5 5 0 0 1 5-5h14l6 6h28a5 5 0 0 1 5 5v31a5 5 0 0 1-5 5H8a5 5 0 0 1-5-5z" fill="#007f9e"/><rect x="3" y="17" width="58" height="35" rx="5" fill="#1db4d4"/><rect x="3" y="17" width="58" height="9" rx="4.5" fill="#5fd0e8" opacity=".55"/></svg>
+      <svg viewBox="0 0 64 56" aria-hidden="true"><path d="M3 9a5 5 0 0 1 5-5h14l6 6h28a5 5 0 0 1 5 5v31a5 5 0 0 1-5 5H8a5 5 0 0 1-5-5z" fill="#1db4d4"/><rect x="3" y="17" width="58" height="35" rx="5" fill="#1db4d4"/><rect x="3" y="17" width="58" height="9" rx="4.5" fill="#5fd0e8" opacity=".55"/></svg>
       <span class="dname">Work</span>
     </button>
     <button class="dicon" id="dSheet" type="button" aria-label="ZAIRA.sav, character sheet. Double-click to open." style="--x:33%;--y:52%">
@@ -106,6 +141,10 @@
     <button class="dicon" id="dCv" type="button" aria-label="CV_Zaira_Final_CREATIVE_v29.pdf. Double-click to open." style="--x:52%;--y:43%">
       <svg viewBox="0 0 48 60" aria-hidden="true"><path d="M4 2h28l12 12v42a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2z" fill="#fff" stroke="#242829" stroke-width="1.6"/><path d="M32 2v12h12" fill="#C9D0CC" stroke="#242829" stroke-width="1.6" stroke-linejoin="round"/><rect x="2" y="30" width="34" height="14" rx="2" fill="#c4452d"/><text x="19" y="40.6" text-anchor="middle" font-family="Helvetica,Arial,sans-serif" font-size="9.5" font-weight="700" fill="#fff">PDF</text><path d="M9 20h18M9 25h12" stroke="#C9D0CC" stroke-width="2" stroke-linecap="round"/></svg>
       <span class="dname">CV_Zaira_Final_CREATIVE_v29.pdf</span>
+    </button>
+    <button class="dicon" id="dWebsites" type="button" aria-label="websites, folder. Double-click to open." style="--x:63%;--y:30%">
+      <svg viewBox="0 0 64 56" aria-hidden="true"><path d="M3 9a5 5 0 0 1 5-5h14l6 6h28a5 5 0 0 1 5 5v31a5 5 0 0 1-5 5H8a5 5 0 0 1-5-5z" fill="#1db4d4"/><rect x="3" y="17" width="58" height="35" rx="5" fill="#1db4d4"/><rect x="3" y="17" width="58" height="9" rx="4.5" fill="#5fd0e8" opacity=".55"/></svg>
+      <span class="dname">websites</span>
     </button>
   </div>
   <nav class="dock" aria-label="Dock">
@@ -161,12 +200,16 @@
       <div class="grip" title="Drag me"><button class="bin" type="button" aria-label="Bin this note">&times;</button></div>
       <div class="stext" contenteditable="true" spellcheck="false" aria-label="Sticky note, editable">Rectangles are permitted in this office.</div>
     </div>
-<div class="win finder closed" id="finder" aria-label="Work folder">
+<div class="sticky extra webnote" id="stickyWeb">
+      <div class="grip" title="Drag me"><button class="bin" type="button" aria-label="Bin this note">&times;</button></div>
+      <div class="stext" contenteditable="true" spellcheck="false" aria-label="Sticky note, editable">websites for clients (make sure to show everyone)</div>
+    </div>
+<div class="win finder closed" id="finder" tabindex="-1" role="dialog" aria-label="Work folder">
       <div class="tbar"><div class="dots"><button type="button" class="wclose" aria-label="Close window"></button><i></i><i></i></div><div class="ttl">Work</div></div>
       <div class="fbody">
         <aside class="side" aria-label="Sidebar">
           <h4>Favourites</h4>
-          <ul><li><button type="button" data-loc="recents">Recents</button></li><li><button type="button" class="on" data-loc="work">Work</button></li><li><button type="button" data-loc="desktop">Desktop</button></li><li><button type="button" data-loc="downloads">Downloads (do not open)</button></li></ul>
+          <ul><li><button type="button" data-loc="recents">Recents</button></li><li><button type="button" class="on" data-loc="work">Work</button></li><li><button type="button" data-loc="websites">websites</button></li><li><button type="button" data-loc="desktop">Desktop</button></li><li><button type="button" data-loc="downloads">Downloads (do not open)</button></li></ul>
           <h4>Locations</h4>
           <ul><li><button type="button" data-loc="trash">Trash</button></li></ul>
         </aside>
@@ -206,6 +249,15 @@
   </div>
 </div>
 
+<div class="win pdfwin sitewin closed" id="sitewin" tabindex="-1" role="dialog" aria-label="Reach Riverside website">
+  <div class="tbar"><div class="dots"><button type="button" class="wclose" id="siteClose" aria-label="Close website"></button><i></i><i></i></div><div class="ttl">Reach_Riverside.html</div></div>
+  <div class="tools pdftools">
+    <span class="stat">zaichrista.github.io/Reach-Riverside-site</span>
+    <a class="btn" href="https://zaichrista.github.io/Reach-Riverside-site/" target="_blank" rel="noopener">Open in new tab</a>
+  </div>
+  <div class="pdfview real" id="siteview"></div>
+</div>
+
 <div class="win sheet closed" id="sheet" tabindex="-1" role="dialog" aria-label="Character sheet">
   <div class="tbar"><div class="dots"><button type="button" class="wclose" aria-label="Close character sheet"></button><i></i><i></i></div><div class="ttl">ZAIRA.sav &mdash; Character Sheet</div></div>
   <div class="sbody">
@@ -221,12 +273,12 @@
       </dl>
       <p class="boss"><b>Boss battle</b>Explaining how I went from a music degree at Oxford to creative strategy.</p>
     </div>
-    <div class="tabs" role="tablist">
-      <button type="button" role="tab" class="on" data-tab="abilities">Abilities</button>
-      <button type="button" role="tab" data-tab="fluent">Fluent in</button>
-      <button type="button" role="tab" data-tab="weak">Weaknesses</button>
+    <div class="tabs" role="tablist" aria-label="Character sheet sections">
+      <button type="button" role="tab" class="on" data-tab="abilities" id="tabbtn-abilities" aria-controls="tab-abilities" aria-selected="true">Abilities</button>
+      <button type="button" role="tab" data-tab="fluent" id="tabbtn-fluent" aria-controls="tab-fluent" aria-selected="false">Fluent in</button>
+      <button type="button" role="tab" data-tab="weak" id="tabbtn-weak" aria-controls="tab-weak" aria-selected="false">Weaknesses</button>
     </div>
-    <ul class="tab on" id="tab-abilities">
+    <ul class="tab on" id="tab-abilities" role="tabpanel" aria-labelledby="tabbtn-abilities">
       <li>Spots inconsistencies from 20 metres away</li>
       <li>Makes research look sexy</li>
       <li>Finds the concept hiding underneath the concept</li>
@@ -236,13 +288,13 @@
       <li><i>+30</i> persuasion when presenting something visually</li>
       <li>Immune to &ldquo;can we make the logo bigger?&rdquo;</li>
     </ul>
-    <ul class="tab" id="tab-fluent">
+    <ul class="tab" id="tab-fluent" role="tabpanel" aria-labelledby="tabbtn-fluent">
       <li>Extremely specific references</li>
       <li>Times New Roman (stretched)</li>
       <li>Helvetica</li>
       <li>Learning languages to a semi-conversational level</li>
     </ul>
-    <ul class="tab" id="tab-weak">
+    <ul class="tab" id="tab-weak" role="tabpanel" aria-labelledby="tabbtn-weak">
       <li>Rectangles</li>
       <li>&ldquo;Final_v7_REALfinal.ai&rdquo;</li>
       <li>Cannot leave a perfectly adequate website alone</li>
@@ -254,5 +306,6 @@
 
 <script src="js/config.js?v=__V__"></script>
 <script src="js/main.js?v=__V__"></script>
+<script src="js/work2.js?v=__V__"></script>
 </body>
 </html>

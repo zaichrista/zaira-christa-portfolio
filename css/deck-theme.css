@@ -1,0 +1,101 @@
+/*
+  DECK THEME
+  Everything you would want to change about how the decks look lives here:
+  colour, type, spacing and motion. deck.css only reads these variables.
+
+  Direction (from the references): old Apple print ads. Huge, tight, tall serif
+  headlines on pale ground, bondi blue as the one colour, small quiet body copy,
+  a lot of empty space. Tension and picture slides go dark for the cinema.
+  System fonts for now (Times, Helvetica), matching the live site.
+
+  Sizes are unitless multiples of --u, which is 1% of the slide width, so a
+  slide looks the same at any screen size. 1.7 means "1.7% of the slide width".
+*/
+:root{
+  /* ---------- colour: palette ---------- */
+  --c-ink:#121211;
+  --c-ink-2:#242829;
+  --c-paper:#eef0ee;            /* the pale ground, a touch cool like the ads */
+  --c-paper-2:#d9dedb;
+  --c-bondi:#0095B6;
+  --c-bondi-deep:#006C7C;       /* bondi for text on pale ground, keeps contrast */
+  --c-mute:#5f6667;
+  --c-focus:#0095B6;
+  --stage-bg:#0a0a0a;           /* the letterbox around the slide */
+
+  /* ---------- colour: which surface each kind of slide sits on ---------- */
+  --bg-default:var(--c-paper);        --fg-default:var(--c-ink);
+  --bg-cover:var(--c-paper);          --fg-cover:var(--c-ink);
+  --bg-work:var(--c-paper);           --fg-work:var(--c-ink);
+  --bg-titlecard:var(--c-bondi);      --fg-titlecard:var(--c-ink);
+  --bg-insight:var(--c-paper);        --fg-insight:var(--c-ink);
+  --bg-interpretation:var(--c-ink);   --fg-interpretation:var(--c-paper);
+  --bg-outcome:var(--c-paper);        --fg-outcome:var(--c-ink);
+  --bg-closing:var(--c-paper);        --fg-closing:var(--c-ink);
+  --bg-dark:var(--c-ink);             --fg-dark:var(--c-paper);   /* tension, hero, runway */
+  --bg-diagram:var(--c-paper-2);      /* behind diagrams and screenshots */
+  --accent:var(--c-bondi-deep);       /* accent text on pale slides */
+  --accent-on-dark:var(--c-bondi);
+
+  /* ---------- colour: image overlays and placeholders ---------- */
+  --scrim:linear-gradient(to top,rgba(10,10,10,.9) 0%,rgba(10,10,10,.55) 45%,rgba(10,10,10,0) 100%);
+  --ph-a:#e4e8e5;
+  --ph-b:#d6dcd8;
+  --ph-line:#006C7C;
+  --ph-fg:#121211;
+  --ph-tag-bg:#006C7C;
+  --ph-tag-fg:#eef0ee;
+  /* placeholders on dark slides */
+  --ph-dark-a:#1b1f20;
+  --ph-dark-b:#232829;
+  --ph-dark-line:#0095B6;
+  --ph-dark-fg:#eef0ee;
+  --ph-dark-tag-bg:#0095B6;
+  --ph-dark-tag-fg:#121211;
+
+  /* ---------- type: families ---------- */
+  --font-display:"Times New Roman",Times,serif;     /* headlines and statements */
+  --font-text:Helvetica,"Helvetica Neue",Arial,sans-serif;  /* captions, lists, labels */
+  --font-label:var(--font-text);
+
+  /* ---------- type: character ---------- */
+  --fw-display:400;
+  --lh-display:.94;
+  --tracking-display:-0.035em;  /* tight, like the ads */
+  --tracking-label:.14em;
+  --style-statement:normal;     /* try italic for the question and insight slides */
+
+  /* ---------- type: scale (multiples of --u) ---------- */
+  --fs-cover:9.5;
+  --fs-titlecard:9;
+  --fs-question:5.2;
+  --fs-insight:7.4;
+  --fs-interpretation:6;
+  --fs-idea-title:12;
+  --fs-idea-text:2.2;
+  --fs-outcome:5.2;
+  --fs-tension:3;
+  --fs-body:1.9;
+  --fs-bullet:1.3;
+  --fs-caption:1.1;
+  --fs-label:.85;
+  --min-body:14px;              /* never smaller than this on a small screen */
+  --min-small:11px;
+
+  /* ---------- space (multiples of --u) ---------- */
+  --pad:5.5;                    /* slide margin */
+  --gap:2.2;                    /* gap between blocks of text */
+
+  /* ---------- chrome (the bar under the slide) ---------- */
+  --chrome-h:3.25rem;
+  --chrome-bg:#0a0a0a;
+  --chrome-fg:#e8ebe9;
+  --chrome-line:#3a3f40;
+
+  /* ---------- motion ---------- */
+  --dur:.55s;                   /* slide to slide fade */
+  --dur-slow:.9s;               /* text rising in */
+  --ease:cubic-bezier(.2,.7,.1,1);
+  --stagger:.09s;               /* delay between lines of text arriving */
+  --drift:16s;                  /* slow push-in on big pictures */
+}
