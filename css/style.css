@@ -162,6 +162,8 @@
   .nope.sad{bottom:7.2rem;transform:translateX(-50%) rotate(1.5deg) scale(.9)}
   .nope.sad.on{transform:translateX(-50%) rotate(1.5deg) scale(1)}
   .nope.on{opacity:1;transform:translateX(-50%) rotate(-2deg) scale(1)}
+  /* About and Contact are cream too, so the message box goes dark there */
+  body.about .nope,body.contact .nope{background:var(--black);color:var(--white)}
 
   /* ---------- ORGANIC SHAPES ---------- */
   .blob{
