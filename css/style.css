@@ -455,16 +455,31 @@
   .contact-grid{display:grid;grid-template-columns:repeat(12,1fr);column-gap:var(--gap);row-gap:3.5rem}
   .contact-left{grid-column:1 / span 5}
   .contact-right{grid-column:7 / span 6}
+  @media(min-width:901px){.contact-right{margin-top:-4rem}}
   @media(max-width:900px){.contact-left,.contact-right{grid-column:1 / -1}}
   .royal{font-size:clamp(1.15rem,1.7vw,1.4rem);line-height:1.55;max-width:30rem;margin-bottom:2.2rem}
   .email-line{font-size:1.2rem;line-height:1.5}
-  .email-line a{position:relative;text-decoration:none;display:inline-block}
-  .email-line a::after{
+  .email-line a,.email-copy{position:relative;text-decoration:none;display:inline-block}
+  .email-copy{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:pointer;text-align:left}
+  .email-line a::after,.email-copy::after{
     content:"";position:absolute;left:0;right:0;bottom:-4px;height:6px;background:currentColor;
     -webkit-mask:var(--wob) center/100% 100% no-repeat;mask:var(--wob) center/100% 100% no-repeat;
   }
   .email-line .label{display:block;color:var(--grey);margin-top:1.2rem;line-height:1.6;max-width:22rem}
-  form{display:flex;flex-direction:column;gap:2.2rem}
+  .copy-hint{font-family:var(--sans);font-size:10px;letter-spacing:.12em;text-transform:uppercase;margin-left:.8rem;color:var(--deep-bondi)}
+  .royal b{font-weight:inherit;text-decoration:underline;text-decoration-thickness:.08em;text-underline-offset:.2em}
+  /* "Loading hire-ability" counts up to 100% when the page opens; browsers without @property just show 100% */
+  @property --pct{syntax:"<integer>";inherits:false;initial-value:100}
+  .hire-load .pct{counter-reset:pct var(--pct)}
+  .hire-load .pct::after{content:counter(pct) "%";font-weight:700}
+  #contact.active .hire-load .pct{animation:hireload 2.4s cubic-bezier(.3,.1,.2,1) both}
+  @keyframes hireload{from{--pct:0}to{--pct:100}}
+  @media(prefers-reduced-motion:reduce){#contact.active .hire-load .pct{animation:none}}
+  .terms{list-style:none;margin:0;padding:0;font-size:.95rem;line-height:1.7}
+  .terms li{display:flex;gap:.6rem;align-items:baseline}
+  .terms li:not(.terms-h)::before{content:"\2611";color:var(--deep-bondi)}
+  .terms-h{font-family:var(--sans);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--grey);margin-bottom:.3rem}
+  form{display:flex;flex-direction:column;gap:1.8rem}
   .field{position:relative;padding-bottom:.4rem}
   .field::after{
     content:"";position:absolute;left:0;right:0;bottom:0;height:6px;background:var(--black);
@@ -486,6 +501,7 @@
     border-radius:42% 58% 63% 37% / 46% 41% 59% 54%;transform:rotate(-2deg);transition:transform .2s;
   }
   .send:hover{transform:rotate(1.5deg) scale(1.03)}
+  .send s{text-decoration-thickness:.12em;opacity:.7;margin-right:.35em}
 
   /* ---------- FOOTER ---------- */
   footer{
@@ -635,7 +651,7 @@
   .stats .sb i{background:var(--bondi)}
   .photo::after{border-color:var(--bondi);border-width:1.5px}
   .sheetbtn:hover{background:var(--deep-bondi);border-color:var(--deep-bondi)}
-  .email-line a::after{background:var(--bondi)}
+  .email-line a::after,.email-copy::after{background:var(--bondi)}
   .field:focus-within::after{background:var(--bondi)}
   input:focus,textarea:focus{background:rgba(0,149,182,.07)}
   .send{background:var(--deep-bondi)}

@@ -172,19 +172,26 @@
 <section id="contact" class="page">
   <div class="fit">
   <div class="contact-grid">
-    <h1 class="stmt stretch" style="grid-column:1 / -1">Please address me as Your Royal Highness.</h1>
+    <h1 class="stmt stretch" style="grid-column:1 / -1">Re: Re: Re: Fwd: Hire Zaira</h1>
     <div class="contact-left">
-      <p class="royal">Her Majesty is currently taking offers (of work, not of fealty). The throne is open to commissions, collaborations and one very good full-time role. I have already drafted this conversation in my head eleven times. Say hello and make it twelve.</p>
-      <p class="email-line"><a href="mailto:zcbarakat@gmail.com" id="emailLink">zcbarakat@gmail.com</a>
-        <span class="label">Replies arrive within one to several business days, by royal decree.</span>
+      <p class="royal"><b>Now hiring: someone with a brand problem.</b> Position filled by me, starting immediately. Brand strategy and websites, full-time or freelance. Tell me what you need and I'll reply by tomorrow. No meeting that could have been an email.</p>
+      <p class="email-line"><button class="email-copy" id="emailCopy" type="button" aria-label="Copy email address: zcbarakat@gmail.com" title="Click to copy">zcbarakat@gmail.com</button><span class="copy-hint" id="copyHint" role="status" aria-live="polite"></span>
+        <span class="label hire-load" role="img" aria-label="Loading hire-ability, 100 percent">Loading hire-ability&hellip; <span class="pct" aria-hidden="true"></span></span>
       </p>
     </div>
     <div class="contact-right">
       <form id="form">
-        <div class="field"><label class="label" for="name">Your name, humble correspondent</label><input id="name" required autocomplete="name"></div>
-        <div class="field"><label class="label" for="msg">Your message to Her Royal Highness</label><textarea id="msg" required></textarea></div>
+        <div class="field"><label class="label" for="name">Your name</label><input id="name" required autocomplete="name"></div>
+        <div class="field"><label class="label" for="email">Your email</label><input id="email" type="email" required autocomplete="email"></div>
+        <div class="field"><label class="label" for="msg">What do you need?</label><textarea id="msg" required placeholder="I'm hiring for… / I have a project… / we have a weird idea…"></textarea></div>
+        <ul class="terms" aria-label="Terms">
+          <li class="terms-h">By clicking send, you agree to:</li>
+          <li>A reply within one business day</li>
+          <li>Honest opinions about your brand</li>
+          <li>Zero "quick syncs"</li>
+        </ul>
         <div class="send-row">
-          <button class="send" type="submit">Send your regards</button>        </div>
+          <button class="send" type="submit" aria-label="Send"><s>Apply now</s> Send</button>        </div>
       </form>
     </div>
   </div>

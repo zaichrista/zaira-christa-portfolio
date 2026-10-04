@@ -1175,15 +1175,32 @@ window.addEventListener("pageshow", e => {
 });
 
 // ---- contact
-document.getElementById("emailLink").href = "mailto:" + EMAIL;
-document.getElementById("emailLink").textContent = EMAIL;
+const emailBtn = document.getElementById("emailCopy");
+const copyHint = document.getElementById("copyHint");
+emailBtn.textContent = EMAIL;
+let copyTimer;
+emailBtn.addEventListener("click", async () => {
+  let ok = false;
+  try { await navigator.clipboard.writeText(EMAIL); ok = true; }
+  catch(e){
+    const t = document.createElement("textarea");   // older browsers / non-secure pages
+    t.value = EMAIL; t.setAttribute("readonly", ""); t.style.cssText = "position:fixed;opacity:0";
+    document.body.appendChild(t); t.select();
+    try { ok = document.execCommand("copy"); } catch(_) {}
+    t.remove();
+  }
+  copyHint.textContent = ok ? "Copied" : "Press Ctrl+C";
+  clearTimeout(copyTimer);
+  copyTimer = setTimeout(() => { copyHint.textContent = ""; }, 1800);
+});
 document.getElementById("form").addEventListener("submit", e => {
   e.preventDefault();
   const n = document.getElementById("name").value;
+  const from = document.getElementById("email").value;
   const m = document.getElementById("msg").value;
   window.location.href = "mailto:" + EMAIL +
-    "?subject=" + encodeURIComponent("Regards, Your Royal Highness") +
-    "&body=" + encodeURIComponent("Your Royal Highness,\n\n" + m + "\n\nYours faithfully,\n" + n);
+    "?subject=" + encodeURIComponent("Hire Zaira: message from " + n) +
+    "&body=" + encodeURIComponent(m + "\n\n" + n + "\n" + from);
 });
 
 // ---- the cookie: asks only when something needs it (the sun, or "Cookie settings"), never over the opening.
