@@ -108,24 +108,41 @@ body.work2 header{color:var(--white)}
 .w2note{color:var(--white)}
 .w2note b,.w2item.pinned::after{color:var(--bondi)}
 
-/* phones: no floating, the windows stack under the list */
-@media(max-width:800px){
+/* phones, upright or on their side: no floating, the windows stack under the list and the page scrolls.
+   Keep this media query the same as `phone` in work2.js. */
+@media(max-width:800px),(max-height:500px){
+  #work2.active{height:100vh;height:100dvh;overflow-y:auto;overflow-x:hidden;-webkit-overflow-scrolling:touch;scroll-padding-top:4.5rem}   /* an opened window stops below the menu bar */
   #work2{padding-top:5.5rem}
   .w2{grid-template-columns:1fr}
-  .w2-left{height:auto}
+  .w2-left{height:auto;--s:min(7cqw,1.5rem)}   /* sized by width, not height, so a phone on its side keeps readable names */
+  .w2item{min-height:2.75rem;align-items:center}
   .w2note{overflow:visible}
   .w2-right{position:static;margin:0}
   .w2space{height:auto;min-height:0;overflow:visible;display:flex;flex-direction:column;gap:1.4rem}
   .w2win{position:relative;left:auto!important;top:auto!important;width:100%!important;height:auto!important;z-index:auto!important}
   .w2win.portrait{width:min(100%,24rem)!important}
   .w2win.front{outline:2px solid var(--bondi);outline-offset:3px}
-  .w2view{flex:none;aspect-ratio:16/10}
-  .w2win.portrait .w2view{aspect-ratio:3/4}
-  .w2win.max .w2view{aspect-ratio:auto;height:75dvh}
+  /* the picture area takes its height from the window's width (cqw), but is never taller than the screen,
+     so its bars and its picture can be seen together. aspect-ratio would narrow the window instead. */
+  .w2win{container-type:inline-size}
+  .w2view{flex:none;height:min(62.5cqw,100dvh - 7rem)}
+  .w2win.portrait .w2view{height:min(133cqw,100dvh - 7rem)}
+  .w2win.max .w2view{height:min(75dvh,100dvh - 7rem)}
   .w2win.max{left:auto!important;top:auto!important;width:100%!important;height:auto!important}
-  .w2win .tbar{cursor:default}
+  .w2win .tbar{cursor:default;touch-action:auto}   /* nothing to drag here, so the title bar scrolls the page like everything else */
   .w2rz{display:none}
   .w2idle{position:static;padding:1rem 0;justify-content:flex-start;text-align:left}
+  /* the picture windows swipe sideways, one picture at a time, so an up or down swipe always scrolls the page */
+  .w2view.w2scroll{display:flex;gap:.8rem;overflow-x:auto;overflow-y:hidden;overscroll-behavior:contain auto;scroll-snap-type:x mandatory}
+  .w2scroll figure{flex:0 0 100%;margin:0;display:flex;scroll-snap-align:center}
+  .w2scroll img{height:100%;object-fit:contain;background:none}
+  .w2scroll .w2ph{width:100%}
+  /* a live website would catch every swipe and the page would stop scrolling, so it sits under a cover until tapped */
+  .w2win.site:not(.live) .w2view::after{
+    content:"Tap to explore the site";position:absolute;inset:0;z-index:3;display:flex;align-items:flex-end;justify-content:center;
+    padding:.9rem;font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--ice);
+    background:linear-gradient(transparent 60%,rgba(36,40,41,.55));cursor:pointer;
+  }
 }
 @media(prefers-reduced-motion:reduce){
   .w2win{animation:none}

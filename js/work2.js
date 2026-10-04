@@ -45,7 +45,7 @@
   ];
 
   const el = (tag, cls, text) => { const n = document.createElement(tag); if (cls) n.className = cls; if (text) n.textContent = text; return n; };
-  const phone = window.matchMedia("(max-width:800px)");
+  const phone = window.matchMedia("(max-width:800px), (max-height:500px)");   // the same as the phone media query in work2.css
   const items = [...document.querySelectorAll(".w2item")];
   const byId = Object.fromEntries(PROJECTS.map(p => [p.id, p]));
   const clamp = (v, lo, hi) => Math.max(lo, Math.min(hi, v));
@@ -225,6 +225,8 @@
       const a = el("a", "btn", "Open in new tab");
       a.href = p.live || p.url; a.target = "_blank"; a.rel = "noopener";
       tools.append(el("span", "stat", p.stat), a);
+      // phones: the first tap lifts the cover off the site (see work2.css), after that the site takes the swipes
+      view.addEventListener("click", () => { if (phone.matches) win.classList.add("live"); });
     } else if (p.paged){
       tools.append(el("span", "stat", "Click Next for more"));
       view.classList.add("w2paged");
@@ -232,7 +234,7 @@
       view.setAttribute("role", "region");
       view.setAttribute("aria-label", p.title.replace(/_/g, " ") + " images");
     } else {
-      tools.append(el("span", "stat", "Scroll to see more"));
+      tools.append(el("span", "stat", phone.matches ? "Swipe for more" : "Scroll to see more"));   // phones swipe sideways (work2.css)
       view.classList.add("w2scroll");
       view.tabIndex = 0;
       view.setAttribute("role", "region");
@@ -273,7 +275,10 @@
     const empty = !open.length;
     if (empty && !wasEmpty) idle.textContent = IDLE[idleN++ % IDLE.length];   // a different line each time it empties
     idle.classList.toggle("on", empty);
-    open.forEach(en => en.win.classList.toggle("front", en === front));
+    open.forEach(en => {
+      en.win.classList.toggle("front", en === front);
+      if (en !== front) en.win.classList.remove("live");   // a site you've moved on from gets its cover back
+    });
     info.replaceChildren();
     if (front){
       const p = front.p;

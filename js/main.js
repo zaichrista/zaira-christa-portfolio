@@ -362,9 +362,9 @@ document.getElementById("songX").addEventListener("click", closeSong);
 //  ABOUT and CONTACT: always fit the window, never scroll
 // =====================================================
 // About and Contact shrink to fit, but never below MIN_TEXT_PX: past that the text is kept readable and the page scrolls.
-// On a phone-width screen they don't shrink at all.
+// On a phone, upright or on its side, they don't shrink at all. Keep this the same as the phone media query in style.css.
 const MIN_TEXT_PX = 11;   // smallest body text size the fit is allowed to produce; lower it to scroll less, raise it for bigger text
-const phoneMQ = window.matchMedia("(max-width:560px)");
+const phoneMQ = window.matchMedia("(max-width:560px), (max-height:500px)");
 const pageScrolls = () => {
   const p = document.querySelector(".page.active");
   return !!p && /^(about|contact|work2)$/.test(p.id) && p.scrollHeight > p.clientHeight + 1;

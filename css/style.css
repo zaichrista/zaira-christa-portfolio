@@ -45,6 +45,9 @@
     padding:1.3rem var(--g);color:var(--black);
   }
   body.home header{color:var(--white)}
+  /* a solid bar on the pages that scroll, so the writing and the windows pass under it instead of through the menu */
+  body.about header,body.contact header{background:var(--white)}
+  body.work2 header{background:var(--black)}
   header .mark{
     justify-self:start;font-size:1.15rem;text-decoration:none;cursor:pointer;
     display:inline-block;transform:scaleY(1.4);transform-origin:left center;
@@ -63,7 +66,7 @@
     text-decoration:none;cursor:pointer;
   }
   nav a i{font-style:normal;font-size:8px;vertical-align:super;margin-right:3px;opacity:.8}
-  nav a::before{content:"";position:absolute;inset:-.8rem -.5rem}   /* bigger tap area, nothing visible */
+  nav a::before{content:"";position:absolute;inset:-1rem -.4rem}   /* bigger tap area (about 44px tall), nothing visible */
   nav a::after{
     content:"";position:absolute;left:-2px;right:-2px;bottom:-8px;height:6px;background:currentColor;
     clip-path:inset(0 100% 0 0);transition:clip-path .35s ease;   /* drawn in from the left, rubbed out from the right */
@@ -121,6 +124,14 @@
   }
   .resq{margin-top:.3rem;background:none;border:none;color:var(--white);opacity:.75;cursor:pointer;text-decoration:underline;padding:.75rem 1rem}
   .resq:hover,.resq:focus-visible{opacity:1}
+  /* a phone on its side: the name, the line under it and reset all have to fit in about 340px of height */
+  @media(max-height:500px){
+    #home.active{padding:3.4rem var(--g) 1rem}
+    .hero{min-height:0}
+    .l{font-size:min(13vw,22vh)}
+    .tagline{margin-top:1.2rem}
+    .squish{margin-top:1rem}
+  }
 
   /* scroll cue, sun and song: Home only */
   .scrollcue,.sun,.song{display:none}
@@ -180,12 +191,18 @@
   #about.active{padding-top:7rem;padding-bottom:3.4rem}
   #contact.active{padding-bottom:6.8rem}
   body.contact footer{background:var(--white)}
-  @media(max-width:560px){
-    #about.active{padding-bottom:3rem}
-    #contact.active{padding-bottom:9rem}
-    body.contact footer{padding-top:1.2rem}
-  }
   body footer{position:fixed;left:0;right:0;bottom:0}
+  /* phones, upright or on their side: nothing shrinks, the page scrolls, and the footer comes at the end of it instead of
+     sitting over the bottom of the screen. Keep this media query the same as phoneMQ in main.js. */
+  @media(max-width:560px),(max-height:500px){
+    #about.active{padding-bottom:3rem}
+    #contact.active{padding-bottom:0}
+    #contact footer{position:static;margin:3.5rem calc(var(--g) * -1) 0;padding-top:1.2rem}
+  }
+  /* on its side the photo can't take its size from the height, there is too little of it */
+  @media(max-height:500px) and (min-width:561px){#about .photo{width:clamp(9rem,28vw,16rem)}}
+  /* and the Contact heading sits closer to the writing, so the first screen isn't only the heading */
+  @media(max-height:500px){.contact-grid{row-gap:1.4rem}}
   .about-grid{display:grid;grid-template-columns:repeat(12,1fr);column-gap:calc(var(--gap) * 1.6);row-gap:3.2rem}
   #about .about-grid{grid-template-columns:auto minmax(0,35rem);justify-content:center;column-gap:clamp(1.2rem,4vw,5rem)}
   #about .stmt{max-width:none;text-align:center}
@@ -375,6 +392,8 @@
   .stats.in .srow:nth-child(4) i{transition-delay:.24s}.stats.in .srow:nth-child(5) i{transition-delay:.32s}
   .stats.in .srow:nth-child(6) i{transition-delay:.4s}
   .sn{font-family:var(--sans);font-size:12px;text-align:right;font-variant-numeric:tabular-nums}
+  /* narrow phones: a narrower name column, so the bars keep some length */
+  @media(max-width:560px){.srow{grid-template-columns:minmax(0,9.5rem) minmax(3rem,1fr) 2rem;gap:.7rem}}
   .sheetrow{display:flex;align-items:center;justify-content:space-between;gap:1rem;flex-wrap:wrap;margin-top:1.4rem;color:var(--grey)}
   .sheetbtn{
     cursor:pointer;background:none;color:var(--black);border:1px solid var(--black);padding:.8rem 1.3rem;
@@ -436,6 +455,11 @@
     .dots i,.dots button{width:1.5rem;height:1.5rem}
     .dots .wclose::after{font-size:1rem}
     .tabs button,.sheetbtn,.cookie button,.btn{min-height:2.75rem}
+    /* fingers need about 44px: the email gets an invisible margin, the legal links get padding */
+    .email-copy::before{content:"";position:absolute;inset:-.5rem -.3rem}
+    footer .legal summary{padding:.85rem 0;margin:-.85rem 0}
+    footer .lg{gap:0 1.2rem;margin-top:.2rem}
+    footer .legal a,footer .legal button{display:inline-block;padding:.95rem 0}
   }
   .dots .wmax::after{content:"+";position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font:700 .8rem/1 var(--sans);color:rgba(5,60,15,.75);padding-bottom:.05rem}
   @media(max-width:700px){.rz,.wmax{display:none}}

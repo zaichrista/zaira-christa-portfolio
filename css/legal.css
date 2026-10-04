@@ -11,8 +11,8 @@
 body{background:var(--white);color:var(--black);font-family:var(--serif);-webkit-font-smoothing:antialiased;line-height:1.5}
 a{color:inherit}
 .label{font-family:var(--sans);font-size:11px;line-height:1.2;letter-spacing:.12em;text-transform:uppercase}
-.top{display:flex;justify-content:space-between;align-items:center;gap:1rem;flex-wrap:wrap;padding:1.3rem var(--g)}
-.top a{text-decoration:none}
+.top{display:flex;justify-content:space-between;align-items:center;gap:0 1rem;flex-wrap:wrap;padding:.4rem var(--g)}
+.top a{text-decoration:none;display:inline-block;padding:.9rem 0}   /* padding makes a tap area about 44px tall */
 .top .mark{font-size:1.15rem}
 .doc{max-width:42rem;margin:0 auto;padding:2rem var(--g) 4rem}
 .doc h1{font-weight:400;font-size:clamp(2rem,6vw,3.2rem);line-height:1.05;margin-bottom:.6rem}
@@ -23,8 +23,8 @@ a{color:inherit}
 .doc a{text-underline-offset:.15em}
 .doc table{width:100%;border-collapse:collapse;margin:.4rem 0 1.2rem;font-family:var(--sans);font-size:.85rem}
 .doc th,.doc td{text-align:left;vertical-align:top;padding:.5rem .6rem .5rem 0;border-bottom:1px dashed rgba(18,18,17,.35)}
-.doc th{font-weight:400;font-size:.68rem;letter-spacing:.1em;text-transform:uppercase;color:var(--grey)}
-.foot{display:flex;gap:1.2rem;flex-wrap:wrap;justify-content:center;padding:1.6rem var(--g) 2.4rem;border-top:1px solid rgba(18,18,17,.3);color:var(--grey)}
-.foot a{text-decoration:none}
+.doc th{font-weight:400;font-size:.75rem;letter-spacing:.1em;text-transform:uppercase;color:var(--grey)}
+.foot{display:flex;gap:0 1.2rem;flex-wrap:wrap;justify-content:center;padding:.7rem var(--g) 1.5rem;border-top:1px solid rgba(18,18,17,.3);color:var(--grey)}
+.foot a{text-decoration:none;display:inline-block;padding:.9rem 0}
 .foot a:hover,.foot a[aria-current]{color:var(--black);text-decoration:underline}
 a:focus-visible{outline:2px solid var(--black);outline-offset:3px}
