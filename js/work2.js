@@ -16,12 +16,12 @@
   const MAX_OPEN = 4;     // a fifth window closes the first one opened
   const MIN_W = 260, MIN_H = 190;
   const PROJECTS = [
-    {id:"reach", kind:"site", at:[.04,.05], title:"Reach_Riverside.html", stat:"zaichrista.github.io/Reach-Riverside-site",
+    {id:"reach", kind:"site", at:[.04,.05], title:"Reach_Riverside.html", stat:"thereachriverside.com", live:"https://www.thereachriverside.com",
      url:"https://zaichrista.github.io/Reach-Riverside-site/",
      role:"UX/UI Design · Web Development · Art Direction · Brand Design",
      problem:"The Reach needed a digital presence that communicated its identity as a contemporary riverside restaurant, bar and lounge while making essential information easy to discover.",
      approach:"Designed and developed the restaurant's website from concept to launch. I created the site architecture, visual direction and responsive interface, translating the wider brand identity into an editorial digital experience across desktop and mobile."},
-    {id:"mandaloun", kind:"site", at:[.96,.95], title:"Mandaloun_Westfield.html", stat:"zaichrista.github.io/Mandaloun-Westfield",
+    {id:"mandaloun", kind:"site", at:[.96,.95], title:"Mandaloun_Westfield.html", stat:"mandaloun.com", live:"https://www.mandaloun.com",
      url:"https://zaichrista.github.io/Mandaloun-Westfield/", deskW:1850,
      role:"UX/UI Design · Web Development · Art Direction · Graphic Design",
      problem:"Mandaloun needed a website that could communicate the character of the restaurant visually while remaining intuitive, functional and easy for customers to navigate.",
@@ -223,7 +223,7 @@
     const view = el("div", "w2view");
     if (p.kind === "site"){
       const a = el("a", "btn", "Open in new tab");
-      a.href = p.url; a.target = "_blank"; a.rel = "noopener";
+      a.href = p.live || p.url; a.target = "_blank"; a.rel = "noopener";
       tools.append(el("span", "stat", p.stat), a);
     } else if (p.paged){
       tools.append(el("span", "stat", "Click Next for more"));

@@ -19,15 +19,11 @@ for the sun button can refuse to load from a plain file.
 
 ## Where things live
 
-- `index.html`: the pages (Home, About, Work, Contact) and the presentation window
-- `css/style.css`: all the styling. Colours and fonts are variables at the very top.
-- `js/main.js`: the flashing letters, scroll block, sun, Finder and slide transitions
-- `js/main.js` > `DECKS`: the text for every presentation. Edit the slides there.
-- `assets/CV_Zaira_Final_CREATIVE_v29.pdf`: drop the real CV here (exact filename) and the CV window on the
-  Work page shows it in a PDF viewer. Until it exists, the window shows a placeholder page.
-- Slide pictures: each presentation page in `DECKS` (js/main.js) can take `img:[{src:"assets/images/x.jpg", cap:"caption"}]`.
-  The picture on the slide scrolls to show every image in the list. Pages without `img` show placeholder tiles.
-  The Websites deck (`pan:true`) shows one tall image that scrolls by itself until the visitor takes over.
+- `index.html`: the pages (Home, About, Work, Contact) and the character sheet window
+- `css/style.css`: the styling for Home, About, Contact and the shared window pieces. Colours and fonts are variables at the very top.
+- `css/work2.css` and `js/work2.js`: the Work page (the project list and the movable windows). The projects are listed at the top of `js/work2.js`.
+- `js/main.js`: the flashing letters, scroll block, sun, character sheet and page transitions
+- `assets/work2/`: the Work page pictures
 - `assets/images/`: put your images here, then reference them as `assets/images/name.jpg`
 
 ## Legal pages
@@ -40,17 +36,7 @@ third-party script, update `privacy.html` (and its date) first.
 
 Times New Roman and Helvetica only. Nothing is loaded from Google Fonts.
 
-## Decks (work/)
+## The old Work page
 
-Three slide decks live as pages: `work/research/`, `work/web/`, `work/fashion/`.
-They read the copy from `content/*.json`; edit the words there, not in the code.
-
-- `css/deck-theme.css`: colour, type, sizes, spacing and motion, all as variables. Change the look here.
-- `css/deck.css`: the layout for each slide type, the phone layout and the print rules.
-- `js/deck/`: the engine (`model.js` running order, `render.js` one layout per slide type, `stage.js` keys, swipe, progress, links).
-- Deep links: `/work/research/#<project>-<n>` is slide `n` of that project. `#cover`, `#work`, `#<project>` (title card), `#closing`.
-- Keys: arrows, space, Home and End to move; `N` speaker notes; `F` full screen.
-- Pictures: set `image.status` to `have` and put the file at `image.src` (from the site root). Until then a marked placeholder shows the brief.
-- On your machine (Live Server) slides marked `needs-input` show a yellow "To be supplied" tag and speaker notes work.
-  On the live site the tags are hidden and notes are off. Add `?dev=0` locally to preview the live view.
-- Save as PDF: open a deck, print (Cmd P), destination "Save as PDF", margins none, background graphics on. One slide per page.
+The old desktop-style Work page (Finder, dock, sticky notes, CV window and the slide decks) is no longer part of
+this site. It was moved, working and self-contained, into `old-work-page/`; see the README inside that folder.

@@ -25,14 +25,10 @@
 <body class="home">
 
 <header>
-  <a class="mb-z" href="#home" data-go="home" aria-label="Home"><svg viewBox="0 0 22 22" aria-hidden="true"><path d="M11 5.6C8.9 5.6 8.3 7.9 7.7 9.6C7 11.6 4.3 13 4.3 16.2C4.3 19.4 7 21.2 11 21.2C15 21.2 17.7 19.4 17.7 16.2C17.7 13 15 11.6 14.3 9.6C13.7 7.9 13.1 5.6 11 5.6z"/><path d="M10.4 6L10.8 2.2L12 2.2L11.6 6z"/><path d="M12 3.6C13 1.6 15.4 1.4 16.6 2.2C15.8 4.2 13.6 4.6 12 3.6z"/></svg></a>
   <a class="mark" href="#home" data-go="home">Zaira Christa</a>
-  <span class="mb-menus" aria-hidden="true"><span>File</span><span>Edit</span><span>View</span><span>Go</span><span>Window</span><span>Help</span></span>
   <nav>
     <a href="#home" data-go="home" class="cur">Home</a>
     <a href="#about" data-go="about"><i>01</i>About</a>
-    <!-- the old desktop-style Work page is hidden, not deleted: put this link back (and remove the work alias in js/main.js) to bring it back
-    <a href="#work" data-go="work"><i>02</i>Work</a> -->
     <a href="#work" data-go="work2"><i>02</i>Work</a>
     <a href="#contact" data-go="contact"><i>03</i>Contact</a>
   </nav>
@@ -58,7 +54,6 @@
   <div class="yt" id="yt"></div>
 </div>
 <div class="nope" id="nope" role="status" aria-live="polite"></div>
-<div class="nope sad" id="sad" role="status" aria-live="polite"></div>
 
 <div class="cookie" id="cookie" role="dialog" aria-label="Cookies" hidden>
   <svg class="ckbg" viewBox="0 0 200 200" aria-hidden="true">
@@ -125,42 +120,6 @@
   </div>
 </section>
 
-<!-- WORK -->
-<section id="work" class="page">
-  <div class="desk" id="desk">
-    <button class="dicon" id="dFolder" type="button" aria-label="Work, folder. Double-click to open." style="--x:41%;--y:31%">
-      <svg viewBox="0 0 64 56" aria-hidden="true"><path d="M3 9a5 5 0 0 1 5-5h14l6 6h28a5 5 0 0 1 5 5v31a5 5 0 0 1-5 5H8a5 5 0 0 1-5-5z" fill="#1db4d4"/><rect x="3" y="17" width="58" height="35" rx="5" fill="#1db4d4"/><rect x="3" y="17" width="58" height="9" rx="4.5" fill="#5fd0e8" opacity=".55"/></svg>
-      <span class="dname">Work</span>
-    </button>
-    <button class="dicon" id="dSheet" type="button" aria-label="ZAIRA.sav, character sheet. Double-click to open." style="--x:33%;--y:52%">
-      <svg viewBox="0 0 48 60" aria-hidden="true"><path d="M4 2h28l12 12v42a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2z" fill="#fff" stroke="#242829" stroke-width="1.6"/><path d="M32 2v12h12" fill="#C9D0CC" stroke="#242829" stroke-width="1.6" stroke-linejoin="round"/><rect x="2" y="30" width="34" height="14" rx="2" fill="#006C7C"/><text x="19" y="40.6" text-anchor="middle" font-family="Helvetica,Arial,sans-serif" font-size="9.5" font-weight="700" fill="#fff">SAV</text><path d="M9 20h18M9 25h12" stroke="#C9D0CC" stroke-width="2" stroke-linecap="round"/></svg>
-      <span class="dname">ZAIRA.sav</span>
-    </button>
-    <button class="dicon" id="dCv" type="button" aria-label="CV_Zaira_Final_CREATIVE_v29.pdf. Double-click to open." style="--x:52%;--y:43%">
-      <svg viewBox="0 0 48 60" aria-hidden="true"><path d="M4 2h28l12 12v42a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2z" fill="#fff" stroke="#242829" stroke-width="1.6"/><path d="M32 2v12h12" fill="#C9D0CC" stroke="#242829" stroke-width="1.6" stroke-linejoin="round"/><rect x="2" y="30" width="34" height="14" rx="2" fill="#c4452d"/><text x="19" y="40.6" text-anchor="middle" font-family="Helvetica,Arial,sans-serif" font-size="9.5" font-weight="700" fill="#fff">PDF</text><path d="M9 20h18M9 25h12" stroke="#C9D0CC" stroke-width="2" stroke-linecap="round"/></svg>
-      <span class="dname">CV_Zaira_Final_CREATIVE_v29.pdf</span>
-    </button>
-    <button class="dicon" id="dWebsites" type="button" aria-label="websites, folder. Double-click to open." style="--x:63%;--y:30%">
-      <svg viewBox="0 0 64 56" aria-hidden="true"><path d="M3 9a5 5 0 0 1 5-5h14l6 6h28a5 5 0 0 1 5 5v31a5 5 0 0 1-5 5H8a5 5 0 0 1-5-5z" fill="#1db4d4"/><rect x="3" y="17" width="58" height="35" rx="5" fill="#1db4d4"/><rect x="3" y="17" width="58" height="9" rx="4.5" fill="#5fd0e8" opacity=".55"/></svg>
-      <span class="dname">websites</span>
-    </button>
-  </div>
-  <nav class="dock" aria-label="Dock">
-    <button class="dk" id="dkFinder" type="button" data-tip="Finder" aria-label="Finder">
-      <svg viewBox="0 0 48 48" aria-hidden="true"><rect width="48" height="48" rx="11" fill="#0095B6"/><path d="M24 0h13a11 11 0 0 1 11 11v26a11 11 0 0 1-11 11H24z" fill="#E5E8E3"/><rect x="14" y="14" width="3" height="9" rx="1.5" fill="#242829"/><rect x="31" y="14" width="3" height="9" rx="1.5" fill="#242829"/><path class="m-happy" d="M13 32c6 6 16 6 22 0" fill="none" stroke="#242829" stroke-width="2.4" stroke-linecap="round"/><path class="m-sad" d="M13 37c6-6 16-6 22 0" fill="none" stroke="#242829" stroke-width="2.4" stroke-linecap="round"/><path class="m-sad" d="M15.5 25c-2 3-2 5 0 5.5c2-.5 2-2.5 0-5.5z" fill="#7fd3ea"/></svg>
-    </button>
-    <button class="dk" id="addSticky" type="button" data-tip="Stickies (add a note)" aria-label="Add a sticky note">
-      <svg viewBox="0 0 48 48" aria-hidden="true"><rect width="48" height="48" rx="11" fill="#f2e57e"/><rect width="48" height="12" rx="6" fill="#e3d256"/><rect y="6" width="48" height="6" fill="#e3d256"/><path d="M10 24h28M10 32h20" stroke="#8f8433" stroke-width="2.4" stroke-linecap="round"/></svg>
-    </button>
-    <button class="dk" id="dkPpt" type="button" data-tip="PowerPoint" aria-label="Open the next presentation">
-      <svg viewBox="0 0 48 48" aria-hidden="true"><rect width="48" height="48" rx="11" fill="#d24726"/><text x="24" y="34" text-anchor="middle" font-family="Helvetica,Arial,sans-serif" font-size="28" font-weight="700" fill="#fff">P</text></svg>
-    </button>
-    <i class="sep"></i>
-    <button class="dk dk-bin" id="dockBin" type="button" data-tip="Bin (drop notes here, click to look inside)" aria-label="Bin">
-      <svg viewBox="0 0 48 48" aria-hidden="true"><rect class="paper" x="14" y="5" width="12" height="14" fill="#f2e57e" transform="rotate(-12 20 12)"/><rect class="paper" x="22" y="6" width="12" height="14" fill="#ffb3c7" transform="rotate(10 28 13)"/><path d="M11 15h26l-2.4 27a3 3 0 0 1-3 2.7H16.4a3 3 0 0 1-3-2.7z" fill="#C9D0CC" stroke="#5B6264" stroke-width="1.6"/><rect x="8" y="11" width="32" height="5" rx="2.5" fill="#E5E8E3" stroke="#5B6264" stroke-width="1.6"/><path d="M19 21v17M24 21v17M29 21v17" stroke="#5B6264" stroke-width="1.8" stroke-linecap="round"/></svg>
-    </button>
-  </nav>
-</section>
 <!-- SUBSTACK -->
 <section id="substack" class="page">
   <div class="big" id="psych">psych.</div>
@@ -201,67 +160,6 @@
 </footer>
 
 <!-- windows live at body level so they can be dragged anywhere -->
-<div class="sticky" id="sticky">
-      <div class="grip" title="Drag me"><button class="bin" type="button" aria-label="Bin this note">&times;</button></div>
-      <div class="stext" contenteditable="true" spellcheck="false" aria-label="Sticky note, editable">Rectangles are permitted in this office.</div>
-    </div>
-<div class="sticky extra webnote" id="stickyWeb">
-      <div class="grip" title="Drag me"><button class="bin" type="button" aria-label="Bin this note">&times;</button></div>
-      <div class="stext" contenteditable="true" spellcheck="false" aria-label="Sticky note, editable">websites for clients (make sure to show everyone)</div>
-    </div>
-<div class="win finder closed" id="finder" tabindex="-1" role="dialog" aria-label="Work folder">
-      <div class="tbar"><div class="dots"><button type="button" class="wclose" aria-label="Close window"></button><i></i><i></i></div><div class="ttl">Work</div></div>
-      <div class="fbody">
-        <aside class="side" aria-label="Sidebar">
-          <h4>Favourites</h4>
-          <ul><li><button type="button" data-loc="recents">Recents</button></li><li><button type="button" class="on" data-loc="work">Work</button></li><li><button type="button" data-loc="websites">websites</button></li><li><button type="button" data-loc="desktop">Desktop</button></li><li><button type="button" data-loc="downloads">Downloads (do not open)</button></li></ul>
-          <h4>Locations</h4>
-          <ul><li><button type="button" data-loc="trash">Trash</button></li></ul>
-        </aside>
-        <div class="files" id="files">
-          <p class="empty" id="filesEmpty" hidden></p>
-          <button class="file" type="button" data-deck="logos"><span class="ico"></span><span class="name">Logos_FINAL_v7_ACTUAL_FINAL.pptx</span></button>
-          <button class="file" type="button" data-deck="fashion"><span class="ico"></span><span class="name">Fashion_Design_copy_copy_2.pptx</span></button>
-          <button class="file" type="button" data-deck="research"><span class="ico"></span><span class="name">Research_(please_read).pptx</span></button>
-          <button class="file" type="button" data-deck="websites"><span class="ico"></span><span class="name">Websites_FINAL_I_MEAN_IT.pptx</span></button>
-        </div>
-      </div>
-      <div class="fstat" id="fstat" aria-live="polite">4 items</div>
-</div>
-
-<div class="win pdfwin closed" id="pdfwin" tabindex="-1" role="dialog" aria-label="CV_Zaira_Final_CREATIVE_v29.pdf">
-  <div class="tbar"><div class="dots"><button type="button" class="wclose" id="pdfClose" aria-label="Close PDF"></button><i></i><i></i></div><div class="ttl">CV_Zaira_Final_CREATIVE_v29.pdf</div></div>
-  <div class="tools pdftools">
-    <button class="btn" id="pdfOut" type="button" aria-label="Zoom out">&minus;</button>
-    <button class="btn" id="pdfIn" type="button" aria-label="Zoom in">+</button>
-    <span class="stat" id="pdfStat">Page 1 of 1</span>
-    <a class="btn" id="pdfDl" href="assets/CV_Zaira_Final_CREATIVE_v29.pdf" download>Download</a>
-  </div>
-  <div class="pdfview" id="pdfview">
-    <div class="pdfpage" id="pdfpage">
-      <h2>ZAIRA CHRISTA</h2>
-      <p class="pl">Creative Strategist / Designer &middot; London</p>
-      <h3>Experience</h3>
-      <div class="bars"><i></i><i></i><i></i></div>
-      <div class="bars"><i></i><i></i></div>
-      <h3>Education</h3>
-      <div class="bars"><i></i><i></i></div>
-      <h3>Skills</h3>
-      <div class="bars"><i></i></div>
-      <p class="mock">[ Placeholder. The real CV lands here soon. ]</p>
-    </div>
-  </div>
-</div>
-
-<div class="win pdfwin sitewin closed" id="sitewin" tabindex="-1" role="dialog" aria-label="Reach Riverside website">
-  <div class="tbar"><div class="dots"><button type="button" class="wclose" id="siteClose" aria-label="Close website"></button><i></i><i></i></div><div class="ttl">Reach_Riverside.html</div></div>
-  <div class="tools pdftools">
-    <span class="stat">zaichrista.github.io/Reach-Riverside-site</span>
-    <a class="btn" href="https://zaichrista.github.io/Reach-Riverside-site/" target="_blank" rel="noopener">Open in new tab</a>
-  </div>
-  <div class="pdfview real" id="siteview"></div>
-</div>
-
 <div class="win sheet closed" id="sheet" tabindex="-1" role="dialog" aria-label="Character sheet">
   <div class="tbar"><div class="dots"><button type="button" class="wclose" aria-label="Close character sheet"></button><i></i><i></i></div><div class="ttl">ZAIRA.sav &mdash; Character Sheet</div></div>
   <div class="sbody">
